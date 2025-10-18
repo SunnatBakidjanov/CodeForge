@@ -1,6 +1,7 @@
 /* --- Imports --- */
 import { ProgressBlock, type Props as ProgreeProps } from '../progress-block/ProgressBlock';
 import { FaHtml5, FaReact, FaNodeJs, FaJsSquare, FaCss3Alt } from 'react-icons/fa';
+import { BiLogoTypescript } from 'react-icons/bi';
 import { cn } from '../../../../../../utils/cn';
 
 /* --- Progress Data --- */
@@ -52,6 +53,18 @@ const progressData: ProgreeProps[] = [
 		progressClasses: { progress: 'bg-[var(--js-yellow)]', text: 'text-[var(--js-yellow)]' },
 		precent: 70,
 		blurColor: 'jsYellow',
+	},
+	{
+		titleText: 'TypeScript',
+		Icon: BiLogoTypescript,
+		classNames: {
+			icon: 'text-[var(--ts-blue)]',
+			title: 'text-[var(--ts-blue)]',
+			underline: 'bg-[var(--ts-blue)]',
+		},
+		progressClasses: { progress: 'bg-[var(--ts-blue)]', text: 'text-[var(--ts-blue)]' },
+		precent: 40,
+		blurColor: 'tsBlue',
 	},
 	{
 		titleText: 'NodeJS',

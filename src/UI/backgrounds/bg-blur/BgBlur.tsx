@@ -12,6 +12,7 @@ const cvaStyle = cva('', {
 			jsYellow: 'bg-[var(--js-yellow)]',
 			nodeGreen: 'bg-[var(--node-green)]',
 			cssBlue: 'bg-[var(--css-blue)]',
+			tsBlue: 'bg-[var(--ts-blue)]',
 		},
 	},
 
