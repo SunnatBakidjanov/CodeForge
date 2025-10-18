@@ -15,8 +15,6 @@ type Props = {
 export const ImageComp = ({ className, loader, imgAttr }: Props) => {
 	const [isLoaded, setLoaded] = useState(false);
 
-	console.log(isLoaded);
-
 	return (
 		<div className={cn('relative w-full h-full flex items-center justify-center', className)}>
 			{!isLoaded && (

@@ -1,20 +1,21 @@
 /* --- Imports --- */
-import { BgBlur } from '../../../../UI/backgrounds/bg-blur/BgBlur';
+import { MaxWidthContainer } from '../../../../UI/containers/max-width-container/MaxWidthContainer';
 import { SectionContainer } from '../../../../UI/containers/section-container/SectionContainer';
-import { TextGradient } from '../../../../UI/gradients/text-gradient/TextGradietn';
-import { Title } from '../../../../UI/title/Title';
+import { LandingTitle } from '../landing-title/LandingTitle';
+import { ProgressContainer } from './UI/progress-container/ProgressContainer';
 
 /* --- LandingProgress Component --- */
 // This component represents the "Progress" section of the landing page.
 export const LandingProgress = () => {
 	return (
 		<SectionContainer>
-			<div>
-				<TextGradient ComponentType={'div'}>
-					<Title TitleType={'h2'} children={'The progress of my forge'} />
-					<BgBlur />
-				</TextGradient>
-			</div>
+			<MaxWidthContainer>
+				<div className="flex flex-col items-center mt-6">
+					<LandingTitle text="The progress of my Forge" />
+
+					<ProgressContainer />
+				</div>
+			</MaxWidthContainer>
 		</SectionContainer>
 	);
 };
