@@ -1,0 +1,12 @@
+@keyframes spin-infinity {
+	from {
+		transform: rotateY(0deg);
+	}
+	to {
+		transform: rotateY(360deg);
+	}
+}
+
+.animateLogo {
+	animation: spin-infinity 20s linear infinite;
+}

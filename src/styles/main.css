@@ -1,2 +1,30 @@
 /* --- TailwindCSS Import --- */
 @import 'tailwindcss';
+
+/* --- Root --- */
+:root {
+	--main-background-color: #1e1e1e;
+	--hot-orange: #ff6b00;
+	--white: #d3d3d3;
+}
+
+/* --- Fonts --- */
+@font-face {
+	font-family: 'Inter Tight', sans-serif;
+	src: url('/public//fonts/inter-tight/InterTight-VariableFont_wght.ttf');
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'Inter Tight', sans-serif;
+	src: url('/public/fonts/inter-tight/InterTight-Italic-VariableFont_wght.ttf');
+	font-style: italic;
+	font-weight: 400;
+}
+
+/* --- Global Styles --- */
+body {
+	font-family: 'Inter Tight', sans-serif;
+	background-color: var(--main-background-color);
+}
