@@ -22,6 +22,7 @@ export const ImageComp = ({ className, loader, imgAttr }: Props) => {
 					<InfinitySpinLoader {...loader} />
 				</div>
 			)}
+
 			<img
 				{...imgAttr}
 				onLoad={() => setLoaded(true)}

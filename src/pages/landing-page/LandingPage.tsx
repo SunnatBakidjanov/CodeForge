@@ -1,4 +1,5 @@
 /* --- Imports --- */
+import { LandingAbout } from './UI/landing-about/LandingAbout';
 import { LandingGetting } from './UI/landing-getting/LandingGetting';
 import { LandingProgress } from './UI/landing-progress/LandingProgress';
 
@@ -8,6 +9,7 @@ export const LandingPage = () => {
 	return (
 		<main>
 			<LandingGetting />
+			<LandingAbout />
 			<LandingProgress />
 		</main>
 	);
