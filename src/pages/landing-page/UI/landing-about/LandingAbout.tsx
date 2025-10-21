@@ -1,3 +1,4 @@
+/* --- Imports --- */
 import { BgBlur } from '../../../../UI/backgrounds/bg-blur/BgBlur';
 import { MaxWidthContainer } from '../../../../UI/containers/max-width-container/MaxWidthContainer';
 import { SectionContainer } from '../../../../UI/containers/section-container/SectionContainer';
@@ -8,6 +9,8 @@ import crossedHammersImg from '../../../../assets/imgs/webp/сrossed-hammers.web
 import fairyTaleDividerImg from '../../../../assets/imgs/webp/fairy-tale-divider.webp';
 import { cn } from '../../../../utils/cn';
 
+/* --- LandingAbout Component --- */
+// This component represents the "About" section of the landing page.
 export const LandingAbout = () => {
 	return (
 		<SectionContainer>

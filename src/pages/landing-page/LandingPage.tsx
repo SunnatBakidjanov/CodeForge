@@ -1,5 +1,6 @@
 /* --- Imports --- */
 import { LandingAbout } from './UI/landing-about/LandingAbout';
+import { LandingContact } from './UI/landing-contact/LandingContact';
 import { LandingGetting } from './UI/landing-getting/LandingGetting';
 import { LandingProgress } from './UI/landing-progress/LandingProgress';
 
@@ -11,6 +12,7 @@ export const LandingPage = () => {
 			<LandingGetting />
 			<LandingAbout />
 			<LandingProgress />
+			<LandingContact />
 		</main>
 	);
 };

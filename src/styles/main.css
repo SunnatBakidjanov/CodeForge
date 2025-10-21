@@ -12,6 +12,9 @@
 	--node-green: #539e43;
 	--css-blue: #264de4;
 	--ts-blue: #3178c6;
+
+	/* resersed var */
+	--dotted-loader-shadow-offset: '20px';
 }
 
 /* --- Fonts --- */
@@ -33,4 +36,9 @@
 body {
 	font-family: 'Inter Tight', sans-serif;
 	background-color: var(--main-background-color);
+}
+
+input:-webkit-autofill {
+	-webkit-text-fill-color: var(--white) !important;
+	transition: background-color 9999999s ease 0s;
 }
