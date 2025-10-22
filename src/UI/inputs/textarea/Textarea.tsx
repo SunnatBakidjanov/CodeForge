@@ -29,7 +29,7 @@ export const Textarea = ({ className, isAutoresize, onInput, ...rest }: Props) =
 			{...rest}
 			onInput={handleInput}
 			className={cn(
-				'block outline-0 border-1 border-white/5 rounded-2xl bg-transparent text-[var(--white)] w-full overflow-hidden',
+				'block outline-0 border-1 border-white/5 rounded-2xl bg-transparent text-[var(--white)] w-full overflow-hidden resize-none',
 				'shadow-sm',
 				'transition-all duration-300 ease-out',
 				'placeholder:font-bold placeholder:text-sm',

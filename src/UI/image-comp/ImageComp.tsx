@@ -26,11 +26,7 @@ export const ImageComp = ({ className, loader, imgAttr }: Props) => {
 			<img
 				{...imgAttr}
 				onLoad={() => setLoaded(true)}
-				className={cn(
-					'transition-all duration-700 ease-out transform',
-					isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-50',
-					imgAttr?.className
-				)}
+				className={cn('transition-all duration-700 ease-out transform', isLoaded ? 'opacity-100' : 'opacity-0', imgAttr?.className)}
 			/>
 		</div>
 	);

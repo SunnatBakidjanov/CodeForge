@@ -10,6 +10,7 @@ import { DottedLoader } from '../../../../../../UI/loaders/dotted-loader/DottedL
 import { cn } from '../../../../../../utils/cn';
 import { TextLength } from '../text-length/TextLength';
 import { useLandingForm } from './hooks/useLandingForm';
+import { Form } from '../../../../../../UI/form/Form';
 import successIcon from '../../../../../../assets/imgs/webp/success-icon.webp';
 import failIcon from '../../../../../../assets/imgs/webp/fail-icon.webp';
 
@@ -20,10 +21,7 @@ export const LandingForm = () => {
 		useLandingForm();
 
 	return (
-		<form
-			onSubmit={handleSubmit(handleSubmitForm, onInvalid)}
-			className={cn('border-2 border-orange-500/50 bg-black/40 relative rounded-3xl', 'py-6', 'px-3', 'mt-6')}
-		>
+		<Form onSubmit={handleSubmit(handleSubmitForm, onInvalid)} className={cn('py-6', 'px-3', 'mt-6', 'max-w-[900px]')}>
 			<div className="space-y-3">
 				{dataInputs.map(field => {
 					return (
@@ -40,7 +38,7 @@ export const LandingForm = () => {
 								/>
 							</label>
 
-							<div className="focus-within:bg-black bg-white/5 transition-all duration-300 ease-out rounded-2xl relative w-full">
+							<div className="focus-within:bg-black/40 bg-white/5 transition-all duration-300 ease-out rounded-2xl relative w-full">
 								{field.type === 'input' ? (
 									<Input id={field.name} {...register(field.name, { required: true })} {...field.input} />
 								) : (
@@ -57,32 +55,28 @@ export const LandingForm = () => {
 			<div className="mt-5">
 				<div
 					className={cn(
-						'flex items-center justify-center gap-1',
+						'flex items-center justify-center',
 						'text-center text-[var(--hot-orange)] transition-all duration-300 ease-out font-medium italic',
 						isSubmitSuccessful || isHasErrors ? 'opacity-100 mb-2 h-6' : 'opacity-0 mb-0 h-0'
 					)}
 				>
-					{isSubmitSuccessful && (
-						<>
-							<p>{generalMessage}</p>
-							<ImageComp
-								loader={{ size: 26 }}
-								imgAttr={{ src: successIcon, className: 'relative bottom-[1px]' }}
-								className="w-7 h-7 overflow-hidden"
-							/>
-						</>
-					)}
+					<div className={isSubmitSuccessful ? 'flex items-center gap-1' : 'hidden'}>
+						<p>{generalMessage}</p>
+						<ImageComp
+							loader={{ size: 26 }}
+							imgAttr={{ src: successIcon, className: 'relative bottom-[2px]' }}
+							className="w-7 h-7 overflow-hidden"
+						/>
+					</div>
 
-					{isHasErrors && (
-						<>
-							<p>{generalMessage}</p>
-							<ImageComp
-								loader={{ size: 26 }}
-								imgAttr={{ src: failIcon, className: 'relative bottom-[1px]' }}
-								className="w-7 h-7 overflow-hidden"
-							/>
-						</>
-					)}
+					<div className={isHasErrors ? 'flex items-center gap-1' : 'hidden'}>
+						<p>{generalMessage}</p>
+						<ImageComp
+							loader={{ size: 26 }}
+							imgAttr={{ src: failIcon, className: 'relative bottom-[1px]' }}
+							className="w-7 h-7 overflow-hidden"
+						/>
+					</div>
 				</div>
 
 				<BgGradient ComponentType="div" className="overflow-hidden rounded-2xl">
@@ -93,6 +87,6 @@ export const LandingForm = () => {
 			</div>
 
 			<BgBlur className="w-1/2 h-1/2 blur-[300px]" />
-		</form>
+		</Form>
 	);
 };

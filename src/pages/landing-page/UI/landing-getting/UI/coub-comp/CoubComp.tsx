@@ -1,9 +1,12 @@
+/** --- Imports --- */
 import { ImageComp } from '../../../../../../UI/image-comp/ImageComp';
 import { cn } from '../../../../../../utils/cn';
-import hammerAndAnvilImg from '../../../../../../assets/imgs/webp/hammer-and-anvil.webp';
+import hammerAndAnvilImg from '/imgs/webp/hammer-and-anvil.webp';
 import styles from './index.module.css';
 import { BgBlur } from '../../../../../../UI/backgrounds/bg-blur/BgBlur';
 
+/* --- Side Component --- */
+// This component represents a side of the coub.
 const Side = ({ className, isImg, isBlur }: { className?: string; isImg?: boolean; isBlur?: boolean }) => {
 	return (
 		<div
@@ -19,6 +22,8 @@ const Side = ({ className, isImg, isBlur }: { className?: string; isImg?: boolea
 	);
 };
 
+/* --- CoubComp Component --- */
+// This component represents the coub on the landing page.
 export const CoubComp = () => {
 	return (
 		<div className={cn('perspective-midrange flex items-center justify-center relative w-fit', ' h-58', 'pb-10', 'mt-8')}>
