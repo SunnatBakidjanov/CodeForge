@@ -4,7 +4,7 @@ import { InfinitySpinLoader, type Props as LoaderProps } from '../loaders/infini
 import { cn } from '../../utils/cn';
 
 /* --- Types --- */
-type Props = {
+export type Props = {
 	imgAttr?: React.ImgHTMLAttributes<HTMLImageElement>;
 	loader?: LoaderProps;
 	className?: string;

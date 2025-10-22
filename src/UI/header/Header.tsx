@@ -1,15 +1,12 @@
 /* --- Imports --- */
 import { Button } from '../button/Button';
 import { BgGradient } from '../gradients/bg-gradient/BgGradient';
-import { TextGradient } from '../gradients/text-gradient/TextGradietn';
-import { ImageComp } from '../image-comp/ImageComp';
-import { Title } from '../title/Title';
-import сrossedHammers from '../../assets/imgs/webp/сrossed-hammers.webp';
 import { cn } from '../../utils/cn';
 import { BgBlur } from '../backgrounds/bg-blur/BgBlur';
 import { MaxWidthContainer } from '../containers/max-width-container/MaxWidthContainer';
 import { useNavigate } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
+import { MainTitle } from '../main-title/MainTitle';
 
 /* --- Header Component --- */
 // This component represents the header of the application.
@@ -32,16 +29,11 @@ export const Header = () => {
 			>
 				<MaxWidthContainer className="px-2 py-3">
 					<div className="flex items-center justify-between">
-						<TextGradient ComponentType={'div'}>
-							<Title TitleType={'h1'} className={cn('flex items-center', 'text-lg', 'gap-1')} onClick={() => navigate('/landing')}>
-								CodeForge
-								<ImageComp
-									imgAttr={{ src: сrossedHammers }}
-									loader={{ size: 20 }}
-									className={cn('max-w-6 h-auto object-cover relative top-[1px]')}
-								/>
-							</Title>
-						</TextGradient>
+						<MainTitle
+							href="/landing"
+							textGradient={{ ComponentType: 'h1', className: cn('flex items-center font-bold', 'text-lg', 'gap-1') }}
+							imgComp={{ loader: { size: 20 }, className: cn('max-w-6 h-auto object-cover relative top-[1px]') }}
+						/>
 
 						<div className="flex items-center gap-2">
 							<BgGradient

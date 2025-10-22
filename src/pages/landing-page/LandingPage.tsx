@@ -8,7 +8,7 @@ import { LandingProgress } from './UI/landing-progress/LandingProgress';
 // This component serves as the landing page for the application.
 export const LandingPage = () => {
 	return (
-		<main className="mt-8">
+		<main className="mt-8 mb-6">
 			<LandingGetting />
 			<LandingAbout />
 			<LandingProgress />
