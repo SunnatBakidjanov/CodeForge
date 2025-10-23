@@ -22,7 +22,7 @@ export const Header = () => {
 	}, []);
 
 	return (
-		<header ref={headerRef} className={cn('relative overflow-hidden w-full z-10', 'h-13')}>
+		<header ref={headerRef} className={cn('relative overflow-hidden w-full z-10', 'h-16.5')}>
 			<div
 				ref={headerRef}
 				className={cn('mx-auto w-full transition-all duration-400 ease-out fixed top-0', scrolled ? 'bg-black' : 'bg-black/40')}
@@ -31,8 +31,17 @@ export const Header = () => {
 					<div className="flex items-center justify-between">
 						<MainTitle
 							href="/landing"
-							textGradient={{ ComponentType: 'h1', className: cn('flex items-center font-bold', 'text-lg', 'gap-1') }}
-							imgComp={{ loader: { size: 20 }, className: cn('max-w-6 h-auto object-cover relative top-[1px]') }}
+							textGradient={{
+								ComponentType: 'h1',
+								className: cn('flex items-center font-bold cursor-pointer group', 'text-lg'),
+							}}
+							imgComp={{
+								loader: { size: 20 },
+								className: cn('relative top-[1px]', 'ml-1'),
+							}}
+							imgAttr={{
+								className: cn('max-w-7 h-auto object-cover'),
+							}}
 						/>
 
 						<div className="flex items-center gap-2">

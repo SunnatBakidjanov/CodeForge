@@ -25,7 +25,10 @@ export const LandingAbout = () => {
 						/>
 					</LandingTitle>
 
-					<ImageComp className="h-16" imgAttr={{ src: fairyTaleDividerImg, className: 'max-w-80 h-auto pointer-events-none' }} />
+					<ImageComp
+						className="h-16"
+						imgAttr={{ src: fairyTaleDividerImg, className: 'max-w-80 h-auto object-cover pointer-events-none' }}
+					/>
 
 					<div
 						className={cn(
@@ -40,7 +43,7 @@ export const LandingAbout = () => {
 						<p>{description.p2}</p>
 					</div>
 
-					<ImageComp className="h-16" imgAttr={{ src: fairyTaleDividerImg, className: 'max-w-80 h-auto rotate-180' }} />
+					<ImageComp className="h-16" imgAttr={{ src: fairyTaleDividerImg, className: 'max-w-80 h-auto object-cover rotate-180' }} />
 				</div>
 			</MaxWidthContainer>
 		</SectionContainer>

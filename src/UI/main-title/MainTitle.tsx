@@ -9,17 +9,23 @@ type Props = {
 	href?: string;
 	textGradient?: TextGradientProps<React.ElementType>;
 	imgComp?: Omit<ImageCompProps, 'imgAttr'>;
+	imgAttr?: ImageCompProps['imgAttr'];
 };
 
 /* --- MainTitle Component --- */
 // This component represents the main title of the application.
-export const MainTitle = ({ href, textGradient, imgComp }: Props) => {
+export const MainTitle = ({ href, textGradient, imgComp, imgAttr }: Props) => {
 	const navigate = useNavigate();
 
 	return (
-		<TextGradient onClick={() => navigate(`${href}`)} {...textGradient}>
-			CodeForge
-			<ImageComp imgAttr={{ src: сrossedHammers }} {...imgComp} />
+		<TextGradient
+			onClick={() => {
+				if (href) navigate(href);
+			}}
+			{...textGradient}
+		>
+			<span className="text-[var(--white)]">Code</span>Forge
+			<ImageComp imgAttr={{ src: сrossedHammers, ...imgAttr }} {...imgComp} />
 		</TextGradient>
 	);
 };

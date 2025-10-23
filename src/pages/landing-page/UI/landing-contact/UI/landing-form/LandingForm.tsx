@@ -79,7 +79,10 @@ export const LandingForm = () => {
 					</div>
 				</div>
 
-				<BgGradient ComponentType="div" className="overflow-hidden rounded-2xl">
+				<BgGradient
+					ComponentType="div"
+					className="overflow-hidden rounded-2xl shadow-sm shadow-white hover:shadow-md transition-all duration-300 ease-out"
+				>
 					<Button isBlink={true} classNames={{ button: cn('text-xl', 'w-full text-white', 'h-10') }}>
 						{isLoading ? <DottedLoader className="w-3 h-3" offset={'22px'} /> : 'Send message'}
 					</Button>

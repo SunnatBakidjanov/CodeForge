@@ -29,10 +29,10 @@ export const Textarea = ({ className, isAutoresize, onInput, ...rest }: Props) =
 			{...rest}
 			onInput={handleInput}
 			className={cn(
-				'block outline-0 border-1 border-white/5 rounded-2xl bg-transparent text-[var(--white)] w-full overflow-hidden resize-none',
+				'block outline-0 border-1 border-white/5 rounded-2xl bg-transparent text-[var(--white)] w-full overflow-hidden resize-none italic',
 				'shadow-sm',
 				'transition-all duration-300 ease-out',
-				'placeholder:font-bold placeholder:text-sm',
+				'placeholder:font-bold placeholder:text-sm placeholder:not-italic',
 				'focus:shadow-orange-500 focus:border-orange-500/50',
 				'px-4',
 				'py-2.5',
