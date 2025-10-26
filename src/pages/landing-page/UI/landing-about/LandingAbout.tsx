@@ -2,7 +2,7 @@
 import { MaxWidthContainer } from '../../../../UI/containers/max-width-container/MaxWidthContainer';
 import { SectionContainer } from '../../../../UI/containers/section-container/SectionContainer';
 import { ImageComp } from '../../../../UI/image-comp/ImageComp';
-import crossedHammersImg from '../../../../assets/imgs/webp/сrossed-hammers.webp';
+import crossedHammersImg from '/imgs/webp/сrossed-hammers.webp';
 import { cn } from '../../../../utils/cn';
 import { LandingTitle } from '../landing-title/LandingTitle';
 import { AboutSectionConfig } from '../../page-config/landing.config';
