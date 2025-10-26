@@ -28,7 +28,14 @@ export const LandingTitle = ({ text, children, descriptionText, isBorderBottom, 
 			<Title
 				TitleType="h2"
 				defaultStyles={'h2'}
-				className={cn('flex items-center justify-center w-fit', 'flex-col', 'gap-2', classNames?.title)}
+				className={cn(
+					'flex items-center justify-center w-fit',
+					'flex-col',
+					'gap-2',
+					'md:text-4xl lg:text-[42px] xl:text-5xl',
+					'xl:pb-1',
+					classNames?.title
+				)}
 				children={text}
 			/>
 			{descriptionText && <p className={cn('text-[var(--white)] italic', 'mt-3', classNames?.textDescription)}>{descriptionText}</p>}
