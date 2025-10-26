@@ -1,5 +1,7 @@
+/* --- Imports --- */
 import { useEffect, useState } from 'react';
 
+/* --- Types --- */
 export type Ember = {
 	id: number;
 	left: number; // позиция по горизонтали
@@ -13,6 +15,8 @@ type Options = {
 	screenHeight?: number; // высота полёта (в % от экрана)
 };
 
+/* --- useEmbers Hook --- */
+// This hook manages the embers animation.
 export const useEmbers = ({ count = 15, screenHeight = 80 }: Options = {}) => {
 	const [embers, setEmbers] = useState<Ember[]>([]);
 

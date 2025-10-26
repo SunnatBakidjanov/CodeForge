@@ -14,7 +14,7 @@ export const LandingContact = () => {
 		<SectionContainer>
 			<MaxWidthContainer>
 				<div className="flex flex-col items-center justify-center mt-6">
-					<LandingTitle text={title} descriptionText={description} isBorderBottom={true} />
+					<LandingTitle text={title} isHasBlur={false} descriptionText={description} isBorderBottom={true} />
 
 					<LandingForm />
 				</div>

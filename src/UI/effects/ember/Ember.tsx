@@ -1,6 +1,9 @@
+/* --- Imports --- */
 import { useEmbers } from './hooks/useEmber';
 import { motion } from 'framer-motion';
 
+/* --- Embers Component --- */
+// This component represents the embers animation.
 export const Embers = () => {
 	const { embers, screenHeight } = useEmbers({ count: 30, screenHeight: 20 });
 

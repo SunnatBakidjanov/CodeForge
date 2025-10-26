@@ -17,7 +17,7 @@ export const Button = ({ isBlink, classNames, children, ...rest }: Props) => {
 			{isBlink && (
 				<span
 					className={cn(
-						'absolute z-[1] w-[20%] h-[220%] bg-[var(--white)] opacity-60 rotate-[35deg] pointer-events-none',
+						'absolute z-[1] w-[20%] h-[220%] bg-[var(--white)] opacity-60 rotate-[40deg] pointer-events-none',
 						'transition-all duration-600 ease-in-out',
 						'-left-[40%] group-hover:left-[120%]',
 						classNames?.blik
