@@ -25,6 +25,7 @@ export const JoinSectionConfig = {
 	btn: 'Join',
 };
 
+//ЗАГЛУШКА: Убрать секцию Progress
 export const ProgressSectionConfig = {
 	title: 'The progress of my Forge',
 	description: '"Each line of code, each design choice — another strike of the hammer. Here’s how my craft has evolved through time."',

@@ -9,6 +9,8 @@ import { cn } from '../../../../utils/cn';
 import { JoinSectionConfig } from '../../page-config/landing.config';
 import { LandingTitle } from '../landing-title/LandingTitle';
 import hammerAndAnvil from '/imgs/webp/hammer-and-anvil-2.webp';
+import { LandingContainer } from '../landing-container/LandingContainer';
+import { LandingParagraph } from '../landing-paragraph/LandingParagraph';
 
 export const LandingJoin = () => {
 	const { title, description, joinDescription, btn } = JoinSectionConfig;
@@ -17,7 +19,7 @@ export const LandingJoin = () => {
 	return (
 		<SectionContainer>
 			<MaxWidthContainer>
-				<div className="flex flex-col items-center pb-6 border-b-1 border-white/20 mt-6">
+				<LandingContainer>
 					<LandingTitle text={title} descriptionText={description} classNames={{ textGradient: 'mb-4' }} isBorderBottom={true} />
 
 					<div className="flex flex-col items-center">
@@ -29,15 +31,7 @@ export const LandingJoin = () => {
 					</div>
 
 					<div className={cn('flex flex-col items-center justify-center', 'mt-4')}>
-						<p
-							className={cn(
-								'text-[var(--white)] italic text-center max-w-[600px] border-t-1 border-b-1 border-white/20 rounded-2xl font-medium',
-								'pt-5',
-								'pb-4'
-							)}
-						>
-							{joinDescription}
-						</p>
+						<LandingParagraph paragraphs={joinDescription} classNames={{ container: 'xl:max-w-full xl:mx-4 xl:text-xl' }} />
 
 						<BgGradient
 							ComponentType={'div'}
@@ -54,7 +48,7 @@ export const LandingJoin = () => {
 							/>
 						</BgGradient>
 					</div>
-				</div>
+				</LandingContainer>
 			</MaxWidthContainer>
 		</SectionContainer>
 	);

@@ -1,3 +1,4 @@
+//ЗАГЛУШКА: Убрать секцию Progress из LandingPage
 /* --- Imports --- */
 import { MaxWidthContainer } from '../../../../UI/containers/max-width-container/MaxWidthContainer';
 import { SectionContainer } from '../../../../UI/containers/section-container/SectionContainer';
