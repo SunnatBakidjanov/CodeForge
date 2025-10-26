@@ -1,7 +1,7 @@
 /** --- Imports --- */
 import { MaxWidthContainer } from '../../../../UI/containers/max-width-container/MaxWidthContainer';
 import { SectionContainer } from '../../../../UI/containers/section-container/SectionContainer';
-import { ContactSectionConfig } from '../../config/landing.config';
+import { ContactSectionConfig } from '../../page-config/landing.config';
 import { LandingTitle } from '../landing-title/LandingTitle';
 import { LandingForm } from './UI/landing-form/LandingForm';
 

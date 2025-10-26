@@ -1,7 +1,7 @@
 /* --- Imports --- */
 import { MaxWidthContainer } from '../../../../UI/containers/max-width-container/MaxWidthContainer';
 import { SectionContainer } from '../../../../UI/containers/section-container/SectionContainer';
-import { ProgressSectionConfig } from '../../config/landing.config';
+import { ProgressSectionConfig } from '../../page-config/landing.config';
 import { LandingTitle } from '../landing-title/LandingTitle';
 import { ProgressContainer } from './UI/progress-container/ProgressContainer';
 

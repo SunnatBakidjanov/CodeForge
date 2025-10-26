@@ -20,6 +20,8 @@ export const AboutSectionConfig = {
 export const JoinSectionConfig = {
 	title: 'Join the Forge',
 	description: '"The Forge never rests. CodeForge keeps improving, refining, and shaping the experience for every creator."',
+	joinDescription:
+		'"Step into the Forge — where code is tempered, refined, and shaped by hand. Here you’ll find the tools, components, and setups that fuel every creation. Register to access the workshop and see how each piece of CodeForge is crafted."',
 	btn: 'Join',
 };
 

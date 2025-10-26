@@ -7,8 +7,14 @@ import type { Props as TextareaProps } from '../../../../../../../UI/inputs/text
 import emailIcon from '../../../../../../../assets/imgs/webp/email-icon.webp';
 import userIcon from '../../../../../../../assets/imgs/webp/user-icon.webp';
 import messageIcon from '../../../../../../../assets/imgs/webp/message-icon.webp';
+import { apiUrl } from '../../../../../../../utils/urls';
 
 /* --- Types --- */
+export type ErrorType = {
+	type?: 'error' | 'success' | 'waiting';
+	message?: string;
+};
+
 export type FormValues = {
 	name: string;
 	email: string;
@@ -64,29 +70,19 @@ const dataInputs: FieldData[] = [
 // This hook is used to manage the form for the landing page.
 export const useLandingForm = () => {
 	const [isLoading, setLoading] = useState(false);
-	const [generalMessage, setGeneralMessage] = useState('');
+	const [generalMessage, setGeneralMessage] = useState<ErrorType>({});
 
-	const {
-		register,
-		handleSubmit,
-		watch,
-		reset,
-		clearErrors,
-		setError,
-		formState: { errors, isSubmitSuccessful },
-	} = useForm<FormValues>({
+	const { register, handleSubmit, watch, reset, clearErrors } = useForm<FormValues>({
 		mode: 'onSubmit',
 		reValidateMode: 'onSubmit',
 		defaultValues: { name: '', email: '', message: '' },
 	});
 
-	const isHasErrors = Object.keys(errors).length > 0;
-
 	const onInvalid = (errors: FieldErrors<FormValues>) => {
 		const isRequired = Object.values(errors).some(error => error.type === 'required');
 
 		if (isRequired) {
-			setGeneralMessage('All fields are required');
+			setGeneralMessage({ type: 'error', message: 'All fields are required.' });
 		}
 	};
 
@@ -94,16 +90,33 @@ export const useLandingForm = () => {
 		setLoading(true);
 
 		try {
-			const res = await axios.post('https://jsonplaceholder.typicode.com/posts', data);
-			console.log('✅ Response:', res.data);
-			setGeneralMessage('Message sent successfully');
+			await axios.post(`${apiUrl}/send-email`, data, {
+				withCredentials: true,
+			});
+
+			setGeneralMessage({ type: 'success', message: 'Message sent successfully!' });
+
 			reset({
 				name: '',
 				email: '',
 				message: '',
 			});
 		} catch (error) {
-			console.error('❌ Error:', (error as AxiosError).message);
+			const err = error as AxiosError;
+
+			const serverErrors = {
+				400: () => setGeneralMessage({ type: 'error', message: 'Invalid pattern detected.' }),
+				429: () => setGeneralMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' }),
+				500: () => setGeneralMessage({ type: 'error', message: 'The forge went dark. Reforging in progress.' }),
+			};
+
+			const status = err.response?.status;
+
+			if (status && serverErrors[status as keyof typeof serverErrors]) {
+				return serverErrors[status as keyof typeof serverErrors]();
+			}
+
+			return setGeneralMessage({ type: 'error', message: 'Unknown forge error occurred.' });
 		} finally {
 			setLoading(false);
 		}
@@ -116,11 +129,8 @@ export const useLandingForm = () => {
 		onInvalid,
 		generalMessage,
 		handleSubmitForm,
-		isHasErrors,
 		handleSubmit,
-		setError,
 		clearErrors,
 		dataInputs,
-		isSubmitSuccessful,
 	};
 };

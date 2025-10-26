@@ -7,17 +7,18 @@ import { cn } from '../../utils/cn';
 export type Props = {
 	imgAttr?: React.ImgHTMLAttributes<HTMLImageElement>;
 	loader?: LoaderProps;
+	isHasLoader?: boolean;
 	className?: string;
 };
 
 /* --- ImageComp Component --- */
 // This component represents an image with a loading spinner.
-export const ImageComp = ({ className, loader, imgAttr }: Props) => {
+export const ImageComp = ({ className, loader, imgAttr, isHasLoader = true }: Props) => {
 	const [isLoaded, setLoaded] = useState(false);
 
 	return (
 		<div className={cn('relative w-full h-full flex items-center justify-center', className)}>
-			{!isLoaded && (
+			{!isLoaded && isHasLoader && (
 				<div className="absolute inset-0 flex items-center justify-center">
 					<InfinitySpinLoader {...loader} />
 				</div>

@@ -36,7 +36,7 @@ export const Header = () => {
 								className: cn('flex items-center font-bold cursor-pointer group', 'text-lg'),
 							}}
 							imgComp={{
-								loader: { size: 20 },
+								loader: { classNames: { container: 'h-5 w-5' } },
 								className: cn('relative top-[1px]', 'ml-1'),
 							}}
 							imgAttr={{

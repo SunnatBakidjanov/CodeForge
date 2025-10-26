@@ -4,7 +4,7 @@ import { SectionContainer } from '../../../../UI/containers/section-container/Se
 import { LandingTexts } from './UI/landing-texts/LandingTexts';
 import { CoubComp } from './UI/coub-comp/CoubComp';
 import { LandingTitle } from '../landing-title/LandingTitle';
-import { GettingSectionConfig } from '../../config/landing.config';
+import { GettingSectionConfig } from '../../page-config/landing.config';
 
 /* --- LandingGetting Component --- */
 // This component represents the "Getting Started" section of the landing page.
