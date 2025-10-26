@@ -15,18 +15,24 @@ export const LandingAbout = () => {
 	return (
 		<SectionContainer>
 			<MaxWidthContainer>
-				<div className="mt-6 pb-10 border-b-1 border-white/20">
-					<LandingTitle text={title}>
-						<ImageComp className="w-fit h-22" imgAttr={{ src: crossedHammersImg, className: 'max-w-22 h-auto w-fit object-cover' }} />
+				<div className="mt-6 md:mt-8 lg:mt-10 pb-10 md:pb-12 lg:pb-14 border-b-1 border-white/20">
+					<LandingTitle text={title} classNames={{ blur: 'md:w-1/4 md:blur-[90px]' }}>
+						<ImageComp
+							className="w-fit h-22 md:h-24 lg:h-26 xl:h-30 mt-2 md:mt-4 lg:mt-5 xl:mt-6"
+							imgAttr={{ src: crossedHammersImg, className: 'max-w-22 md:max-w-24 lg:max-w-28 xl:max-w-32  h-auto w-fit object-cover' }}
+						/>
 					</LandingTitle>
 
 					<div
 						className={cn(
-							'text-[var(--white)] italic text-center max-w-[1000px] mx-auto relative overflow-hidden rounded-2xl border-t-1 border-b-1 border-white/20',
-							'my-2',
+							'text-[var(--white)] italic text-center mx-auto relative overflow-hidden rounded-2xl border-t-1 border-b-1 border-white/20',
+							'mt-2 lg:mt-4 xl:mt-6',
+							'px-2 sm:px-4',
 							'pt-5',
-							'pb-4',
-							'space-y-4'
+							'pb-4 lg:pb-5',
+							'space-y-4 lg:space-y-5',
+							'lg:text-lg',
+							'max-w-[800px] lg:max-w-[900px] xl:max-w-[1100px]'
 						)}
 					>
 						<p>{description.p1}</p>
