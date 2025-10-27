@@ -16,19 +16,22 @@ export const LandingForm = () => {
 	const { handleSubmit, handleSubmitForm, isLoading, register, dataInputs, watch, onInvalid, generalMessage } = useLandingForm();
 
 	return (
-		<Form onSubmit={handleSubmit(handleSubmitForm, onInvalid)} className={cn('py-6', 'px-3', 'mt-6', 'max-w-[900px]')}>
+		<Form
+			onSubmit={handleSubmit(handleSubmitForm, onInvalid)}
+			className={cn('py-6', 'px-3', 'mt-6 lg:mt-8', 'max-w-[800px] lg:max-w-[900px] xl:max-w-[1000px]')}
+		>
 			<div className="space-y-3">
 				{dataInputs.map(field => {
 					return (
 						<div key={field.name} className="flex flex-col">
-							<label htmlFor={field.name} className={cn('flex items-center', 'gap-1', 'mb-0.5', 'ml-2')}>
-								<TextGradient ComponentType={'p'} children={field.text} className={cn('font-bold', 'text-lg')} />
+							<label htmlFor={field.name} className={cn('flex items-center', 'gap-1 lg:gap-1.5', 'mb-0.5 lg:mb-1', 'ml-2')}>
+								<TextGradient ComponentType={'p'} children={field.text} className={cn('font-bold', 'text-lg lg:text-xl')} />
 								<ImageComp
 									imgAttr={{
 										src: field.iconSrc,
 										className: cn('relative bottom-[1px]', field.name === 'message' && 'rotate-y-180'),
 									}}
-									className="w-7 h-7 overflow-hidden"
+									className="w-7 h-7 lg:w-8 lg:h-8 overflow-hidden"
 								/>
 							</label>
 
