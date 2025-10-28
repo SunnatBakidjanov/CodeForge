@@ -13,6 +13,8 @@ export const LandingPage = () => {
 			<LandingAbout />
 			<LandingJoin />
 			<LandingContact />
+
+			<h1 className="opacity-0 absolute pointer-events-none">CodeForge Main Page</h1>
 		</main>
 	);
 };

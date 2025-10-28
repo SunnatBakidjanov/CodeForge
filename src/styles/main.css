@@ -42,3 +42,7 @@ input:-webkit-autofill {
 	-webkit-text-fill-color: var(--white) !important;
 	transition: background-color 9999999s ease 0s;
 }
+
+*:focus {
+	outline: none !important;
+}

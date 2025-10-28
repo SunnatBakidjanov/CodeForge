@@ -47,7 +47,7 @@ export const FormError = ({ message, isLoading }: Props) => {
 
 			<BgGradient
 				ComponentType="div"
-				className="overflow-hidden rounded-2xl shadow-sm shadow-white hover:shadow-md transition-all duration-300 ease-out"
+				className="overflow-hidden rounded-2xl shadow-sm shadow-white hover:shadow-md [&:has(:focus-visible)]:shadow-md transition-all duration-300 ease-out"
 			>
 				<Button
 					isBlink={true}

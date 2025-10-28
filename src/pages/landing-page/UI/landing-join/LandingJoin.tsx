@@ -44,7 +44,7 @@ export const LandingJoin = () => {
 						<BgGradient
 							ComponentType={'div'}
 							className={cn(
-								'w-full rounded-2xl overflow-hidden shadow-sm shadow-white hover:shadow-md',
+								'w-full rounded-2xl overflow-hidden shadow-sm shadow-white hover:shadow-md [&:has(:focus-visible)]:shadow-md',
 								'max-w-[300px] md:max-w-[350px] lg:max-w-[400px] xl:max-w-[420px]',
 								'transition-shadow duration-300 ease-out',
 								'mt-6 lg:mt-8'
