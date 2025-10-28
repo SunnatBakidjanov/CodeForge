@@ -25,7 +25,10 @@ export const Header = () => {
 		<header ref={headerRef} className={cn('relative overflow-hidden w-full z-10', 'h-16.5 md:h-21')}>
 			<div
 				ref={headerRef}
-				className={cn('mx-auto w-full transition-all duration-400 ease-out fixed top-0', scrolled ? 'bg-black' : 'bg-black/40')}
+				className={cn(
+					'mx-auto w-full transition-all duration-400 ease-out fixed top-0 border-b-1 border-orange-500/30',
+					scrolled ? 'bg-black' : 'bg-black/40'
+				)}
 			>
 				<MaxWidthContainer className="px-2 md:px-4 lg:px-6 py-3">
 					<div className="flex items-center justify-between">

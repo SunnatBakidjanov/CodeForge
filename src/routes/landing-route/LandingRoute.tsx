@@ -7,7 +7,7 @@ import { LandingPage } from '../../pages/landing-page/LandingPage';
 export const LandingRoute = () => {
 	return (
 		<Routes>
-			<Route path="/landing" element={<LandingPage />} />
+			<Route path="/" element={<LandingPage />} />
 		</Routes>
 	);
 };

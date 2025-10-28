@@ -35,6 +35,7 @@
 /* --- Global Styles --- */
 body {
 	font-family: 'Inter Tight', sans-serif;
+	background: linear-gradient(to bottom, #030712, #101828, #000);
 	background-color: var(--main-background-color);
 }
 
