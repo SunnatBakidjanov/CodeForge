@@ -5,10 +5,11 @@ import { ImageComp } from '../../../../../../UI/image-comp/ImageComp';
 import { Input } from '../../../../../../UI/inputs/input/Input';
 import { Textarea } from '../../../../../../UI/inputs/textarea/Textarea';
 import { cn } from '../../../../../../utils/cn';
-import { TextLength } from '../text-length/TextLength';
 import { useLandingForm } from './hooks/useLandingForm';
+import type { FormValues } from './hooks/useLandingForm';
 import { Form } from '../../../../../../UI/form/Form';
 import { FormError } from '../form-error/FormError';
+import { TextLength } from '../../../../../../UI/text-length/TextLength';
 
 /* --- LandingForm Component --- */
 // This component represents the form for the landing page.
@@ -43,7 +44,13 @@ export const LandingForm = () => {
 								)}
 							</div>
 
-							<TextLength watch={watch} field={field} />
+							<TextLength<FormValues>
+								watch={watch}
+								field={{
+									name: field.name,
+									input: field.input,
+								}}
+							/>
 						</div>
 					);
 				})}

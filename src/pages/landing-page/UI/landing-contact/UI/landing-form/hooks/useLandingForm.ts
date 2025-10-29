@@ -72,7 +72,7 @@ export const useLandingForm = () => {
 	const [isLoading, setLoading] = useState(false);
 	const [generalMessage, setGeneralMessage] = useState<ErrorType>({});
 
-	const { register, handleSubmit, watch, reset, clearErrors } = useForm<FormValues>({
+	const { register, handleSubmit, watch, reset } = useForm<FormValues>({
 		mode: 'onSubmit',
 		reValidateMode: 'onSubmit',
 		defaultValues: { name: '', email: '', message: '' },
@@ -113,10 +113,10 @@ export const useLandingForm = () => {
 			const status = err.response?.status;
 
 			if (status && serverErrors[status as keyof typeof serverErrors]) {
-				return serverErrors[status as keyof typeof serverErrors]();
+				serverErrors[status as keyof typeof serverErrors]();
 			}
 
-			return setGeneralMessage({ type: 'error', message: 'Unknown forge error occurred.' });
+			setGeneralMessage({ type: 'error', message: 'Unknown forge error occurred.' });
 		} finally {
 			setLoading(false);
 		}
@@ -130,7 +130,6 @@ export const useLandingForm = () => {
 		generalMessage,
 		handleSubmitForm,
 		handleSubmit,
-		clearErrors,
 		dataInputs,
 	};
 };

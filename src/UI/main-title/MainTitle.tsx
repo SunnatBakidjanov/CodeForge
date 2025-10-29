@@ -11,11 +11,12 @@ type Props = {
 	imgComp?: Omit<ImageCompProps, 'imgAttr'>;
 	imgAttr?: ImageCompProps['imgAttr'];
 	isHasImg?: boolean;
+	children?: React.ReactNode;
 };
 
 /* --- MainTitle Component --- */
 // This component represents the main title of the application.
-export const MainTitle = ({ href, textGradient, imgComp, isHasImg = true, imgAttr }: Props) => {
+export const MainTitle = ({ href, textGradient, imgComp, isHasImg = true, imgAttr, children }: Props) => {
 	const navigate = useNavigate();
 
 	return (
@@ -27,6 +28,7 @@ export const MainTitle = ({ href, textGradient, imgComp, isHasImg = true, imgAtt
 		>
 			<span className="text-[var(--white)]">Code</span>Forge
 			{isHasImg && <ImageComp imgAttr={{ src: сrossedHammers, ...imgAttr }} {...imgComp} />}
+			{children}
 		</TextGradient>
 	);
 };

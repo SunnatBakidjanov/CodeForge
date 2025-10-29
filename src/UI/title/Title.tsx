@@ -8,7 +8,7 @@ const cvaStyles = cva('font-bold', {
 	variants: {
 		styles: {
 			h1: '',
-			h2: 'text-3xl',
+			h2: 'text-4xl',
 			h3: 'text-2xl',
 		},
 	},

@@ -47,7 +47,7 @@ export const Header = () => {
 								),
 							}}
 							imgAttr={{
-								className: cn('max-w-7 md:max-w-8 md:max-w-10 h-auto object-cover'),
+								className: cn('max-w-7 md:max-w-10 h-auto object-cover'),
 							}}
 						/>
 

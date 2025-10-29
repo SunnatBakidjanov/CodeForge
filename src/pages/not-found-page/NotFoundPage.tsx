@@ -16,7 +16,7 @@ export const NotFoundPage = () => {
 	const navigate = useNavigate();
 
 	return (
-		<MaxWidthContainer width={'fit-content'} className="min-h-screen text-center flex flex-col items-center justify-center">
+		<MaxWidthContainer width={'fit-content'} className="min-h-screen text-center flex flex-col items-center justify-center py-10">
 			<TextGradient
 				ComponentType={'h1'}
 				className={cn(
