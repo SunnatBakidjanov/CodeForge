@@ -1,5 +1,5 @@
 export const registerFormConfig = {
-	title: 'Join the Forge',
+	title: 'Register',
 	btnText: 'Start Forging',
 	inputs: {
 		name: 'Name',

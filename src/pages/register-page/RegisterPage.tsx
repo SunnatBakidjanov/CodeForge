@@ -8,6 +8,7 @@ import registerIcon from '/imgs/webp/register-icon.webp';
 import { useRegister } from './hooks/useRegister';
 import type { Props as InputProps } from '../../UI/inputs/input/Input';
 import { registerFormConfig } from './page-config/register.config';
+import { useApiForm } from '../../hooks/useApiForm';
 
 /* --- Types --- */
 type FormValues = {
@@ -61,12 +62,15 @@ const dataInputs: FieldData[] = [
 /* --- RegisterPage Component --- */
 // This component represents the register page of the application.
 export const RegisterPage = () => {
-	const registeFormHook = useRegister();
+	const registereFormHook = useApiForm<FormValues>({
+		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
+		apiHref: '/register',
+	});
 
 	return (
 		<AuthForm<FormValues>
 			type="register"
-			formHook={registeFormHook}
+			formHook={registereFormHook}
 			dataInputs={dataInputs}
 			titleIcon={registerIcon}
 			formConfig={registerFormConfig}

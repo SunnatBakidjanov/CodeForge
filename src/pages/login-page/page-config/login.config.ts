@@ -1,6 +1,6 @@
 export const lognPageConfig = {
 	title: 'Enter the Forge',
-	btnText: 'Enter the Forge',
+	btnText: 'Awaken the Fire',
 	inputs: {
 		name: 'Name',
 		password: 'Password',

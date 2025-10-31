@@ -6,17 +6,13 @@ import { cn } from '../../../../../../utils/cn';
 import { BgGradient } from '../../../../../../UI/gradients/bg-gradient/BgGradient';
 import { Button } from '../../../../../../UI/button/Button';
 import { DottedLoader } from '../../../../../../UI/loaders/dotted-loader/DottedLoader';
-import type { ErrorType } from '../landing-form/hooks/useLandingForm';
-import { ImageComp } from '../../../../../../UI/image-comp/ImageComp';
+import type { ErrorType } from '../../../../../../hooks/useApiForm';
+import { ImageForm } from '../../../../../../UI/image-form/ImageForm';
 
 /* --- Types --- */
 type Props = {
 	message: ErrorType;
 	isLoading: boolean;
-};
-
-const Img = ({ src }: { src: string }) => {
-	return <ImageComp imgAttr={{ src: src, className: 'relative bottom-[1px]' }} className="w-7 h-7 lg:w-8 lg:h-8 overflow-hidden" />;
 };
 
 /* --- FormError Component --- */
@@ -36,11 +32,11 @@ export const FormError = ({ message, isLoading }: Props) => {
 					<p>{message.message}</p>
 
 					{message.type === 'error' ? (
-						<Img src={failIcon} />
+						<ImageForm src={failIcon} />
 					) : message.type === 'success' ? (
-						<Img src={successIcon} />
+						<ImageForm src={successIcon} />
 					) : (
-						<Img src={hourglassIcon} />
+						<ImageForm src={hourglassIcon} />
 					)}
 				</div>
 			</div>

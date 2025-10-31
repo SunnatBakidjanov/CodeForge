@@ -3,9 +3,9 @@ import { AuthForm } from '../../UI/auth-form/AuthForm';
 import userIcon from '/imgs/webp/user-icon.webp';
 import passwordIcon from '/imgs/webp/password-icon.webp';
 import loginIcon from '/imgs/webp/login-icon.webp';
-import { useLogin } from './hooks/useLogin';
 import type { Props as InputProps } from '../../UI/inputs/input/Input';
 import { lognPageConfig } from './page-config/login.config';
+import { useApiForm } from '../../hooks/useApiForm';
 
 /* --- Types --- */
 type FormValues = {
@@ -39,7 +39,13 @@ const dataInputs: FieldData[] = [
 /* --- LoginPage Component --- */
 // This component represents the login page of the application.
 export const LoginPage = () => {
-	const loginFormHook = useLogin();
+	const loginFormHook = useApiForm<FormValues>({
+		apiHref: '/login',
+		defaultValues: { name: '', password: '' },
+		customErrors: {
+			401: { type: 'error', message: 'The Forge doesn’t open for you.' },
+		},
+	});
 
 	return (
 		<AuthForm<FormValues>
