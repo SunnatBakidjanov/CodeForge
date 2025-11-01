@@ -5,10 +5,10 @@ import emailIcon from '/imgs/webp/email-icon.webp';
 import passwordIcon from '/imgs/webp/password-icon.webp';
 import confirmPasswordIcon from '/imgs/webp/confirm-password-icon.webp';
 import registerIcon from '/imgs/webp/register-icon.webp';
-import { useRegister } from './hooks/useRegister';
 import type { Props as InputProps } from '../../UI/inputs/input/Input';
 import { registerFormConfig } from './page-config/register.config';
 import { useApiForm } from '../../hooks/useApiForm';
+import { registerUrl } from '../../utils/urls';
 
 /* --- Types --- */
 type FormValues = {
@@ -64,7 +64,11 @@ const dataInputs: FieldData[] = [
 export const RegisterPage = () => {
 	const registereFormHook = useApiForm<FormValues>({
 		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
-		apiHref: '/register',
+		errorsMessage: { success: { message: 'Crafting complete.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
+		customErrors: {
+			409: { type: 'error', message: 'Email already branded in the Forge.' },
+		},
+		apiHref: registerUrl,
 	});
 
 	return (

@@ -25,11 +25,12 @@ type Arguments<T extends FieldValues> = {
 			message: string;
 		};
 	};
+	onSubmited?: () => unknown;
 };
 
 /* --- useApiForm Hook --- */
 // This hook is used to manage the form for the API.
-export const useApiForm = <T extends FieldValues>({ defaultValues, apiHref, errorsMessage, customErrors }: Arguments<T>) => {
+export const useApiForm = <T extends FieldValues>({ defaultValues, apiHref, errorsMessage, customErrors, onSubmited }: Arguments<T>) => {
 	const [isLoading, setLoading] = useState(false);
 	const [resMessage, setResMessage] = useState<ErrorType>({});
 
@@ -62,6 +63,10 @@ export const useApiForm = <T extends FieldValues>({ defaultValues, apiHref, erro
 			setResMessage({ type: errorsMessage?.['success']?.type ?? 'success', message: errorsMessage?.['success']?.message ?? 'Success' });
 
 			reset(defaultValues ?? ({} as DefaultValues<T>));
+
+			if (onSubmited) {
+				onSubmited();
+			}
 		} catch (error) {
 			const err = error as AxiosError;
 

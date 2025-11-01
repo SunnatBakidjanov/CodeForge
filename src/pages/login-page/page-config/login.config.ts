@@ -2,7 +2,7 @@ export const lognPageConfig = {
 	title: 'Enter the Forge',
 	btnText: 'Awaken the Fire',
 	inputs: {
-		name: 'Name',
+		email: 'Email',
 		password: 'Password',
 	},
 	linkDescription: 'New to CodeForge?',
