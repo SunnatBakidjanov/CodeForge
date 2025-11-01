@@ -9,6 +9,7 @@ import type { Props as InputProps } from '../../UI/inputs/input/Input';
 import { registerFormConfig } from './page-config/register.config';
 import { useApiForm } from '../../hooks/useApiForm';
 import { registerUrl } from '../../utils/urls';
+import type { RegisterOptions, Path, FieldErrors } from 'react-hook-form';
 
 /* --- Types --- */
 type FormValues = {
@@ -59,10 +60,18 @@ const dataInputs: FieldData[] = [
 	},
 ];
 
+/* --- ValidateForm --- */
+const validate: Partial<Record<Path<FormValues>, RegisterOptions<FormValues>>> = {
+	name: { required: true, pattern: { value: /^[a-zA-Z\s]+$/, message: 'nameLitnValid' } },
+	email: { required: true },
+	password: { required: true, minLength: { value: 6, message: 'passMinLength' } },
+	confirmPassword: { required: true, validate: (value, formValues) => value === formValues.password || 'notMatchPass' },
+};
+
 /* --- RegisterPage Component --- */
 // This component represents the register page of the application.
 export const RegisterPage = () => {
-	const registereFormHook = useApiForm<FormValues>({
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues>({
 		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
 		errorsMessage: { success: { message: 'Crafting complete.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
 		customErrors: {
@@ -71,13 +80,33 @@ export const RegisterPage = () => {
 		apiHref: registerUrl,
 	});
 
+	const onIsInvalid = (errors: FieldErrors<FormValues>) => {
+		const errorHandlers = {
+			required: () => setResMessage({ type: 'error', message: 'Every field fuels the Forge.' }),
+			notMatchPass: () => setResMessage({ type: 'error', message: 'Passkeys forged differently.' }),
+			nameLitnValid: () => setResMessage({ type: 'error', message: 'Only Latin runes allowed.' }),
+			passMinLength: () => setResMessage({ type: 'error', message: `Your key needs more strength — 6+ chars.` }),
+		};
+
+		for (const err of Object.values(errors)) {
+			const key = err?.message || err?.type;
+			const handler = err?.type && errorHandlers[key as keyof typeof errorHandlers];
+
+			if (handler) {
+				handler();
+				return;
+			}
+		}
+	};
+
 	return (
 		<AuthForm<FormValues>
 			type="register"
-			formHook={registereFormHook}
+			formHook={{ handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onIsInvalid }}
 			dataInputs={dataInputs}
 			titleIcon={registerIcon}
 			formConfig={registerFormConfig}
+			validate={validate}
 			href={'/login'}
 		/>
 	);

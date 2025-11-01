@@ -70,9 +70,9 @@ const dataInputs: FieldData[] = [
 /* --- LandingForm Component --- */
 // This component represents the form for the landing page.
 export const LandingForm = () => {
-	const { handleSubmit, handleSubmitForm, isLoading, register, watch, onIsInvalid, resMessage } = useApiForm<FormValues>({
+	const { handleSubmit, handleSubmitForm, isLoading, register, watch, resMessage, onIsInvalid } = useApiForm<FormValues>({
 		defaultValues: { name: '', email: '', message: '' },
-		errorsMessage: { success: { message: 'Message sent successfully!' } },
+		errorsMessage: { success: { message: 'Message successfully engraved.' } },
 		apiHref: sendMailUrl,
 	});
 

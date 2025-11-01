@@ -6,6 +6,7 @@ import emailIcon from '/imgs/webp/email-icon.webp';
 import type { Props as InputProps } from '../../UI/inputs/input/Input';
 import { lognPageConfig } from './page-config/login.config';
 import { useApiForm } from '../../hooks/useApiForm';
+import type { Path, RegisterOptions } from 'react-hook-form';
 
 /* --- Types --- */
 type FormValues = {
@@ -36,10 +37,16 @@ const dataInputs: FieldData[] = [
 	},
 ];
 
+const validate: Partial<Record<Path<FormValues>, RegisterOptions<FormValues>>> = {
+	email: { required: true },
+	password: { required: true },
+};
+
 /* --- LoginPage Component --- */
 // This component represents the login page of the application.
 export const LoginPage = () => {
-	const loginFormHook = useApiForm<FormValues>({
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onIsInvalid } = useApiForm<FormValues>({
+		//ЗАГЛУШКА: Сдлелать href в ссылке через .env
 		apiHref: '/login',
 		defaultValues: { email: '', password: '' },
 		errorsMessage: { success: { message: 'Welcome to the Forge.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
@@ -51,10 +58,11 @@ export const LoginPage = () => {
 	return (
 		<AuthForm<FormValues>
 			type="login"
-			formHook={loginFormHook}
+			formHook={{ handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onIsInvalid }}
 			dataInputs={dataInputs}
 			titleIcon={loginIcon}
 			formConfig={lognPageConfig}
+			validate={validate}
 			href={'/register'}
 		/>
 	);

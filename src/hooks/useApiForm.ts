@@ -48,12 +48,13 @@ export const useApiForm = <T extends FieldValues>({ defaultValues, apiHref, erro
 		});
 
 		if (isRequired) {
-			setResMessage({ type: 'error', message: 'All fields are required.' });
+			setResMessage({ type: 'error', message: 'Every field fuels the Forge.' });
 		}
 	};
 
 	const handleSubmitForm: SubmitHandler<T> = async data => {
 		setLoading(true);
+		setResMessage({});
 
 		try {
 			await axios.post(`${apiUrl}${apiHref}`, data, {
@@ -122,5 +123,6 @@ export const useApiForm = <T extends FieldValues>({ defaultValues, apiHref, erro
 		resMessage,
 		handleSubmitForm,
 		handleSubmit,
+		setResMessage,
 	};
 };

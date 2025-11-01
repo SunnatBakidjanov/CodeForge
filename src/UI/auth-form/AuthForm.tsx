@@ -9,7 +9,16 @@ import { Button } from '../button/Button';
 import { TextGradient } from '../gradients/text-gradient/TextGradietn';
 import { DottedLoader } from '../loaders/dotted-loader/DottedLoader';
 import { useNavigate } from 'react-router';
-import type { UseFormHandleSubmit, FieldValues, UseFormRegister, Path, SubmitHandler, UseFormWatch, SubmitErrorHandler } from 'react-hook-form';
+import type {
+	UseFormHandleSubmit,
+	FieldValues,
+	UseFormRegister,
+	Path,
+	SubmitHandler,
+	UseFormWatch,
+	SubmitErrorHandler,
+	RegisterOptions,
+} from 'react-hook-form';
 import { TextLength } from '../text-length/TextLength';
 import type { ErrorType } from '../../hooks/useApiForm';
 import failIcon from '/imgs/webp/fail-icon.webp';
@@ -36,7 +45,7 @@ export type DataInput<T extends FieldValues> = {
 type FormHook<T extends FieldValues> = {
 	handleSubmit: UseFormHandleSubmit<T, T>;
 	handleSubmitForm: SubmitHandler<T>;
-	onIsInvalid: SubmitErrorHandler<T>;
+	onIsInvalid?: SubmitErrorHandler<T>;
 	register: UseFormRegister<T>;
 	watch: UseFormWatch<T>;
 	isLoading: boolean;
@@ -49,12 +58,13 @@ type Props<T extends FieldValues> = {
 	titleIcon: string;
 	formConfig: FormConfig;
 	href: string;
+	validate?: Partial<Record<Path<T>, RegisterOptions<T>>>;
 	type: 'register' | 'login';
 };
 
 /* --- AuthForm Component --- */
 // This component represents the auth form for the application.
-export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIcon, formConfig, href, type }: Props<T>) => {
+export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIcon, formConfig, href, type, validate }: Props<T>) => {
 	const { title, btnText, inputs, linkDescription, linkText } = formConfig;
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onIsInvalid } = formHook;
 	const navigate = useNavigate();
@@ -76,7 +86,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 							<div className="flex items-center focus-within:bg-black/40 bg-white/5 transition-all duration-300 ease-out rounded-2xl relative w-full">
 								<ImageComp imgAttr={{ src: iconSrc, className: 'max-w-7' }} className="w-6 h-6 absolute left-2" />
 								<Input
-									{...register(name, { required: true })}
+									{...register(name, { ...validate?.[name] })}
 									{...input}
 									placeholder={inputs?.[name]}
 									required={false}
