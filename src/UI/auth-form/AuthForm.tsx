@@ -116,7 +116,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 				<div
 					className={cn(
 						'flex items-center justify-center',
-						'text-center text-[var(--hot-orange)] transition-all duration-300 ease-out font-medium italic h-auto',
+						'text-center text-[var(--hot-orange)] transition-all duration-200 ease-out font-medium italic h-auto',
 						'md:text-lg lg:text-xl',
 						resMessage?.type ? 'mb-2' : 'mb-0'
 					)}
@@ -164,11 +164,11 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 					classNames={{
 						button: cn(
 							'text-xl',
-							'text-white shadow-sm shadow-white w-full rounded-2xl',
+							'text-white shadow-sm shadow-white w-full rounded-3xl',
 							'focus-visible:shadow-md',
 							'hover:shadow-md',
 							'transition-all duration-300 ease-out',
-							'h-10',
+							'py-2',
 							'mt-5',
 							'max-w-[300px]'
 						),

@@ -62,9 +62,9 @@ const dataInputs: FieldData[] = [
 
 /* --- ValidateForm --- */
 const validate: Partial<Record<Path<FormValues>, RegisterOptions<FormValues>>> = {
-	name: { required: true, pattern: { value: /^[a-zA-Z\s]+$/, message: 'nameLitnValid' } },
+	name: { required: true, pattern: { value: /^[a-zA-Z\s]+$/, message: 'nameLatnValid' } },
 	email: { required: true },
-	password: { required: true, minLength: { value: 6, message: 'passMinLength' } },
+	password: { required: true, minLength: { value: 4, message: 'passMinLength' } },
 	confirmPassword: { required: true, validate: (value, formValues) => value === formValues.password || 'notMatchPass' },
 };
 
@@ -84,8 +84,8 @@ export const RegisterPage = () => {
 		const errorHandlers = {
 			required: () => setResMessage({ type: 'error', message: 'Every field fuels the Forge.' }),
 			notMatchPass: () => setResMessage({ type: 'error', message: 'Passkeys forged differently.' }),
-			nameLitnValid: () => setResMessage({ type: 'error', message: 'Only Latin runes allowed.' }),
-			passMinLength: () => setResMessage({ type: 'error', message: `Your key needs more strength — 6+ chars.` }),
+			nameLatnValid: () => setResMessage({ type: 'error', message: 'Only Latin runes allowed.' }),
+			passMinLength: () => setResMessage({ type: 'error', message: `Your key needs more strength — 4+ chars.` }),
 		};
 
 		for (const err of Object.values(errors)) {

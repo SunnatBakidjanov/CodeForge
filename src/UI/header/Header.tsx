@@ -55,7 +55,7 @@ export const Header = () => {
 							<BgGradient
 								ComponentType={'div'}
 								className={cn(
-									'rounded-2xl shadow-sm shadow-white overflow-hidden',
+									'rounded-3xl shadow-sm shadow-white overflow-hidden',
 									'[&:has(:focus-visible)]:shadow-md',
 									'hover:shadow-md',
 									'transition-all duration-300 ease-out'
@@ -76,7 +76,7 @@ export const Header = () => {
 								children={'Login'}
 								classNames={{
 									button: cn(
-										'text-white shadow-sm shadow-white rounded-2xl',
+										'text-white shadow-sm shadow-white rounded-3xl',
 										'focus-visible:shadow-md',
 										'hover:shadow-md',
 										'transition-all duration-300 ease-out',

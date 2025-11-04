@@ -54,7 +54,6 @@ export const useApiForm = <T extends FieldValues>({ defaultValues, apiHref, erro
 
 	const handleSubmitForm: SubmitHandler<T> = async data => {
 		setLoading(true);
-		setResMessage({});
 
 		try {
 			await axios.post(`${apiUrl}${apiHref}`, data, {
