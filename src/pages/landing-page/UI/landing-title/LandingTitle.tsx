@@ -33,7 +33,7 @@ export const LandingTitle = ({ text, children, descriptionText, isBorderBottom, 
 					'flex items-center justify-center w-fit',
 					'flex-col',
 					'gap-2',
-					'md:text-4xl lg:text-[42px] xl:text-5xl',
+					'text-3xl md:text-4xl lg:text-[42px] xl:text-5xl',
 					'xl:pb-1',
 					classNames?.title
 				)}

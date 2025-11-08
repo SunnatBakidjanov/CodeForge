@@ -1,5 +1,6 @@
 /* --- Imports --- */
 import { cn } from '../../utils/cn';
+import { BgBlur } from '../backgrounds/bg-blur/BgBlur';
 import { MaxWidthContainer } from '../containers/max-width-container/MaxWidthContainer';
 import { MainTitle } from '../main-title/MainTitle';
 
@@ -7,7 +8,7 @@ import { MainTitle } from '../main-title/MainTitle';
 // This component represents the footer of the application.
 export const Footer = () => {
 	return (
-		<footer className={cn('bg-black/30', 'pb-8', 'pt-4')}>
+		<footer className={cn('bg-black/30 relative', 'pb-8', 'pt-4')}>
 			<MaxWidthContainer>
 				<div>
 					<MainTitle
@@ -23,6 +24,8 @@ export const Footer = () => {
 					</p>
 				</div>
 			</MaxWidthContainer>
+
+			<BgBlur className="h-1/4 blur-[120px]" />
 		</footer>
 	);
 };

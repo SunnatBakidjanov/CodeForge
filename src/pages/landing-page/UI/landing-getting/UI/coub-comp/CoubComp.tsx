@@ -16,7 +16,7 @@ const Side = ({ className, isImg, isBlur }: { className?: string; isImg?: boolea
 				className
 			)}
 		>
-			{isImg && <ImageComp imgAttr={{ src: hammerAndAnvilImg, className: 'max-w-36 h-auto', loading: 'lazy' }} />}
+			{isImg && <ImageComp imgAttr={{ src: hammerAndAnvilImg, className: 'max-w-36 h-auto object-cover' }} />}
 			{isBlur && <BgBlur className="bg-white h-1/2 blur-[34px]" />}
 		</div>
 	);

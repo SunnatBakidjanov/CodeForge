@@ -1,7 +1,7 @@
 /* --- Imports --- */
 import { TextGradient, type Props as TextGradientProps } from '../gradients/text-gradient/TextGradietn';
 import { ImageComp, type Props as ImageCompProps } from '../image-comp/ImageComp';
-import сrossedHammers from '/imgs/webp/сrossed-hammers.webp';
+import сrossedHammers from '/imgs/webp/crossed-hammers.webp';
 import { useNavigate } from 'react-router';
 
 /* --- Types --- */
