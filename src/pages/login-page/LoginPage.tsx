@@ -1,51 +1,14 @@
 /* --- Imports --- */
 import { AuthForm } from '../../UI/auth-form/AuthForm';
-import passwordIcon from '/imgs/webp/password-icon.webp';
 import loginIcon from '/imgs/webp/login-icon.webp';
-import emailIcon from '/imgs/webp/email-icon.webp';
-import type { Props as InputProps } from '../../UI/inputs/input/Input';
-import { lognPageConfig } from './page-config/login.config';
+import { lognPageConfig } from './page-config/page.config';
 import { useApiForm } from '../../hooks/useApiForm';
-import type { Path, RegisterOptions } from 'react-hook-form';
-
-/* --- Types --- */
-type FormValues = {
-	email: string;
-	password: string;
-};
-
-type FieldData = { iconSrc: string; name: keyof FormValues; input: InputProps };
-
-const dataInputs: FieldData[] = [
-	{
-		name: 'email',
-		iconSrc: emailIcon,
-		input: {
-			type: 'email',
-			autoComplete: 'on',
-			maxLength: 254,
-		},
-	},
-	{
-		name: 'password',
-		iconSrc: passwordIcon,
-		input: {
-			type: 'password',
-			autoComplete: 'off',
-			maxLength: 64,
-		},
-	},
-];
-
-const validate: Partial<Record<Path<FormValues>, RegisterOptions<FormValues>>> = {
-	email: { required: true },
-	password: { required: true },
-};
+import { validate, dataInputs, type FormValues } from './page-config/form.config';
 
 /* --- LoginPage Component --- */
 // This component represents the login page of the application.
 export const LoginPage = () => {
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onIsInvalid } = useApiForm<FormValues>({
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage } = useApiForm<FormValues>({
 		//ЗАГЛУШКА: Сдлелать href в ссылке через .env
 		apiHref: '/login',
 		defaultValues: { email: '', password: '' },
@@ -58,10 +21,10 @@ export const LoginPage = () => {
 	return (
 		<AuthForm<FormValues>
 			type="login"
-			formHook={{ handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onIsInvalid }}
+			formHook={{ handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage }}
 			dataInputs={dataInputs}
 			titleIcon={loginIcon}
-			formConfig={lognPageConfig}
+			textConfig={lognPageConfig}
 			validate={validate}
 			href={'/register'}
 		/>

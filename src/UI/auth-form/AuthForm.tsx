@@ -27,7 +27,7 @@ import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
 import { ImageForm } from '../image-form/ImageForm';
 
 /* --- Types --- */
-type FormConfig = {
+type TextConfig = {
 	title: string;
 	btnText: string;
 	inputs?: { [key: string]: string };
@@ -56,7 +56,7 @@ type Props<T extends FieldValues> = {
 	formHook: FormHook<T>;
 	dataInputs: DataInput<T>[];
 	titleIcon: string;
-	formConfig: FormConfig;
+	textConfig: TextConfig;
 	href: string;
 	validate?: Partial<Record<Path<T>, RegisterOptions<T>>>;
 	type: 'register' | 'login';
@@ -64,8 +64,8 @@ type Props<T extends FieldValues> = {
 
 /* --- AuthForm Component --- */
 // This component represents the auth form for the application.
-export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIcon, formConfig, href, type, validate }: Props<T>) => {
-	const { title, btnText, inputs, linkDescription, linkText } = formConfig;
+export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIcon, textConfig, href, type, validate }: Props<T>) => {
+	const { title, btnText, inputs, linkDescription, linkText } = textConfig;
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onIsInvalid } = formHook;
 	const navigate = useNavigate();
 
