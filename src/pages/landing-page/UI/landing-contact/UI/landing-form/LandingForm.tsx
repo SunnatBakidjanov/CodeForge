@@ -62,7 +62,7 @@ export const LandingForm = () => {
 				})}
 			</div>
 
-			<div className="mt-4 md:mt-6 lg:mt-10">
+			<div className="mt-4 md:mt-6">
 				<div
 					className={cn(
 						'flex items-center justify-center',

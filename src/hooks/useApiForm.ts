@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useForm, type DefaultValues, type FieldValues, type SubmitHandler } from 'react-hook-form';
 import axios, { type AxiosError } from 'axios';
 import { apiUrl } from '../utils/urls';
-import { forgeCooldown, type Arguments as Cooldown } from '../utils/forgeCooldown';
 
 /* --- Types --- */
 export type ErrorType = {
@@ -14,9 +13,6 @@ export type ErrorType = {
 type Arguments<T extends FieldValues> = {
 	defaultValues?: DefaultValues<T>;
 	apiHref: string;
-	cooldown?: Cooldown & {
-		isHasCooldown: boolean;
-	};
 	errorsMessage?: {
 		[key in 400 | 429 | 500 | 'default' | 'success']?: {
 			type?: ErrorType['type'];
@@ -29,7 +25,9 @@ type Arguments<T extends FieldValues> = {
 			message: string;
 		};
 	};
+	setSubmitValues?: () => unknown;
 	onSubmited?: () => unknown;
+	onError?: (error: AxiosError) => unknown;
 };
 
 /* --- useApiForm Hook --- */
@@ -39,12 +37,12 @@ export const useApiForm = <T extends FieldValues>({
 	apiHref,
 	errorsMessage,
 	customErrors,
+	setSubmitValues,
 	onSubmited,
-	cooldown = { isHasCooldown: false, cooldownMs: 0, cooldownItem: '' },
+	onError,
 }: Arguments<T>) => {
 	const [isLoading, setLoading] = useState(false);
 	const [resMessage, setResMessage] = useState<ErrorType>({});
-	const { isHasCooldown, cooldownMs, cooldownItem } = cooldown;
 
 	const { register, handleSubmit, watch, reset } = useForm<T>({
 		mode: 'onSubmit',
@@ -53,17 +51,8 @@ export const useApiForm = <T extends FieldValues>({
 	});
 
 	const handleSubmitForm: SubmitHandler<T> = async data => {
-		if (isHasCooldown) {
-			const isCooldown = forgeCooldown({ cooldownMs, cooldownItem });
-
-			if (isCooldown) {
-				setResMessage({
-					type: 'waiting',
-					message: 'Too many strikes. Cooldown active.',
-				});
-				return;
-			}
-		}
+		const canProceed = setSubmitValues?.();
+		if (canProceed === false) return;
 
 		setLoading(true);
 
@@ -72,16 +61,10 @@ export const useApiForm = <T extends FieldValues>({
 				withCredentials: true,
 			});
 
-			if (isHasCooldown) {
-				localStorage.setItem(cooldownItem, String(Date.now()));
-			}
+			onSubmited?.();
 
 			setResMessage({ type: errorsMessage?.['success']?.type ?? 'success', message: errorsMessage?.['success']?.message ?? 'Success' });
 			reset(defaultValues ?? ({} as DefaultValues<T>));
-
-			if (onSubmited) {
-				onSubmited();
-			}
 		} catch (error) {
 			const err = error as AxiosError;
 
@@ -124,6 +107,8 @@ export const useApiForm = <T extends FieldValues>({
 				type: errorsMessage?.['default']?.type ?? 'error',
 				message: errorsMessage?.['default']?.message ?? 'Unknown forge error occurred.',
 			});
+
+			onError?.(err);
 		} finally {
 			setLoading(false);
 		}

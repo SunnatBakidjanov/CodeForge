@@ -14,7 +14,7 @@ export type Props = {
 /* --- ImageComp Component --- */
 // This component represents an image with a loading spinner.
 export const ImageComp = ({ className, loader, imgAttr, isHasLoader = true }: Props) => {
-	const [isLoaded, setLoaded] = useState(false);
+	const [isLoaded, setLoaded] = useState({});
 
 	return (
 		<div className={cn('relative w-full h-full flex items-center justify-center', className)}>
@@ -24,11 +24,7 @@ export const ImageComp = ({ className, loader, imgAttr, isHasLoader = true }: Pr
 				</div>
 			)}
 
-			<img
-				{...imgAttr}
-				onLoad={() => setLoaded(true)}
-				className={cn('transition-all duration-700 ease-out transform', isLoaded ? 'opacity-100' : 'opacity-0', imgAttr?.className)}
-			/>
+			<img {...imgAttr} onLoad={() => setLoaded(true)} className={cn('transition-all duration-700 ease-out transform', imgAttr?.className)} />
 		</div>
 	);
 };
