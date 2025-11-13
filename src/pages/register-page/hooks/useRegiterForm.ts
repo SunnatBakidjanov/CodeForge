@@ -4,9 +4,9 @@ import { useApiForm } from '../../../hooks/useApiForm';
 import { registerUrl } from '../../../utils/urls';
 import type { FieldErrors } from 'react-hook-form';
 
-/* --- UseRegisterFrom Hook --- */
+/* --- useRegisterForm Hook --- */
 // This hook is used to manage the form for the register page.
-export const useRegisterFrom = () => {
+export const useRegisterForm = () => {
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues>({
 		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
 		errorsMessage: { success: { message: 'Crafting complete.' }, 400: { message: 'The pattern is flawed. Refine it.' } },

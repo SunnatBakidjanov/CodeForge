@@ -1,19 +1,28 @@
 /* --- Imports --- */
 import type { FormValues } from '../page-config/form.config';
 import { useApiForm } from '../../../hooks/useApiForm';
+import { loginUrl } from '../../../utils/urls';
+import type { FieldErrors } from 'react-hook-form';
 
 /* --- UseLoginForm Hook --- */
 // This hook is used to manage the form for the login page.
 export const useLoginForm = () => {
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage } = useApiForm<FormValues>({
-		//ЗАГЛУШКА: Сдлелать href в ссылке через .env
-		apiHref: '/login',
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues>({
 		defaultValues: { email: '', password: '' },
 		errorsMessage: { success: { message: 'Welcome to the Forge.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
 		customErrors: {
 			401: { type: 'error', message: 'The Forge doesn’t open for you.' },
 		},
+		apiHref: loginUrl,
 	});
 
-	return { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage };
+	const onInvalid = (error: FieldErrors<FormValues>) => {
+		const isRequired = Object.values(error).some(error => error?.type === 'required');
+
+		if (isRequired) {
+			setResMessage({ type: 'error', message: 'Every field fuels the Forge.' });
+		}
+	};
+
+	return { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onInvalid };
 };
