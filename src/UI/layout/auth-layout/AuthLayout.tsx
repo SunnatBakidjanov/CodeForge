@@ -1,3 +1,4 @@
+/* --- Imports --- */
 import { Outlet } from 'react-router';
 import { MainTitle } from '../../main-title/MainTitle';
 import { cn } from '../../../utils/cn';
@@ -5,28 +6,25 @@ import { BgBlur } from '../../backgrounds/bg-blur/BgBlur';
 import { TermsNotice } from '../../terms-notice/TermsNotice';
 import { SectionContainer } from '../../containers/section-container/SectionContainer';
 import { MaxWidthContainer } from '../../containers/max-width-container/MaxWidthContainer';
+import { landingRoute } from '../../../utils/urls';
 
+/* --- AuthLayout Component --- */
+// This component represents the authentication layout of the application.
 export const AuthLayout = () => {
 	return (
-		<div className="flex flex-col min-h-screen gap-16">
-			<header className={cn('w-full flex items-center justify-center', 'pt-2 md:pt-4 lg:pt-6')}>
+		<div className="flex flex-col min-h-screen min-w-[320px] gap-12 sm:gap-20">
+			<header className={cn('w-full flex items-center justify-center', 'pt-6')}>
+				<h1 className="h-0 w-0 invisible">CodeForge Registration</h1>
+
 				<MainTitle
-					href="/landing"
+					href={landingRoute}
 					textGradient={{
 						ComponentType: 'button',
-						className: cn('flex items-center font-bold cursor-pointer group relative', 'text-xl md:text-2xl lg:text-3xl'),
 					}}
-					imgComp={{
-						loader: { classNames: { container: 'w-6 md:w-8 lg:w-10 h-6 md:h-8 lg:h-10' } },
-						className: cn(
-							'transition-all duration-300 ease-out drop-shadow-[0_0_0px_var(--hot-orange)] group-focus-visible:drop-shadow-[0_0_3px_var(--hot-orange)] group-hover:drop-shadow-[0_0_3px_var(--hot-orange)]',
-							'relative top-[1px] lg:top-[0.5px]',
-							'ml-1.5',
-							'w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12'
-						),
-					}}
-					imgAttr={{
-						className: cn('max-w-8 md:max-w-10 lg:max-w-12 h-auto object-cover'),
+					classNames={{
+						textGradient: 'font-bold text-2xl sm:text-3xl',
+						imgContainer: 'w-8 sm:w-10 h-8 sm:h-10 ml-2',
+						img: 'max-w-10 sm:max-w-12 h-auto object-cover',
 					}}
 				>
 					<BgBlur className="h-1/2" />

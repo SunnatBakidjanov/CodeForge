@@ -72,7 +72,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 
 	return (
 		<Form
-			className={cn('max-w-[320px] sm:max-w-[550px] rounded-3xl sm:rounded-4xl', 'px-3 sm:px-12', 'pt-3', 'pb-8', 'sm:py-10')}
+			className={cn('max-w-[320px] sm:max-w-[500px] rounded-3xl sm:rounded-4xl', 'px-3 sm:px-8', 'pt-4', 'pb-8', 'sm:py-10')}
 			onSubmit={handleSubmit(handleSubmitForm, onInvalid)}
 		>
 			<TextGradient
@@ -81,13 +81,14 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 					'flex items-center justify-center font-bold border-b-1 border-white/20',
 					'text-2xl sm:text-4xl',
 					'mb-6 sm:mb-8',
-					'pb-2'
+					'sm:pb-2'
 				)}
 			>
 				{title}
 				<ImageComp
-					className="w-10 sm:w-14 h-14 sm:h-14 ml-0.5 sm:ml-1 sm:ml-1.5 relative bottom-[3px] sm:bottom-[5px]"
+					className="w-10 sm:w-14 h-14 sm:h-14 ml-0.5 sm:ml-1.5 relative bottom-[3px] sm:bottom-[5px]"
 					imgAttr={{ src: titleIcon, className: 'max-w-10 sm:max-w-16 h-auto object-cover' }}
+					loader={{ classNames: { container: 'w-8 sm:w-12 h-8 sm:h-12' } }}
 				/>
 			</TextGradient>
 
@@ -153,7 +154,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 					<Button
 						isBlink={true}
 						classNames={{
-							button: cn('text-lg sm:text-xl', 'w-full text-white tracking-[0.5px]', 'h-10'),
+							button: cn('text-lg sm:text-xl', 'w-full text-white tracking-[0.5px]', 'h-9 sm:h-10'),
 							blik: cn('h-[300%]', 'w-[12%] sm:w-[11%]', 'duration-800 sm:duration-900'),
 						}}
 					>
@@ -162,7 +163,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 				</BgGradient>
 			</div>
 
-			<div className="flex flex-col items-center mt-8">
+			<div className="flex flex-col items-center mt-6 sm:mt-8">
 				<span className="block h-[1px] w-[80%] bg-white/20" />
 
 				<p className={cn('italic text-center text-[var(--white)]', 'text-lg sm:text-xl', 'mt-2 sm:mt-3')}>{linkDescription}</p>
