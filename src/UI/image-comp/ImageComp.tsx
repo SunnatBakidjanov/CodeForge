@@ -18,13 +18,17 @@ export const ImageComp = ({ className, loader, imgAttr, isHasLoader = true }: Pr
 
 	return (
 		<div className={cn('relative w-full h-full flex items-center justify-center', className)}>
-			{!isLoaded && isHasLoader && (
+			{!isLoaded && isHasLoader ? (
 				<div className="absolute inset-0 flex items-center justify-center">
 					<InfinitySpinLoader {...loader} />
 				</div>
+			) : (
+				<img
+					{...imgAttr}
+					onLoad={() => setLoaded(true)}
+					className={cn('transition-all duration-700 ease-out transform', imgAttr?.className)}
+				/>
 			)}
-
-			<img {...imgAttr} onLoad={() => setLoaded(true)} className={cn('transition-all duration-700 ease-out transform', imgAttr?.className)} />
 		</div>
 	);
 };

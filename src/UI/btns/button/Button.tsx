@@ -1,5 +1,5 @@
 /* --- Imports --- */
-import { cn } from '../../utils/cn';
+import { cn } from '../../../utils/cn';
 
 /* --- Types --- */
 type Props = {

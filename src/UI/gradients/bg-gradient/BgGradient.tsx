@@ -3,7 +3,7 @@ import { cn } from '../../../utils/cn';
 
 /* --- Types --- */
 type Props<T extends React.ElementType> = {
-	ComponentType: T;
+	ComponentType?: T;
 	children?: string | React.ReactNode;
 	className?: string;
 } & Omit<React.ComponentPropsWithoutRef<T>, 'className' | 'children'>;
@@ -11,9 +11,11 @@ type Props<T extends React.ElementType> = {
 /* --- BgGradient Component --- */
 // This component represents the main gradient for the application.
 export const BgGradient = ({ ComponentType, children, className, ...rest }: Props<React.ElementType>) => {
+	const Component = ComponentType || 'span';
+
 	return (
-		<ComponentType className={cn('bg-gradient-to-br from-yellow-500 via-orange-400 to-orange-600', className)} {...rest}>
+		<Component className={cn('bg-gradient-to-br from-yellow-500 via-orange-400 to-orange-600', className)} {...rest}>
 			{children}
-		</ComponentType>
+		</Component>
 	);
 };
