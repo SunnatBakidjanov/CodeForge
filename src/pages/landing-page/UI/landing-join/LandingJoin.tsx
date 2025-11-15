@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { Button } from '../../../../UI/button/Button';
+import { Button } from '../../../../UI/btns/button/Button';
 import { MaxWidthContainer } from '../../../../UI/containers/max-width-container/MaxWidthContainer';
 import { SectionContainer } from '../../../../UI/containers/section-container/SectionContainer';
 import { BgGradient } from '../../../../UI/gradients/bg-gradient/BgGradient';

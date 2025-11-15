@@ -5,7 +5,7 @@ import { BgBlur } from '../backgrounds/bg-blur/BgBlur';
 import { ImageComp } from '../image-comp/ImageComp';
 import { cn } from '../../utils/cn';
 import { BgGradient } from '../gradients/bg-gradient/BgGradient';
-import { Button } from '../button/Button';
+import { Button } from '../btns/button/Button';
 import { TextGradient } from '../gradients/text-gradient/TextGradietn';
 import { DottedLoader } from '../loaders/dotted-loader/DottedLoader';
 import { useNavigate } from 'react-router';

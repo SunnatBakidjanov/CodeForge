@@ -13,7 +13,7 @@ import failIcon from '/imgs/webp/fail-icon.webp';
 import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
 import { BgGradient } from '../../../../../../UI/gradients/bg-gradient/BgGradient';
 import { DottedLoader } from '../../../../../../UI/loaders/dotted-loader/DottedLoader';
-import { Button } from '../../../../../../UI/button/Button';
+import { Button } from '../../../../../../UI/btns/button/Button';
 import { useLandingForm } from './hooks/useLandingForm';
 import type { FormValues } from './hooks/useLandingForm';
 

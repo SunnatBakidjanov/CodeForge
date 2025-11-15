@@ -12,8 +12,8 @@ import { landingRoute } from '../../../utils/urls';
 // This component represents the authentication layout of the application.
 export const AuthLayout = () => {
 	return (
-		<div className="flex flex-col min-h-screen min-w-[320px] gap-12 sm:gap-20">
-			<header className={cn('w-full flex items-center justify-center', 'pt-6')}>
+		<div className="flex flex-col min-h-screen min-w-[320px] gap-16 sm:gap-20">
+			<header className={cn('w-full flex items-center justify-center', 'pt-6 sm:pt-8')}>
 				<h1 className="h-0 w-0 invisible">CodeForge Registration</h1>
 
 				<MainTitle
@@ -41,7 +41,7 @@ export const AuthLayout = () => {
 				</SectionContainer>
 			</main>
 
-			<footer className="w-full flex justify-center bg-black/30 relative pb-4 pt-5">
+			<footer className="w-full flex justify-center bg-black/30 relative pb-4 sm:pb-6 sm:pt-8 pt-5">
 				<TermsNotice />
 
 				<BgBlur className="h-1/3 blur-[120px]" />

@@ -3,7 +3,7 @@ import { cn } from '../../../utils/cn';
 
 /* --- Types --- */
 type Props<T extends React.ElementType> = {
-	ComponentType: T;
+	ComponentType?: T;
 	children?: string | React.ReactNode;
 	className?: string;
 } & Omit<React.ComponentPropsWithoutRef<T>, 'className' | 'children'>;
