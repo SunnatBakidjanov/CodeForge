@@ -7,5 +7,6 @@ export const guestUrl = import.meta.env.VITE_APP_GUEST_URL;
 export const loginRoute = '/login';
 export const registerRoute = '/register';
 export const landingRoute = '/landing';
+export const termsServiceRoute = '/terms-of-service';
 export const termsOfServiceRoute = '/terms-of-service';
 export const privatePolicyRoute = '/privacy-policy';

@@ -8,7 +8,7 @@ import { LandingJoin } from './UI/landing-join/LandingJoin';
 // This component serves as the landing page for the application.
 export const LandingPage = () => {
 	return (
-		<main className="mt-8 md:mt-12 xl:mt-14 mb-6 md:mb-8 lg:mb-10 xl:mb-12">
+		<main className="mt-8 md:mt-12 xl:mt-14 mb-6 md:mb-8 lg:mb-10 xl:mb-12 min-w-[320px]">
 			<LandingGetting />
 			<LandingAbout />
 			<LandingJoin />

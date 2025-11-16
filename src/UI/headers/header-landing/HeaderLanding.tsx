@@ -19,7 +19,7 @@ export const HeaderLanding = () => {
 	const { headerRef, height, scrolled, isOpen, handleOpen } = useHeaderLanding();
 
 	return (
-		<header ref={headerRef} className={cn('relative overflow-hidden w-full z-10', 'h-16 sm:h-18 lg:h-22')}>
+		<header ref={headerRef} className={cn('relative overflow-hidden w-full z-10', 'h-16 sm:h-18 lg:h-19')}>
 			<div
 				className={cn(
 					'mx-auto w-full transition-all duration-400 ease-out fixed top-0 border-b-1 border-orange-500/30',
@@ -32,9 +32,9 @@ export const HeaderLanding = () => {
 							href={landingRoute}
 							textGradient={{ ComponentType: 'button' }}
 							classNames={{
-								textGradient: 'font-bold text-xl sm:text-2xl lg:text-3xl',
-								img: 'max-w-9 sm:max-w-11 lg:max-w-14',
-								imgContainer: 'w-7 h-7 ml-1.5 sm:ml-2 sm:w-9 md:h-9 lg:w-12 lg:h-12',
+								textGradient: 'font-bold text-xl sm:text-2xl lg:text-[26px]',
+								img: 'max-w-9 sm:max-w-10 lg:max-w-11',
+								imgContainer: 'w-7 h-7 ml-1.5 sm:ml-2 lg:ml-2.5 sm:w-8 md:h-8',
 							}}
 						/>
 
@@ -43,7 +43,7 @@ export const HeaderLanding = () => {
 							btnProps={{ onClick: handleOpen }}
 						/>
 
-						<div className="hidden sm:flex items-center justify-center gap-3">
+						<div className="hidden sm:flex items-center justify-center gap-2 md:gap-3">
 							<BgGradient
 								ComponentType={'div'}
 								className={cn(
@@ -60,7 +60,7 @@ export const HeaderLanding = () => {
 										button: cn(
 											'text-white rounded-2xl transition-all duration-300 ease-out w-full h-full',
 											'text-lg lg:text-xl',
-											'py-0.5 lg:py-1.5',
+											'py-0.5 md:py-1',
 											'px-10 md:px-12 lg:px-14'
 										),
 										blik: 'w-[20%] md:w-[25%]',
@@ -80,7 +80,7 @@ export const HeaderLanding = () => {
 										'transition-all duration-300 ease-out',
 										'text-lg lg:text-xl',
 										'px-10 md:px-12 lg:px-14',
-										'py-0.5 lg:py-1.5'
+										'py-0.5 md:py-1'
 									),
 									blik: 'w-[20%] md:w-[25%]',
 								}}
@@ -149,7 +149,7 @@ export const HeaderLanding = () => {
 							<BgBlur className="h-1/2 w-2/3 blur-[130px] sm:hidden" />
 						</motion.div>
 
-						<BgBlur className="w-full h-1/2 blur-[100px]" />
+						<BgBlur className="w-5/6 h-1/2 blur-[120px]" />
 					</div>
 				</MaxWidthContainer>
 			</div>
