@@ -33,17 +33,6 @@
 	font-weight: 400;
 }
 
-@font-face {
-	font-family: 'TASA Explorer';
-	src: url('/public/fonts/tasa/TASAExplorer-VariableFont_wght.ttf');
-	font-style: normal;
-	font-weight: 400;
-}
-
-.tasa-explorer {
-	font-family: 'TASA Explorer', sans-serif;
-}
-
 /* --- Global Styles --- */
 body {
 	font-family: 'Inter Tight', sans-serif;
