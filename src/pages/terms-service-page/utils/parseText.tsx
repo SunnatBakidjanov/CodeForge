@@ -5,7 +5,7 @@ import { Fragment } from 'react/jsx-runtime';
 export const parseText = (text: string[], i: number) => {
 	const pattern = /(\*\*.*?\*\*)|(_.*?_)|(\d+)/g;
 
-	return text.map((line, j) => {
+	return text?.map((line, j) => {
 		const parts = line.split(pattern);
 
 		return (
@@ -23,7 +23,7 @@ export const parseText = (text: string[], i: number) => {
 
 					if (part.includes('/count')) {
 						const count = part.replace('/count', `${i + 1}.${j + 1}.`);
-						return <Fragment key={j}>{count}</Fragment>;
+						return <Fragment key={k}>{count}</Fragment>;
 					}
 					return part;
 				})}

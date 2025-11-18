@@ -12,7 +12,7 @@ type Props = {
 	imgComp?: Omit<ImageCompProps, 'imgAttr' | 'className'>;
 	imgAttr?: ImageCompProps['imgAttr'];
 	isHasImg?: boolean;
-	classNames?: { [key in 'img' | 'imgContainer' | 'textGradient']?: string };
+	classNames?: { [key in 'img' | 'imgContainer' | 'textGradient' | 'textSpan']?: string };
 	children?: React.ReactNode;
 };
 
@@ -29,7 +29,7 @@ export const MainTitle = ({ href, textGradient, imgComp, isHasImg = true, imgAtt
 			className={cn('flex items-center justify-center group relative cursor-pointer', classNames?.textGradient)}
 			{...textGradient}
 		>
-			<span className="text-[var(--white)]">Code</span>Forge
+			<span className={cn('text-[var(--white)]', classNames?.textSpan)}>Code</span>Forge
 			{isHasImg && (
 				<ImageComp
 					imgAttr={{
