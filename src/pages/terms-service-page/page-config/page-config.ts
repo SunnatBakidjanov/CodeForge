@@ -1,17 +1,7 @@
-type DataPoints = {
-	title: string;
-	text: string[];
-	email?: string;
-};
+/** --- Imports --- */
+import type { PageConfigType } from '../../../UI/legal/Legal';
 
-type PageConfigType = {
-	hideTitle: string;
-	title: string;
-	lastUpdated: string;
-	subtitle: string;
-	dataPoints: DataPoints[];
-};
-
+/** --- pageConfig --- */
 export const pageConfig = {
 	hideTitle: 'CodeForge Terms of Service',
 	title: 'Terms of Service',
@@ -67,7 +57,7 @@ export const pageConfig = {
 		{
 			title: 'Changes to the Terms',
 			text: [
-				'The owner of the Service may update these **Terms of Service.** Continued use of the **Service** after updates are posted constitutes acceptance of the revised Terms.',
+				'The owner of the **Service** may update these **Terms of Service.** Continued use of the **Service** after updates are posted constitutes acceptance of the revised Terms.',
 			],
 		},
 		{
