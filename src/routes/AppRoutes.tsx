@@ -9,7 +9,8 @@ import { AuthLayout } from '../UI/layout/auth-layout/AuthLayout';
 import { LoginPage } from '../pages/login-page/LoginPage';
 import { CheckGuest } from '../api/CheckGuest';
 import { TermsServicePage } from '../pages/terms-service-page/TermsServicePage';
-import { termsServiceRoute as termsUrl } from '../utils/urls';
+import { termsServiceRoute as termsUrl, privatePolicyRoute as policyUrl } from '../utils/urls';
+import { PrivatePolityPage } from '../pages/private-policy-page/PrivatePolicyPage';
 
 /* --- AppRoutes Component --- */
 // This component manages the routing for the application.
@@ -32,6 +33,7 @@ export const AppRoutes = () => {
 				<Route path="*" element={<NotFoundPage />} />
 			</Route>
 
+			<Route path={policyUrl} element={<PrivatePolityPage />} />
 			<Route path={termsUrl} element={<TermsServicePage />} />
 		</Routes>
 	);
