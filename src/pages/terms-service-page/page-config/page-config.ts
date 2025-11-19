@@ -72,6 +72,7 @@ export const pageConfig = {
 		},
 		{
 			title: 'For questions or suggestions related to the Service, please contact:',
+			text: ['**Email: **[email]'],
 		},
 	],
 } as PageConfigType;

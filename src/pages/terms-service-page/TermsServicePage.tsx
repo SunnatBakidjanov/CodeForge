@@ -6,10 +6,12 @@ import { landingRoute } from '../../utils/urls';
 import { BgBlur } from '../../UI/backgrounds/bg-blur/BgBlur';
 import termsOfServiceIcon from '/imgs/webp/terms-of-sevice-icon.webp';
 import { ImageComp } from '../../UI/image-comp/ImageComp';
-import { DataPoints } from './UI/data-points/DataPoints';
+import { cn } from '../../utils/cn';
+import { parseText } from './utils/parseText';
+import { Fragment } from 'react/jsx-runtime';
 
 export const TermsServicePage = () => {
-	const { title, hideTitle, subtitle, lastUpdated } = pageConfig;
+	const { title, hideTitle, subtitle, lastUpdated, dataPoints } = pageConfig;
 
 	return (
 		<div className="min-h-screen">
@@ -41,7 +43,7 @@ export const TermsServicePage = () => {
 				<section>
 					<MaxWidthContainer>
 						<div className="flex flex-col items-center justify-center mt-10 pb-6 border-b-4 border-white/20 relative">
-							<h2 className="text-4xl text-white">
+							<h2 className="text-4xl text-white border-b-2 border-white/20 pb-3 px-6">
 								<span className="inline">{subtitle}</span>
 								<MainTitle
 									textGradient={{ ComponentType: 'span' }}
@@ -51,13 +53,25 @@ export const TermsServicePage = () => {
 							</h2>
 							<ImageComp
 								imgAttr={{ src: termsOfServiceIcon, className: 'max-w-64 h-auto object-cover' }}
-								className="w-58 h-58 mt-6 mb-3"
+								className="w-58 h-58 mt-6 mb-4"
 							/>
-							<p className="text-xl mt-1 text-[var(--react-blue)]/90 font-bold">{lastUpdated}</p>
+							<p className="text-xl mt-1 text-[var(--react-blue)]/80 font-bold border-t-2 border-white/20 pt-3 px-6">{lastUpdated}</p>
 							<BgBlur className="bg-[var(--react-blue)]/20 w-3/4 blur-[120px]" />
 						</div>
 
-						<DataPoints />
+						<div className="mt-16">
+							{dataPoints.map(({ title, text }, i) => (
+								<Fragment key={i}>
+									<div className={cn('text-white mt-8 pb-4 border-b-1 border-white/20', i === 0 && 'mt-0')}>
+										<h3 className="text-xl font-bold cursor-text">
+											<span className="inline-block mr-1">{i + 1}.</span>
+											{title}
+										</h3>
+										<p className="mt-4 leading-normal">{parseText(text, i)}</p>
+									</div>
+								</Fragment>
+							))}
+						</div>
 					</MaxWidthContainer>
 				</section>
 			</main>
