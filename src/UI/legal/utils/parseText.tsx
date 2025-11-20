@@ -1,10 +1,12 @@
 /** --- Imports --- */
 import { Fragment } from 'react/jsx-runtime';
+import { VscCircleFilled } from 'react-icons/vsc';
 
 /** --- parseText Function --- */
 export const parseText = (text: string[], i: number) => {
 	const pattern = /(\*\*.*?\*\*)|(_.*?_)|(\d+)/g;
 	const myEmail = 'sunnatbackidjanov@gmail.com';
+	let counter = 1;
 
 	return text?.map((line, j) => {
 		const parts = line.split(pattern);
@@ -23,7 +25,7 @@ export const parseText = (text: string[], i: number) => {
 					}
 
 					if (part.includes('/count')) {
-						const count = part.replace('/count', `${i + 1}.${j + 1}.`);
+						const count = part.replace('/count', `${i + 1}.${counter++}.`);
 						return <Fragment key={k}>{count}</Fragment>;
 					}
 
@@ -37,6 +39,21 @@ export const parseText = (text: string[], i: number) => {
 							>
 								{email}
 							</a>
+						);
+					}
+
+					if (part.startsWith('[') && part.endsWith(']')) {
+						const list = part.slice(2, -1).split('*');
+
+						return (
+							<span key={k} className="flex flex-col mt-1.5">
+								{list.map((item, l) => (
+									<span key={l}>
+										<VscCircleFilled className="inline text-[var(--react-blue)]/90 mr-1 relative bottom-[1px] w-5 h-5" />
+										{item}
+									</span>
+								))}
+							</span>
 						);
 					}
 					return part;

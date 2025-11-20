@@ -12,7 +12,6 @@ import { landingRoute } from '../../utils/urls';
 export type DataPoints = {
 	title: string;
 	text: string[];
-	email?: string;
 };
 
 export type PageConfigType = {
@@ -47,7 +46,7 @@ export const Legal = ({ pageConfig, iconSrc }: Props) => {
 								}}
 							/>
 							<span className="block h-8 w-0.5 bg-white/40 mx-2 sm:mx-3" />
-							<p className="text-white text-lg sm:text-xl lg:text-2xl relative top-[1px]">{title}</p>
+							<p className="text-white font-bold text-lg sm:text-xl lg:text-2xl relative top-[1px]">{title}</p>
 						</div>
 					</div>
 
@@ -74,7 +73,7 @@ export const Legal = ({ pageConfig, iconSrc }: Props) => {
 									'text-2xl sm:text-3xl lg:text-4xl'
 								)}
 							>
-								<span className="inline">{subtitle}</span>
+								<span className="inline font-bold">{subtitle}</span>
 								<MainTitle
 									textGradient={{ ComponentType: 'span' }}
 									classNames={{ textGradient: 'inline font-bold cursor-text', textSpan: 'text-white' }}
