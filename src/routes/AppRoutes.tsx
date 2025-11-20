@@ -11,30 +11,36 @@ import { CheckGuest } from '../api/CheckGuest';
 import { TermsServicePage } from '../pages/terms-service-page/TermsServicePage';
 import { termsServiceRoute as termsUrl, privatePolicyRoute as policyUrl } from '../utils/urls';
 import { PrivatePolityPage } from '../pages/private-policy-page/PrivatePolicyPage';
+import { LegalLayout } from '../UI/layout/legal-layout/LegalLayout';
+import { AppLayout } from '../UI/layout/app-layout/AppLayout';
 
 /* --- AppRoutes Component --- */
 // This component manages the routing for the application.
 export const AppRoutes = () => {
 	return (
 		<Routes>
-			<Route element={<MainLayout />}>
-				<Route path="/" element={<Navigate to={'/landing'} replace />} />
+			<Route element={<AppLayout />}>
+				<Route element={<MainLayout />}>
+					<Route path="/" element={<Navigate to={'/landing'} replace />} />
 
-				<Route element={<CheckGuest />}>
-					<Route element={<MainPageLayout />}>
-						<Route path="/landing/*" element={<LandingRoute />} />
+					<Route element={<CheckGuest />}>
+						<Route element={<MainPageLayout />}>
+							<Route path="/landing/*" element={<LandingRoute />} />
+						</Route>
 					</Route>
+
+					<Route element={<AuthLayout />}>
+						<Route path="/register" element={<RegisterPage />} />
+						<Route path="/login" element={<LoginPage />} />
+					</Route>
+					<Route path="*" element={<NotFoundPage />} />
 				</Route>
 
-				<Route element={<AuthLayout />}>
-					<Route path="/register" element={<RegisterPage />} />
-					<Route path="/login" element={<LoginPage />} />
+				<Route element={<LegalLayout />}>
+					<Route path={policyUrl} element={<PrivatePolityPage />} />
+					<Route path={termsUrl} element={<TermsServicePage />} />
 				</Route>
-				<Route path="*" element={<NotFoundPage />} />
 			</Route>
-
-			<Route path={policyUrl} element={<PrivatePolityPage />} />
-			<Route path={termsUrl} element={<TermsServicePage />} />
 		</Routes>
 	);
 };
