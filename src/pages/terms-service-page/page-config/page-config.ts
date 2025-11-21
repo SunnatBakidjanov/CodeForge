@@ -4,9 +4,8 @@ import type { PageConfigType } from '../../../UI/legal/Legal';
 /** --- pageConfig --- */
 export const pageConfig = {
 	hideTitle: 'CodeForge Terms of Service',
-	title: 'Terms of Service',
+	title: 'Terms of Service — ',
 	lastUpdated: 'Last Updated: November 18, 2025',
-	subtitle: 'Terms of Service — ',
 	dataPoints: [
 		{
 			title: 'General Provisions',

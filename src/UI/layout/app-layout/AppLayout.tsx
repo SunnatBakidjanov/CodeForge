@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router';
 import { RouterTracker } from '../../../api/RouterTracker';
-import { termsServiceRoute, privatePolicyRoute } from '../../../utils/urls';
+import { termsRoute, privateRoute } from '../../../utils/urls';
 
 export const AppLayout = () => {
 	return (
 		<>
-			<RouterTracker checkRoute={[termsServiceRoute, privatePolicyRoute]} />
+			<RouterTracker checkRoute={[termsRoute, privateRoute]} />
 			<Outlet />
 		</>
 	);

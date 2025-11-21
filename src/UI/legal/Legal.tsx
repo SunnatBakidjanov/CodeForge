@@ -7,7 +7,6 @@ import { ImageComp } from '../image-comp/ImageComp';
 import { parseText } from './utils/parseText';
 import { Fragment } from 'react/jsx-runtime';
 import { Footer } from '../footer/Footer';
-import { landingRoute } from '../../utils/urls';
 
 export type DataPoints = {
 	title: string;
@@ -18,7 +17,6 @@ export type PageConfigType = {
 	hideTitle: string;
 	title: string;
 	lastUpdated: string;
-	subtitle: string;
 	dataPoints: DataPoints[];
 };
 
@@ -28,32 +26,10 @@ type Props = {
 };
 
 export const Legal = ({ pageConfig, iconSrc }: Props) => {
-	const { title, hideTitle, subtitle, lastUpdated, dataPoints } = pageConfig;
+	const { hideTitle, title, lastUpdated, dataPoints } = pageConfig;
 
 	return (
 		<div className="min-h-screen min-w-[320px]">
-			<header className="relative overflow-hidden w-full border-b-1 border-orange-500/30">
-				<MaxWidthContainer>
-					<div className="flex items-center justify-between h-16 lg:h-18">
-						<div className="flex items-center justify-center">
-							<MainTitle
-								href={landingRoute}
-								textGradient={{ ComponentType: 'button' }}
-								classNames={{
-									textGradient: 'font-bold text-lg sm:text-xl lg:text-2xl',
-									imgContainer: 'w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 ml-1.5 lg:ml-2',
-									img: 'max-w-8 sm:max-w-10 lg:max-w-12 h-auto object-cover',
-								}}
-							/>
-							<span className="block h-8 w-0.5 bg-white/40 mx-2 sm:mx-3" />
-							<p className="text-white font-bold text-lg sm:text-xl lg:text-2xl relative top-[1px]">{title}</p>
-						</div>
-					</div>
-
-					<BgBlur blurColor={'reactBlue'} className="h-1/2 w-5/6 blur-[80px]" />
-				</MaxWidthContainer>
-			</header>
-
 			<main>
 				<h1 className="opacity-0 w-0 h-0 pointer-events-none">{hideTitle}</h1>
 
@@ -73,7 +49,7 @@ export const Legal = ({ pageConfig, iconSrc }: Props) => {
 									'text-2xl sm:text-3xl lg:text-4xl'
 								)}
 							>
-								<span className="inline font-bold">{subtitle}</span>
+								<span className="inline font-bold">{title}</span>
 								<MainTitle
 									textGradient={{ ComponentType: 'span' }}
 									classNames={{ textGradient: 'inline font-bold cursor-text', textSpan: 'text-white' }}
@@ -120,7 +96,7 @@ export const Legal = ({ pageConfig, iconSrc }: Props) => {
 				</section>
 			</main>
 
-			<Footer classNames={{ bgBlur: 'bg-[var(--react-blue)] blur-[80px]', footer: 'bg-black/30' }} />
+			<Footer classNames={{ bgBlur: 'bg-[var(--react-blue)] blur-[80px]', footer: 'bg-black/75' }} />
 		</div>
 	);
 };

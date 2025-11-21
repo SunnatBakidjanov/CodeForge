@@ -2,9 +2,8 @@ import type { PageConfigType } from '../../../UI/legal/Legal';
 
 export const pageConfig = {
 	hideTitle: 'CodeForge Private Policy',
-	title: 'Privacy Policy',
+	title: 'Privacy Policy — ',
 	lastUpdated: 'Last Updated: November 20, 2025',
-	subtitle: 'Privacy Policy — ',
 	dataPoints: [
 		{
 			title: 'General Information',
