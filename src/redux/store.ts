@@ -1,10 +1,12 @@
 /* --- Imports --- */
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import guestSlice from './guest-slice/slice';
+import prevRouteSlice from './prev-route-slice/slice';
 
 /* --- Store --- */
 const rootReducer = combineReducers({
 	[guestSlice.name]: guestSlice.reducer,
+	[prevRouteSlice.name]: prevRouteSlice.reducer,
 });
 
 export const store = configureStore({

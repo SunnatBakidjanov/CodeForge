@@ -1,6 +1,6 @@
 /* --- Imports --- */
 import { BtnLink } from '../btns/btn-link/BtnLink';
-import { termsOfServiceRoute, privatePolicyRoute } from '../../utils/urls';
+import { termsRoute, privateRoute } from '../../utils/urls';
 
 /* --- TermsNotice Component --- */
 // This component represents the terms notice of the application.
@@ -9,7 +9,7 @@ export const TermsNotice = () => {
 		<div className="text-[var(--white)] italic text-center sm:text-lg">
 			By continuing, you agree to our
 			<br />
-			<BtnLink text={'Terms of Service'} href={termsOfServiceRoute} /> and <BtnLink text={'Privacy Policy'} href={privatePolicyRoute} />
+			<BtnLink text={'Terms of Service'} href={termsRoute} /> and <BtnLink text={'Privacy Policy'} href={privateRoute} />
 		</div>
 	);
 };
