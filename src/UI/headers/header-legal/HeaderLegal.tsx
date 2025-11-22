@@ -9,9 +9,9 @@ export const HeaderLegal = () => {
 	const title = pathname === termsRoute ? 'Terms of Service' : 'Privacy Policy';
 
 	return (
-		<header className="relative overflow-hidden w-full border-b-2 border-orange-500/30">
+		<header className="relative overflow-hidden w-full border-b-2 border-orange-500/30 min-w-[320px]">
 			<MaxWidthContainer>
-				<div className="flex items-center justify-between h-16 lg:h-18">
+				<div className="flex items-center justify-center sm:justify-start h-16 lg:h-18">
 					<div className="flex items-center justify-center">
 						<MainTitle
 							href={landingRoute}
