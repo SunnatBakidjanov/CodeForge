@@ -74,7 +74,7 @@ export const HeaderLanding = () => {
 								children={'Login'}
 								classNames={{
 									button: cn(
-										'text-white shadow-sm shadow-white rounded-3xl',
+										'text-white shadow-sm shadow-white rounded-3xl bg-black/30',
 										'focus-visible:shadow-md',
 										'hover:shadow-md',
 										'transition-all duration-300 ease-out',
@@ -131,7 +131,7 @@ export const HeaderLanding = () => {
 								children={'Login'}
 								classNames={{
 									button: cn(
-										'text-white shadow-sm shadow-white rounded-3xl',
+										'text-white shadow-sm shadow-white rounded-3xl bg-black/50',
 										'focus-visible:shadow-md',
 										'hover:shadow-md',
 										'transition-all duration-300 ease-out',

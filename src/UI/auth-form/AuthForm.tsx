@@ -25,6 +25,8 @@ import failIcon from '/imgs/webp/fail-icon.webp';
 import successIcon from '/imgs/webp/success-icon.webp';
 import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
 import { ImageForm } from '../image-form/ImageForm';
+import { useLoginWithGoogle } from '../../hooks/useGoogleLogin';
+import { FcGoogle } from 'react-icons/fc';
 
 /* --- Types --- */
 type TextConfig = {
@@ -67,6 +69,7 @@ type Props<T extends FieldValues> = {
 export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIcon, textConfig, href, type, validate }: Props<T>) => {
 	const { title, btnText, inputs, linkDescription, linkText } = textConfig;
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onInvalid } = formHook;
+	const { handleLogin } = useLoginWithGoogle();
 
 	const navigate = useNavigate();
 
@@ -163,6 +166,24 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 				</BgGradient>
 			</div>
 
+			{type === 'login' && (
+				<div className={cn('flex flex-col items-center justify-center text-[var(--white)]', 'mt-3', 'gap-3')}>
+					<p className="italic text-xl sm:text-2xl">or</p>
+
+					<button
+						className={cn(
+							'flex items-center cursor-pointer italic bg-black/40 rounded-3xl shadow-[0_0_3px_transparent] hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out',
+							'px-6 sm:px-10 py-2',
+							'sm:text-lg',
+							'gap-2'
+						)}
+						onClick={() => handleLogin()}
+					>
+						<FcGoogle className="relative bottom-[1px] w-4.5 h-4.5 sm:w-5 sm:h-5" /> Continue with Google
+					</button>
+				</div>
+			)}
+
 			<div className="flex flex-col items-center mt-6 sm:mt-8">
 				<span className="block h-[1px] w-[80%] bg-white/20" />
 
@@ -177,7 +198,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 					classNames={{
 						button: cn(
 							'text-lg sm:text-xl',
-							'text-white shadow-sm shadow-white w-full rounded-3xl',
+							'text-white shadow-sm shadow-white w-full rounded-3xl bg-black/30',
 							'focus-visible:shadow-md',
 							'hover:shadow-md',
 							'transition-all duration-300 ease-out',
