@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 import { useResize } from '../../../../hooks/useResize';
 
 /* --- Types --- */
-type Offset = { left: number; top: number; width: number; height: number };
+type Offset = { left: number; top: number | string; width: number; height: number };
 
 /* --- useLegalNav Hook --- */
 export const useLegalNav = () => {
@@ -14,16 +14,16 @@ export const useLegalNav = () => {
 	const prevRoute = useAppSelector(state => state.prevRoute.previous);
 	const pathName = useLocation().pathname;
 	const links = [
-		{ link: termsRoute, text: 'Terms of Service' },
-		{ link: privateRoute, text: 'Privacy Policy' },
+		{ link: termsRoute, text: 'Terms of Service', type: 'text' },
+		{ link: privateRoute, text: 'Privacy Policy', type: 'text' },
+		{ link: prevRoute, text: '', type: 'img' },
 	];
 	const [isReady, setIsReady] = useState(false);
 	const [currentLink, setCurrentLink] = useState(links.map(({ link }) => link === pathName).indexOf(true));
-	const [isOpen, setOpen] = useState(false);
-	const isMobile = width <= 640;
+	const isMobile = width < 768;
 
 	const [offset, setOffset] = useState<Offset>({ left: 0, top: 0, width: 0, height: 0 });
-	const refs = useRef<(HTMLDivElement | null)[]>([]);
+	const refs = useRef<(HTMLLIElement | null)[]>([]);
 
 	const compute = (i: number, side: 'left' | 'top') => {
 		let sum = 0;
@@ -51,14 +51,10 @@ export const useLegalNav = () => {
 
 		setOffset({
 			left: side === 'left' ? compute(i, 'left') : 0,
-			top: side === 'top' ? compute(i, 'top') : 0,
+			top: side === 'top' ? compute(i, 'top') : 'unset',
 			width: rect.width,
 			height: rect.height,
 		});
-	};
-
-	const handleOpenMenu = () => {
-		setOpen(prev => !prev);
 	};
 
 	useEffect(() => {
@@ -70,11 +66,11 @@ export const useLegalNav = () => {
 
 		setOffset({
 			left: side === 'left' ? compute(currentLink, 'left') : 0,
-			top: side === 'top' ? compute(currentLink, 'top') : 0,
+			top: side === 'top' ? compute(currentLink, 'top') : 'unset',
 			width: rect.width,
 			height: rect.height,
 		});
 	}, [refs, setOffset, currentLink, width, isMobile]);
 
-	return { prevRoute, links, handleClick, offset, refs, isReady, handleOpenMenu, isOpen, isMobile };
+	return { prevRoute, links, handleClick, offset, refs, isReady, isMobile };
 };
