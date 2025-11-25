@@ -27,6 +27,8 @@ import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
 import { ImageForm } from '../image-form/ImageForm';
 import { useLoginWithGoogle } from '../../hooks/useGoogleLogin';
 import { FcGoogle } from 'react-icons/fc';
+import showPasswordIcon from '/imgs/webp/show-password-eye.webp';
+import { useShowPassword } from './hooks/useShowPassword';
 
 /* --- Types --- */
 type TextConfig = {
@@ -69,6 +71,7 @@ type Props<T extends FieldValues> = {
 export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIcon, textConfig, href, type, validate }: Props<T>) => {
 	const { title, btnText, inputs, linkDescription, linkText } = textConfig;
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onInvalid } = formHook;
+	const { isPasswordVisible, setPasswordType } = useShowPassword();
 	const { handleLogin } = useLoginWithGoogle();
 
 	const navigate = useNavigate();
@@ -96,7 +99,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 			</TextGradient>
 
 			<div className="space-y-2 sm:space-y-2.5">
-				{dataInputs.map(({ input, name, iconSrc }) => {
+				{dataInputs.map(({ input, name, iconSrc }, i) => {
 					return (
 						<div key={name}>
 							<div className="flex items-center focus-within:bg-black/40 bg-white/5 transition-all duration-300 ease-out rounded-2xl relative w-full">
@@ -104,11 +107,24 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 								<Input
 									{...register(name, { ...validate?.[name] })}
 									{...input}
+									type={input.type === 'password' ? (isPasswordVisible[i] ? 'text' : 'password') : input.type}
 									placeholder={inputs?.[name]}
 									required={false}
-									className={cn('pl-11 sm:text-lg sm:placeholder:text-base')}
+									className={cn('px-11 sm:text-lg sm:placeholder:text-base')}
 									id={name}
 								/>
+
+								{input.type === 'password' && (
+									<Button type="button" classNames={{ button: cn('absolute right-2 z-2') }} onClick={() => setPasswordType(i)}>
+										<ImageComp
+											imgAttr={{
+												src: showPasswordIcon,
+												className: cn('max-w-10 h-auto object-cover'),
+											}}
+											className={cn('w-8 h-8')}
+										/>
+									</Button>
+								)}
 							</div>
 
 							{type === 'register' && (
