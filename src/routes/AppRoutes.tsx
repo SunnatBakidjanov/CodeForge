@@ -12,6 +12,13 @@ import { LegalLayout } from '../UI/layout/legal-layout/LegalLayout';
 import { PrivatePolityPage } from '../pages/private-policy-page/PrivatePolicyPage';
 import { TermsServicePage } from '../pages/terms-service-page/TermsServicePage';
 import { LandingPage } from '../pages/landing-page/LandingPage';
+import { lazy, Suspense } from 'react';
+import { PageLoader } from '../UI/loaders/page-loader/PageLoader';
+
+/* --- Lazy Imports --- */
+const LazyAuthLayout = lazy(() => import('../UI/layout/auth-layout/AuthLayout').then(module => ({ default: module.AuthLayout })));
+const LazyLegalLayout = lazy(() => import('../UI/layout/legal-layout/LegalLayout').then(module => ({ default: module.LegalLayout })));
+const LazyMainPageLayout = lazy(() => import('../UI/layout/main-page-layout/MainPageLayout').then(module => ({ default: module.MainPageLayout })));
 
 /* --- AppRoutes Component --- */
 // This component manages the routing for the application.
@@ -23,19 +30,38 @@ export const AppRoutes = () => {
 					<Route path="/" element={<Navigate to={'/landing'} replace />} />
 
 					<Route element={<CheckGuest />}>
-						<Route element={<MainPageLayout />}>
+						<Route
+							element={
+								<Suspense fallback={<PageLoader />}>
+									<LazyMainPageLayout />
+								</Suspense>
+							}
+						>
 							<Route path="/landing" element={<LandingPage />} />
 						</Route>
 					</Route>
 
-					<Route element={<AuthLayout />}>
+					<Route
+						element={
+							<Suspense fallback={<PageLoader />}>
+								<LazyAuthLayout />
+							</Suspense>
+						}
+					>
 						<Route path="register" element={<RegisterPage />} />
 						<Route path="login" element={<LoginPage />} />
 					</Route>
 					<Route path="*" element={<NotFoundPage />} />
 				</Route>
 
-				<Route path="/legal" element={<LegalLayout />}>
+				<Route
+					path="/legal"
+					element={
+						<Suspense fallback={<PageLoader />}>
+							<LazyLegalLayout />
+						</Suspense>
+					}
+				>
 					<Route path="privacy-policy" element={<PrivatePolityPage />} />
 					<Route path="terms-of-service" element={<TermsServicePage />} />
 				</Route>
