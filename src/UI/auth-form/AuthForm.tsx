@@ -115,13 +115,29 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 								/>
 
 								{input.type === 'password' && (
-									<Button type="button" classNames={{ button: cn('absolute right-2 z-2') }} onClick={() => setPasswordType(i)}>
+									<Button
+										type="button"
+										classNames={{
+											button: cn(
+												'rounded-3xl p-1 absolute right-1 z-2 shadow-sm focus-visible:shadow-orange-500/80',
+												'transition-all duration-300 ease-out'
+											),
+											children: 'flex items-center justify-center',
+										}}
+										onClick={() => setPasswordType(i)}
+									>
 										<ImageComp
 											imgAttr={{
 												src: showPasswordIcon,
 												className: cn('max-w-10 h-auto object-cover'),
 											}}
 											className={cn('w-8 h-8')}
+										/>
+										<span
+											className={cn(
+												'absolute rotate-45 block w-full h-1 shadow-2xs shadow-amber-500/60 bg-[var(--blue-black)]/60',
+												isPasswordVisible[i] ? 'w-0' : 'w-full'
+											)}
 										/>
 									</Button>
 								)}

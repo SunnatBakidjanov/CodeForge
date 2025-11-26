@@ -5,7 +5,7 @@ import { cn } from '../../../utils/cn';
 type Props = {
 	isBlink?: boolean;
 	isBlur?: boolean;
-	classNames?: { [key in 'button' | 'blik']?: string };
+	classNames?: { [key in 'button' | 'blik' | 'children']?: string };
 	children?: React.ReactNode;
 } & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className'>;
 
@@ -24,7 +24,7 @@ export const Button = ({ isBlink, classNames, children, ...rest }: Props) => {
 					)}
 				/>
 			)}
-			<span className="relative z-[2]">{children}</span>
+			<span className={cn('relative z-[2]', classNames?.children)}>{children}</span>
 		</button>
 	);
 };
