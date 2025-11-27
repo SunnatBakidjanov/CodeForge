@@ -48,7 +48,7 @@ export const LegalNav = ({ isOpen, tabIndex }: Props) => {
 										onClick={() => handleClick(i)}
 										className={cn(
 											'relative group rounded-3xl font-bold block shadow-[0_0_2px_transparent] bg-black/60 focus-visible:shadow-[0_0_2px_white] hover:shadow-[0_0_2px_white] transition-shadow duration-300 ease-out text-center',
-											'px-8 lg:px-10 py-2.5',
+											'px-8 lg:px-10 py-2 lg:py-2',
 											'text-sm lg:text-base whitespace-nowrap'
 										)}
 										tabIndex={typeof tabIndex === 'number' ? 0 : isOpen ? 0 : -1}
@@ -56,7 +56,7 @@ export const LegalNav = ({ isOpen, tabIndex }: Props) => {
 										{text}
 										<BgBlur
 											blurColor={'reactBlue'}
-											className="h-1/3 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-400 ease-out bg-[var(--react-blue)]/80
+											className="h-1/2 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-400 ease-out bg-[var(--react-blue)]/80
 										"
 										/>
 									</Link>
@@ -76,7 +76,7 @@ export const LegalNav = ({ isOpen, tabIndex }: Props) => {
 												src: backIcon,
 												className: 'max-w-12 lg:max-w-14 h-auto object-cover',
 											}}
-											className="h-9 w-9 lg:h-10 lg:w-10"
+											className="h-8.5 w-8.5 py-0.5 lg:py-0 lg:h-9.5 lg:w-9.5"
 										/>
 										<BgBlur
 											blurColor={'reactBlue'}

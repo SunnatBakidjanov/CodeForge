@@ -9,11 +9,12 @@ export type Props = {
 	loader?: LoaderProps;
 	isHasLoader?: boolean;
 	className?: string;
+	children?: React.ReactNode;
 };
 
 /* --- ImageComp Component --- */
 // This component represents an image with a loading spinner.
-export const ImageComp = ({ className, loader, imgAttr, isHasLoader = true }: Props) => {
+export const ImageComp = ({ className, loader, imgAttr, children, isHasLoader = true }: Props) => {
 	const [isLoaded, setLoaded] = useState({});
 
 	return (
@@ -23,11 +24,14 @@ export const ImageComp = ({ className, loader, imgAttr, isHasLoader = true }: Pr
 					<InfinitySpinLoader {...loader} />
 				</div>
 			) : (
-				<img
-					{...imgAttr}
-					onLoad={() => setLoaded(true)}
-					className={cn('transition-all duration-700 ease-out transform', imgAttr?.className)}
-				/>
+				<>
+					<img
+						{...imgAttr}
+						onLoad={() => setLoaded(true)}
+						className={cn('transition-all duration-700 ease-out transform', imgAttr?.className)}
+					/>
+					{children}
+				</>
 			)}
 		</div>
 	);

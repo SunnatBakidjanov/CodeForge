@@ -23,7 +23,7 @@ export const useEmbers = ({ count = 15, screenHeight = 80 }: Options = {}) => {
 	useEffect(() => {
 		const newEmbers = Array.from({ length: count }).map((_, i) => ({
 			id: i,
-			left: 2 + Math.random() * 96, // от 2 до 98%
+			left: Math.min(99, Math.max(1, 2 + (i / (count - 1)) * 96 + (Math.random() * 10 - 5))), // распределение по ширине с небольшим рандомом
 			delay: Math.random() * 5, // случайная задержка старта
 			duration: 8 + Math.random() * 8, // 8–16 секунд
 			offsetX: (Math.random() - 0.5) * 80, // колебание по X (примерно ±40%)

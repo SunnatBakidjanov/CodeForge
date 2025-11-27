@@ -10,7 +10,7 @@ import { PrivatePolityPage } from '../pages/private-policy-page/PrivatePolicyPag
 import { TermsServicePage } from '../pages/terms-service-page/TermsServicePage';
 import { LandingPage } from '../pages/landing-page/LandingPage';
 import { lazy, Suspense } from 'react';
-import { PageLoader } from '../UI/loaders/page-loader/PageLoader';
+import { GlobalLoader } from '../UI/loaders/global-loader/GlobalLoader';
 
 /* --- Lazy Imports --- */
 const LazyAuthLayout = lazy(() => import('../UI/layout/auth-layout/AuthLayout').then(module => ({ default: module.AuthLayout })));
@@ -29,7 +29,7 @@ export const AppRoutes = () => {
 					<Route element={<CheckGuest />}>
 						<Route
 							element={
-								<Suspense fallback={<PageLoader />}>
+								<Suspense fallback={<GlobalLoader />}>
 									<LazyMainPageLayout />
 								</Suspense>
 							}
@@ -40,7 +40,7 @@ export const AppRoutes = () => {
 
 					<Route
 						element={
-							<Suspense fallback={<PageLoader />}>
+							<Suspense fallback={<GlobalLoader />}>
 								<LazyAuthLayout />
 							</Suspense>
 						}
@@ -55,7 +55,7 @@ export const AppRoutes = () => {
 				<Route
 					path="/legal"
 					element={
-						<Suspense fallback={<PageLoader />}>
+						<Suspense fallback={<GlobalLoader />}>
 							<LazyLegalLayout />
 						</Suspense>
 					}
