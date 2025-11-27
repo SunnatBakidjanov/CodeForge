@@ -1,13 +1,13 @@
 /* --- Imports --- */
-import { useApiForm } from '../../../../../../../hooks/useApiForm';
+import { useApiForm } from '../../../../../hooks/useApiForm';
 import emailIcon from '/imgs/webp/email-icon.webp';
 import userIcon from '/imgs/webp/user-icon.webp';
 import messageIcon from '/imgs/webp/message-icon.webp';
-import type { Props as InputProps } from '../../../../../../../UI/inputs/input/Input';
-import type { Props as TextareaProps } from '../../../../../../../UI/inputs/textarea/Textarea';
+import type { Props as InputProps } from '../../../../../UI/inputs/input/Input';
+import type { Props as TextareaProps } from '../../../../../UI/inputs/textarea/Textarea';
 import type { FieldErrors } from 'react-hook-form';
-import { sendMailUrl } from '../../../../../../../utils/urls';
-import { forgeCooldown } from '../../../../../../../utils/forgeCooldown';
+import { sendMailUrl } from '../../../../../utils/urls';
+import { forgeCooldown } from '../../../../../utils/forgeCooldown';
 
 /* --- Types --- */
 export type FieldData =

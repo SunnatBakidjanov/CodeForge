@@ -1,19 +1,19 @@
 /* --- Imports --- */
-import { BgBlur } from '../../../../../../UI/backgrounds/bg-blur/BgBlur';
-import { TextGradient } from '../../../../../../UI/gradients/text-gradient/TextGradietn';
-import { ImageComp } from '../../../../../../UI/image-comp/ImageComp';
-import { Input } from '../../../../../../UI/inputs/input/Input';
-import { Textarea } from '../../../../../../UI/inputs/textarea/Textarea';
-import { cn } from '../../../../../../utils/cn';
-import { Form } from '../../../../../../UI/form/Form';
-import { TextLength } from '../../../../../../UI/text-length/TextLength';
-import { ImageForm } from '../../../../../../UI/image-form/ImageForm';
+import { BgBlur } from '../../../../UI/backgrounds/bg-blur/BgBlur';
+import { TextGradient } from '../../../../UI/gradients/text-gradient/TextGradietn';
+import { ImageComp } from '../../../../UI/image-comp/ImageComp';
+import { Input } from '../../../../UI/inputs/input/Input';
+import { Textarea } from '../../../../UI/inputs/textarea/Textarea';
+import { cn } from '../../../../utils/cn';
+import { Form } from '../../../../UI/form/Form';
+import { TextLength } from '../../../../UI/text-length/TextLength';
+import { ImageForm } from '../../../../UI/image-form/ImageForm';
 import successIcon from '/imgs/webp/success-icon.webp';
 import failIcon from '/imgs/webp/fail-icon.webp';
 import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
-import { BgGradient } from '../../../../../../UI/gradients/bg-gradient/BgGradient';
-import { DottedLoader } from '../../../../../../UI/loaders/dotted-loader/DottedLoader';
-import { Button } from '../../../../../../UI/btns/button/Button';
+import { BgGradient } from '../../../../UI/gradients/bg-gradient/BgGradient';
+import { DottedLoader } from '../../../../UI/loaders/dotted-loader/DottedLoader';
+import { Button } from '../../../../UI/btns/button/Button';
 import { useLandingForm } from './hooks/useLandingForm';
 import type { FormValues } from './hooks/useLandingForm';
 
