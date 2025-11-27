@@ -25,7 +25,7 @@ import failIcon from '/imgs/webp/fail-icon.webp';
 import successIcon from '/imgs/webp/success-icon.webp';
 import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
 import { ImageForm } from '../image-form/ImageForm';
-import { useLoginWithGoogle } from '../../hooks/useGoogleLogin';
+import { useLoginWithGoogle } from './hooks/useGoogleLogin';
 import { FcGoogle } from 'react-icons/fc';
 import showPasswordIcon from '/imgs/webp/show-password-eye.webp';
 import { useShowPassword } from './hooks/useShowPassword';
