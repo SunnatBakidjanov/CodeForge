@@ -5,7 +5,7 @@ import axios, { type AxiosError } from 'axios';
 import { apiUrl } from '../utils/urls';
 
 /* --- Types --- */
-export type ErrorType = {
+export type ResType = {
 	type?: 'error' | 'success' | 'waiting';
 	message?: string;
 };
@@ -15,13 +15,13 @@ type Arguments<T extends FieldValues> = {
 	apiHref: string;
 	errorsMessage?: {
 		[key in 400 | 429 | 500 | 'default' | 'success']?: {
-			type?: ErrorType['type'];
+			type?: ResType['type'];
 			message?: string;
 		};
 	};
 	customErrors?: {
 		[key: number]: {
-			type?: ErrorType['type'];
+			type?: ResType['type'];
 			message: string;
 		};
 	};
@@ -42,7 +42,7 @@ export const useApiForm = <T extends FieldValues>({
 	onError,
 }: Arguments<T>) => {
 	const [isLoading, setLoading] = useState(false);
-	const [resMessage, setResMessage] = useState<ErrorType>({});
+	const [resMessage, setResMessage] = useState<ResType>({});
 
 	const { register, handleSubmit, watch, reset } = useForm<T>({
 		mode: 'onSubmit',

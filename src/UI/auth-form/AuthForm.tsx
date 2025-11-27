@@ -20,7 +20,7 @@ import type {
 	RegisterOptions,
 } from 'react-hook-form';
 import { TextLength } from '../text-length/TextLength';
-import type { ErrorType } from '../../hooks/useApiForm';
+import type { ResType } from '../../hooks/useApiForm';
 import failIcon from '/imgs/webp/fail-icon.webp';
 import successIcon from '/imgs/webp/success-icon.webp';
 import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
@@ -53,7 +53,7 @@ type FormHook<T extends FieldValues> = {
 	register: UseFormRegister<T>;
 	watch: UseFormWatch<T>;
 	isLoading: boolean;
-	resMessage: ErrorType;
+	resMessage: ResType;
 };
 
 type Props<T extends FieldValues> = {

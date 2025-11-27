@@ -36,7 +36,7 @@ export const LandingForm = () => {
 								<ImageComp
 									imgAttr={{
 										src: field.iconSrc,
-										className: cn('relative bottom-[1px]', field.name === 'message' && 'rotate-y-180'),
+										className: cn('relative bottom-[1px]'),
 									}}
 									className="w-7 h-7 lg:w-8 lg:h-8 overflow-hidden"
 								/>
