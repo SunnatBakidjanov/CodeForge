@@ -2,6 +2,7 @@
 import axios, { AxiosError, type AxiosRequestConfig } from 'axios';
 import { store } from '../redux/store';
 import { setAccessToken } from '../redux/access-slice/slice';
+import { refreshUrl } from '../utils/urls';
 
 /* --- Types --- */
 type ResData = {
@@ -30,7 +31,7 @@ axiosPrivate.interceptors.response.use(
 			originalReguest._retry = true;
 
 			try {
-				const res = await axios.get<ResData>('/refresh', { withCredentials: true });
+				const res = await axios.get<ResData>(refreshUrl, { withCredentials: true });
 				store.dispatch(setAccessToken(res.data?.accessToken));
 
 				originalReguest.headers = {
