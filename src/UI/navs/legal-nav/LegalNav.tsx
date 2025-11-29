@@ -30,7 +30,7 @@ export const LegalNav = ({ isOpen, tabIndex }: Props) => {
 							height: offset.height,
 						}}
 					>
-						<BgBlur blurColor={'reactBlue'} className="w-1/2 h-1/2" />
+						<BgBlur blurColor={'reactBlue'} />
 					</motion.span>
 
 					{links.map(({ link, text, type }, i) => {

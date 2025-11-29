@@ -14,6 +14,7 @@ export const useLoginForm = () => {
 			401: { type: 'error', message: 'The Forge doesn’t open for you.' },
 		},
 		apiHref: loginUrl,
+		isPrivateCheck: true,
 	});
 
 	const onInvalid = (error: FieldErrors<FormValues>) => {

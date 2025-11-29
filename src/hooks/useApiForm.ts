@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useForm, type DefaultValues, type FieldValues, type SubmitHandler } from 'react-hook-form';
 import axios, { type AxiosError } from 'axios';
 import { apiUrl } from '../utils/urls';
+import axiosPrivate from '../api/axiosPrivate';
 
 /* --- Types --- */
 export type ResType = {
@@ -28,6 +29,7 @@ type Arguments<T extends FieldValues> = {
 	setSubmitValues?: () => unknown;
 	onSubmited?: () => unknown;
 	onError?: (error: AxiosError) => unknown;
+	isPrivateCheck?: boolean;
 };
 
 /* --- useApiForm Hook --- */
@@ -40,6 +42,7 @@ export const useApiForm = <T extends FieldValues>({
 	setSubmitValues,
 	onSubmited,
 	onError,
+	isPrivateCheck = false,
 }: Arguments<T>) => {
 	const [isLoading, setLoading] = useState(false);
 	const [resMessage, setResMessage] = useState<ResType>({});
@@ -57,9 +60,11 @@ export const useApiForm = <T extends FieldValues>({
 		setLoading(true);
 
 		try {
-			await axios.post(`${apiUrl}${apiHref}`, data, {
-				withCredentials: true,
-			});
+			if (isPrivateCheck) {
+				await axiosPrivate.post(`${apiUrl}${apiHref}`, data);
+			}
+
+			await axios.post(`${apiUrl}${apiHref}`, data, { withCredentials: true });
 
 			onSubmited?.();
 

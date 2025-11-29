@@ -21,7 +21,7 @@
 /* --- Fonts --- */
 @font-face {
 	font-family: 'Inter Tight', sans-serif;
-	src: url('/public//fonts/inter-tight/InterTight-VariableFont_wght.ttf');
+	src: url('/public/fonts/inter-tight/InterTight-VariableFont_wght.ttf');
 	font-style: normal;
 	font-weight: 400;
 }
@@ -37,7 +37,7 @@
 body {
 	font-family: 'Inter Tight', sans-serif;
 	background: linear-gradient(to bottom, #030712, #101828, #000);
-	background-color: var(--main-background-color);
+	background-color: var(--blue-black);
 }
 
 input:-webkit-autofill {
