@@ -1,16 +1,19 @@
 import { useGoogleLogin } from '@react-oauth/google';
-import { useNavigate } from 'react-router';
+import axios from 'axios';
+import { apiUrl } from '../../../utils/urls';
 
 export const useLoginWithGoogle = () => {
-	const navigate = useNavigate();
-
 	const handleLogin = useGoogleLogin({
-		onSuccess: tokenResponse => {
-			navigate('/');
-			console.log(tokenResponse);
+		onSuccess: async tokenResponse => {
+			try {
+				const res = await axios.post(`${apiUrl}/google-login`, { googleAccessToken: tokenResponse.access_token }, { withCredentials: true });
+				console.log(res.data);
+			} catch (error) {
+				console.error(error);
+			}
 		},
 		onError: error => {
-			console.log(error);
+			console.error(error);
 		},
 	});
 
