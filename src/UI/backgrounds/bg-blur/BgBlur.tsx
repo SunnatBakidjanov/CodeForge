@@ -7,6 +7,7 @@ const cvaStyle = cva('', {
 	variants: {
 		color: {
 			hotOrange: 'bg-[var(--hot-orange)]',
+			blueBlack: 'bg-[var(--blue-black)]',
 			reactBlue: 'bg-[var(--react-blue)]',
 			htmlOrange: 'bg-[var(--html-orange)]',
 			jsYellow: 'bg-[var(--js-yellow)]',
