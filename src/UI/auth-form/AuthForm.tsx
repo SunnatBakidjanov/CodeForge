@@ -199,23 +199,21 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 				</BgGradient>
 			</div>
 
-			{type === 'login' && (
-				<div className={cn('flex flex-col items-center justify-center text-[var(--white)]', 'mt-3', 'gap-3')}>
-					<p className="italic text-xl sm:text-2xl">or</p>
+			<div className={cn('flex flex-col items-center justify-center text-[var(--white)]', 'mt-3', 'gap-3')}>
+				<p className="italic text-xl sm:text-2xl">or</p>
 
-					<button
-						className={cn(
-							'flex items-center cursor-pointer italic bg-black/40 rounded-3xl shadow-[0_0_3px_transparent] hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out',
-							'px-6 sm:px-10 py-2',
-							'sm:text-lg',
-							'gap-2'
-						)}
-						onClick={() => handleLogin()}
-					>
-						<FcGoogle className="relative bottom-[1px] w-4.5 h-4.5 sm:w-5 sm:h-5" /> Continue with Google
-					</button>
-				</div>
-			)}
+				<button
+					className={cn(
+						'flex items-center cursor-pointer italic bg-black/40 rounded-3xl shadow-[0_0_3px_transparent] hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out',
+						'px-6 sm:px-10 py-2',
+						'sm:text-lg',
+						'gap-2'
+					)}
+					onClick={() => handleLogin()}
+				>
+					<FcGoogle className="relative bottom-[1px] w-4.5 h-4.5 sm:w-5 sm:h-5" /> Continue with Google
+				</button>
+			</div>
 
 			<div className="flex flex-col items-center mt-6 sm:mt-8">
 				<span className="block h-[1px] w-[80%] bg-white/20" />
