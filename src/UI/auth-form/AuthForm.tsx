@@ -25,10 +25,10 @@ import failIcon from '/imgs/webp/fail-icon.webp';
 import successIcon from '/imgs/webp/success-icon.webp';
 import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
 import { ImageForm } from '../image-form/ImageForm';
-import { useLoginWithGoogle } from './hooks/useGoogleLogin';
-import { FcGoogle } from 'react-icons/fc';
+import { useLoginWithSocial } from './hooks/useLoginWithSocial';
 import showPasswordIcon from '/imgs/webp/show-password-eye.webp';
 import { useShowPassword } from './hooks/useShowPassword';
+import { socialBtns } from './form-config/socialBtns.config';
 
 /* --- Types --- */
 type TextConfig = {
@@ -72,7 +72,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 	const { title, btnText, inputs, linkDescription, linkText } = textConfig;
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onInvalid } = formHook;
 	const { isPasswordVisible, setPasswordType } = useShowPassword();
-	const { handleLogin } = useLoginWithGoogle();
+	const { handleSocialLogin } = useLoginWithSocial();
 
 	const navigate = useNavigate();
 
@@ -202,17 +202,24 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 			<div className={cn('flex flex-col items-center justify-center text-[var(--white)]', 'mt-3', 'gap-3')}>
 				<p className="italic text-xl sm:text-2xl">or</p>
 
-				<button
-					className={cn(
-						'flex items-center cursor-pointer italic bg-black/40 rounded-3xl shadow-[0_0_3px_transparent] hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out',
-						'px-6 sm:px-10 py-2',
-						'sm:text-lg',
-						'gap-2'
-					)}
-					onClick={() => handleLogin()}
-				>
-					<FcGoogle className="relative bottom-[1px] w-4.5 h-4.5 sm:w-5 sm:h-5" /> Continue with Google
-				</button>
+				<div className="flex items-center justify-center gap-2">
+					{socialBtns.map(({ Icon, text, type }, i) => {
+						return (
+							<button
+								key={i}
+								className={cn(
+									'flex items-center cursor-pointer italic bg-black/40 rounded-3xl shadow-[0_0_3px_transparent] hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out',
+									'px-6 sm:px-10 py-2',
+									'sm:text-lg',
+									'gap-2'
+								)}
+								onClick={() => handleSocialLogin(type)}
+							>
+								<Icon className="relative bottom-[1px] w-4.5 h-4.5 sm:w-5 sm:h-5" /> {text}
+							</button>
+						);
+					})}
+				</div>
 			</div>
 
 			<div className="flex flex-col items-center mt-6 sm:mt-8">

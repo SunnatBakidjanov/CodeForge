@@ -4,6 +4,7 @@ export const registerUrl = import.meta.env.VITE_APP_REGISTER_URL;
 export const loginUrl = import.meta.env.VITE_APP_LOGIN_URL;
 export const guestUrl = import.meta.env.VITE_APP_GUEST_URL;
 export const refreshUrl = import.meta.env.VITE_APP_REFRESH_URL;
+export const githubUrl = import.meta.env.VITE_APP_GITHUB_URL;
 
 export const loginRoute = '/login';
 export const registerRoute = '/register';
