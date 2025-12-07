@@ -119,7 +119,8 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 										type="button"
 										classNames={{
 											button: cn(
-												'rounded-3xl p-1 absolute right-1 z-2 shadow-sm focus-visible:shadow-white',
+												'rounded-3xl p-1 absolute right-1 z-2 shadow-sm',
+												'hover:bg-white/10 focus-visible:bg-white/10',
 												'transition-all duration-300 ease-out'
 											),
 											children: 'flex items-center justify-center',
@@ -207,6 +208,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 						return (
 							<button
 								key={i}
+								type="button"
 								className={cn(
 									'flex items-center cursor-pointer italic bg-black/40 rounded-3xl shadow-[0_0_3px_transparent] hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out',
 									'px-6 sm:px-10 py-2',

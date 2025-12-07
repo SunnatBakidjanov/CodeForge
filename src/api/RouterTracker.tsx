@@ -1,19 +1,17 @@
-/** --- Imports --- */
+/* --- Imports --- */
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { setPrevRoute } from '../redux/prev-route-slice/slice';
 import { useAppDispatch } from '../hooks/useRedux';
 
-/** --- RouterTracker Component --- */
+/* --- RouterTracker Component --- */
 export const RouterTracker = ({ checkRoute }: { checkRoute: string[] }) => {
 	const { pathname } = useLocation();
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		// Если роут входит в запрещённую зону — просто игнорируем
 		if (checkRoute?.includes(pathname)) return;
 
-		// Во всех остальных случаях — сохраняем
 		dispatch(setPrevRoute(pathname));
 	}, [pathname, dispatch, checkRoute]);
 
