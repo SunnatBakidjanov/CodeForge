@@ -3,7 +3,7 @@ import { Form } from '../form/Form';
 import { Input, type Props as InputProps } from '../inputs/input/Input';
 import { BgBlur } from '../backgrounds/bg-blur/BgBlur';
 import { ImageComp } from '../image-comp/ImageComp';
-import { cn } from '../../utils/cn';
+import { cn } from '@/utils/cn';
 import { BgGradient } from '../gradients/bg-gradient/BgGradient';
 import { Button } from '../btns/button/Button';
 import { TextGradient } from '../gradients/text-gradient/TextGradietn';
@@ -213,7 +213,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 									'flex items-center cursor-pointer italic bg-black/40 rounded-3xl shadow-[0_0_3px_transparent] hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out',
 									'px-6 sm:px-10 py-2',
 									'sm:text-lg',
-									'gap-2'
+									'gap-1'
 								)}
 								onClick={() => handleSocialLogin(type)}
 							>

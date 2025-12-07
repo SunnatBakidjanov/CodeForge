@@ -1,12 +1,12 @@
 /* --- Imports --- */
 import { useNavigate } from 'react-router';
-import { TextGradient } from '../../UI/gradients/text-gradient/TextGradietn';
-import { cn } from '../../utils/cn';
-import { MaxWidthContainer } from '../../UI/containers/max-width-container/MaxWidthContainer';
-import { BgGradient } from '../../UI/gradients/bg-gradient/BgGradient';
-import { Button } from '../../UI/btns/button/Button';
+import { TextGradient } from '@/UI/gradients/text-gradient/TextGradietn';
+import { cn } from '@/utils/cn';
+import { MaxWidthContainer } from '@/UI/containers/max-width-container/MaxWidthContainer';
+import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
+import { Button } from '@/UI/btns/button/Button';
 import { notFoundPageConfig } from './page-config/notFound.config';
-import { ImageComp } from '../../UI/image-comp/ImageComp';
+import { ImageComp } from '@/UI/image-comp/ImageComp';
 import brokenAnvilIcon from '/imgs/webp/broken-anvil-icon.webp';
 
 /* --- NotFoundPage component --- */

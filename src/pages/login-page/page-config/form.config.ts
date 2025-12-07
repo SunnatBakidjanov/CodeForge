@@ -2,7 +2,7 @@
 import passwordIcon from '/imgs/webp/password-icon.webp';
 import emailIcon from '/imgs/webp/email-icon.webp';
 import type { Path, RegisterOptions } from 'react-hook-form';
-import type { Props as InputProps } from '../../../UI/inputs/input/Input';
+import type { Props as InputProps } from '@/UI/inputs/input/Input';
 
 /* --- Types --- */
 export type FormValues = {

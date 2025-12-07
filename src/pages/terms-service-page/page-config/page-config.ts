@@ -1,5 +1,5 @@
 /** --- Imports --- */
-import type { PageConfigType } from '../../../UI/legal/Legal';
+import type { PageConfigType } from '@/UI/legal/Legal';
 
 /** --- pageConfig --- */
 export const pageConfig = {

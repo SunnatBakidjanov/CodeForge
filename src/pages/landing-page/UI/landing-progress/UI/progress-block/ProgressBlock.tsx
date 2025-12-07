@@ -1,7 +1,7 @@
 /* --- Imports --- */
-import { BgBlur, type Props as BlurProps } from '../../../../../../UI/backgrounds/bg-blur/BgBlur';
-import { Title } from '../../../../../../UI/title/Title';
-import { cn } from '../../../../../../utils/cn';
+import { BgBlur, type Props as BlurProps } from '@/UI/backgrounds/bg-blur/BgBlur';
+import { Title } from '@/UI/title/Title';
+import { cn } from '@/utils/cn';
 import { ProgressBar, type Props as PropgressProps } from '../progress-bar/ProgressBar';
 
 /* --- Types --- */

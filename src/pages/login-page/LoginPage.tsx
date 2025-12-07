@@ -1,5 +1,5 @@
 /* --- Imports --- */
-import { AuthForm } from '../../UI/auth-form/AuthForm';
+import { AuthForm } from '@/UI/auth-form/AuthForm';
 import loginIcon from '/imgs/webp/login-icon.webp';
 import { lognPageConfig } from './page-config/page.config';
 import { validate, dataInputs, type FormValues } from './page-config/form.config';

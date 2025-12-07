@@ -1,9 +1,9 @@
 /** --- Imports --- */
-import { MaxWidthContainer } from '../../../../UI/containers/max-width-container/MaxWidthContainer';
-import { SectionContainer } from '../../../../UI/containers/section-container/SectionContainer';
-import { ContactSectionConfig } from '../../page-config/landing.config';
-import { LandingTitle } from '../landing-title/LandingTitle';
-import { LandingForm } from '../landing-form/LandingForm';
+import { MaxWidthContainer } from '@/UI/containers/max-width-container/MaxWidthContainer';
+import { SectionContainer } from '@/UI/containers/section-container/SectionContainer';
+import { ContactSectionConfig } from '@landing/page-config/landing.config';
+import { LandingTitle } from '@landing/UI/landing-title/LandingTitle';
+import { LandingForm } from '@landing/UI/landing-form/LandingForm';
 
 /** --- LandingContact Component --- */
 // This component represents the contact section of the landing page.

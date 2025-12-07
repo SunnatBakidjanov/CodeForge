@@ -1,7 +1,7 @@
 /* --- Imports --- */
 import type { FormValues } from '../page-config/form.config';
-import { useApiForm } from '../../../hooks/useApiForm';
-import { loginUrl } from '../../../utils/urls';
+import { useApiForm } from '@/hooks/useApiForm';
+import { loginUrl } from '@/utils/urls';
 import type { FieldErrors } from 'react-hook-form';
 
 /* --- UseLoginForm Hook --- */

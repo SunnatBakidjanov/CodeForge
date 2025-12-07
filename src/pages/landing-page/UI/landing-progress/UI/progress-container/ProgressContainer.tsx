@@ -2,7 +2,7 @@
 import { ProgressBlock, type Props as ProgreeProps } from '../progress-block/ProgressBlock';
 import { FaHtml5, FaReact, FaNodeJs, FaJsSquare, FaCss3Alt } from 'react-icons/fa';
 import { BiLogoTypescript } from 'react-icons/bi';
-import { cn } from '../../../../../../utils/cn';
+import { cn } from '@/utils/cn';
 
 /* --- Progress Data --- */
 const progressData: ProgreeProps[] = [

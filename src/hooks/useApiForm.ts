@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { useForm, type DefaultValues, type FieldValues, type SubmitHandler } from 'react-hook-form';
 import axios, { type AxiosError } from 'axios';
-import { apiUrl } from '../utils/urls';
-import axiosPrivate from '../api/axiosPrivate';
+import { apiUrl } from '@/utils/urls';
+import axiosPrivate from '@/api/axiosPrivate';
 
 /* --- Types --- */
 export type ResType = {

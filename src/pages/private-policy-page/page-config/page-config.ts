@@ -1,4 +1,4 @@
-import type { PageConfigType } from '../../../UI/legal/Legal';
+import type { PageConfigType } from '@/UI/legal/Legal';
 
 export const pageConfig = {
 	hideTitle: 'CodeForge Private Policy',

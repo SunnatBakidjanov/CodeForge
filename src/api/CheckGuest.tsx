@@ -12,7 +12,7 @@ export const CheckGuest = () => {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		const guestId = document.cookie.split('=')[1];
+		const guestId = document.cookie.includes('CFG');
 
 		if (guestId) return;
 

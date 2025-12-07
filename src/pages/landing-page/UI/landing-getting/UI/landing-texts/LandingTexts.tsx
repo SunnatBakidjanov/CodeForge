@@ -1,6 +1,6 @@
 /* --- Imports --- */
-import { TextSlider } from '../../../../../../UI/text-slider/TextSlider';
-import { cn } from '../../../../../../utils/cn';
+import { TextSlider } from '@/UI/text-slider/TextSlider';
+import { cn } from '@/utils/cn';
 
 /* --- LandingTexts Component --- */
 // This component displays a slider with various landing page texts.

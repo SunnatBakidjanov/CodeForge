@@ -1,9 +1,9 @@
 /** --- Imports --- */
-import { ImageComp } from '../../../../../../UI/image-comp/ImageComp';
-import { cn } from '../../../../../../utils/cn';
+import { ImageComp } from '@/UI/image-comp/ImageComp';
+import { cn } from '@/utils/cn';
 import hammerAndAnvilImg from '/imgs/webp/hammer-and-anvil.webp';
 import styles from './index.module.css';
-import { BgBlur } from '../../../../../../UI/backgrounds/bg-blur/BgBlur';
+import { BgBlur } from '@/UI/backgrounds/bg-blur/BgBlur';
 
 /* --- Side Component --- */
 // This component represents a side of the coub.

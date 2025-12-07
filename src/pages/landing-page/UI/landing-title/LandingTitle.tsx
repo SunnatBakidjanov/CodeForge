@@ -1,8 +1,8 @@
 /* --- Import --- */
-import { TextGradient } from '../../../../UI/gradients/text-gradient/TextGradietn';
-import { Title } from '../../../../UI/title/Title';
-import { BgBlur } from '../../../../UI/backgrounds/bg-blur/BgBlur';
-import { cn } from '../../../../utils/cn';
+import { TextGradient } from '@/UI/gradients/text-gradient/TextGradietn';
+import { Title } from '@/UI/title/Title';
+import { BgBlur } from '@/UI/backgrounds/bg-blur/BgBlur';
+import { cn } from '@/utils/cn';
 
 /* --- Types --- */
 type Props = {

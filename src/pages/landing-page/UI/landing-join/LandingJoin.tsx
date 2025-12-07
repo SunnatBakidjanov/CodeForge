@@ -1,17 +1,19 @@
+/* --- Imports --- */
 import { useNavigate } from 'react-router';
-import { Button } from '../../../../UI/btns/button/Button';
-import { MaxWidthContainer } from '../../../../UI/containers/max-width-container/MaxWidthContainer';
-import { SectionContainer } from '../../../../UI/containers/section-container/SectionContainer';
-import { BgGradient } from '../../../../UI/gradients/bg-gradient/BgGradient';
-import { TextGradient } from '../../../../UI/gradients/text-gradient/TextGradietn';
-import { ImageComp } from '../../../../UI/image-comp/ImageComp';
-import { cn } from '../../../../utils/cn';
-import { JoinSectionConfig } from '../../page-config/landing.config';
+import { Button } from '@/UI/btns/button/Button';
+import { MaxWidthContainer } from '@/UI/containers/max-width-container/MaxWidthContainer';
+import { SectionContainer } from '@/UI/containers/section-container/SectionContainer';
+import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
+import { TextGradient } from '@/UI/gradients/text-gradient/TextGradietn';
+import { ImageComp } from '@/UI/image-comp/ImageComp';
+import { cn } from '@/utils/cn';
+import { JoinSectionConfig } from '@landing/page-config/landing.config';
 import { LandingTitle } from '../landing-title/LandingTitle';
 import hammerAndAnvil from '/imgs/webp/hammer-and-anvil-2.webp';
 import { LandingContainer } from '../landing-container/LandingContainer';
 import { LandingParagraph } from '../landing-paragraph/LandingParagraph';
 
+/** --- LandingJoin Component --- */
 export const LandingJoin = () => {
 	const { title, description, joinDescription, btn } = JoinSectionConfig;
 	const navigate = useNavigate();

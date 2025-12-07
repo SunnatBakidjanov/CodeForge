@@ -1,6 +1,6 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { apiUrl, githubUrl } from '../../../utils/urls';
+import { apiUrl, githubUrl } from '@/utils/urls';
 
 export const useLoginWithSocial = () => {
 	const googleLogin = useGoogleLogin({

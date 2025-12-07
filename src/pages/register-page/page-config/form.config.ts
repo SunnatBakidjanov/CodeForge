@@ -3,7 +3,7 @@ import userIcon from '/imgs/webp/user-icon.webp';
 import emailIcon from '/imgs/webp/email-icon.webp';
 import passwordIcon from '/imgs/webp/password-icon.webp';
 import confirmPasswordIcon from '/imgs/webp/confirm-password-icon.webp';
-import type { Props as InputProps } from '../../../UI/inputs/input/Input';
+import type { Props as InputProps } from '@/UI/inputs/input/Input';
 import type { Path, RegisterOptions } from 'react-hook-form';
 
 /** --- Types --- */
