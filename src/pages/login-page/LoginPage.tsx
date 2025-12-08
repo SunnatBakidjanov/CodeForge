@@ -4,6 +4,7 @@ import loginIcon from '/imgs/webp/login-icon.webp';
 import { lognPageConfig } from './page-config/page.config';
 import { validate, dataInputs, type FormValues } from './page-config/form.config';
 import { useLoginForm } from './hooks/useLoginForm';
+import { registerRoute } from '@/utils/urls';
 
 /* --- LoginPage Component --- */
 // This component represents the login page of the application.
@@ -18,7 +19,7 @@ export const LoginPage = () => {
 			titleIcon={loginIcon}
 			textConfig={lognPageConfig}
 			validate={validate}
-			href={'/register'}
+			href={registerRoute}
 		/>
 	);
 };

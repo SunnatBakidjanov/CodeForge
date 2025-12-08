@@ -3,12 +3,14 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import guestSlice from './guest-slice/slice';
 import prevRouteSlice from './prev-route-slice/slice';
 import accessSlices from './access-slice/slice';
+import userSlice from './user-slice/slice';
 
 /* --- Store --- */
 const rootReducer = combineReducers({
 	[guestSlice.name]: guestSlice.reducer,
 	[prevRouteSlice.name]: prevRouteSlice.reducer,
 	[accessSlices.name]: accessSlices.reducer,
+	[userSlice.name]: userSlice.reducer,
 });
 
 export const store = configureStore({

@@ -4,6 +4,7 @@ import registerIcon from '/imgs/webp/register-icon.webp';
 import { registerFormConfig } from './page-config/page.config';
 import { dataInputs, validate, type FormValues } from './page-config/form.config';
 import { useRegisterForm } from './hooks/useRegiterForm';
+import { loginRoute } from '@/utils/urls';
 
 /* --- RegisterPage Component --- */
 // This component represents the register page of the application.
@@ -18,7 +19,7 @@ export const RegisterPage = () => {
 			titleIcon={registerIcon}
 			textConfig={registerFormConfig}
 			validate={validate}
-			href={'/login'}
+			href={loginRoute}
 		/>
 	);
 };

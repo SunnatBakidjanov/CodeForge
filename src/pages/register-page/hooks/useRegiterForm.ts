@@ -35,5 +35,5 @@ export const useRegisterForm = () => {
 		}
 	};
 
-	return { onInvalid, handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage };
+	return { onInvalid, handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage };
 };

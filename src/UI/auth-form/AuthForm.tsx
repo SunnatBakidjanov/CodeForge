@@ -54,6 +54,7 @@ type FormHook<T extends FieldValues> = {
 	watch: UseFormWatch<T>;
 	isLoading: boolean;
 	resMessage: ResType;
+	setResMessage: (value: React.SetStateAction<ResType>) => void;
 };
 
 type Props<T extends FieldValues> = {
@@ -70,10 +71,9 @@ type Props<T extends FieldValues> = {
 // This component represents the auth form for the application.
 export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIcon, textConfig, href, type, validate }: Props<T>) => {
 	const { title, btnText, inputs, linkDescription, linkText } = textConfig;
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, onInvalid } = formHook;
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid } = formHook;
 	const { isPasswordVisible, setPasswordType } = useShowPassword();
-	const { handleSocialLogin } = useLoginWithSocial();
-
+	const { handleSocialLogin } = useLoginWithSocial({ setResMessage });
 	const navigate = useNavigate();
 
 	return (
@@ -172,7 +172,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 					)}
 				>
 					<div className={resMessage?.type ? 'flex items-center justify-center flex-wrap gap-1' : 'hidden'}>
-						<p>{resMessage?.message}</p>
+						{resMessage?.message && <p>{resMessage?.message}</p>}
 
 						{resMessage?.type === 'error' ? (
 							<ImageForm src={failIcon} />

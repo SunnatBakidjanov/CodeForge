@@ -1,7 +1,7 @@
 /* --- Imports --- */
 import { useState } from 'react';
 import { useForm, type DefaultValues, type FieldValues, type SubmitHandler } from 'react-hook-form';
-import axios, { type AxiosError } from 'axios';
+import axios, { type AxiosError, type AxiosResponse } from 'axios';
 import { apiUrl } from '@/utils/urls';
 import axiosPrivate from '@/api/axiosPrivate';
 
@@ -11,7 +11,7 @@ export type ResType = {
 	message?: string;
 };
 
-type Arguments<T extends FieldValues> = {
+type Arguments<T extends FieldValues, R> = {
 	defaultValues?: DefaultValues<T>;
 	apiHref: string;
 	errorsMessage?: {
@@ -27,14 +27,14 @@ type Arguments<T extends FieldValues> = {
 		};
 	};
 	setSubmitValues?: () => unknown;
-	onSubmited?: () => unknown;
+	onSubmited?: (res?: AxiosResponse<R>) => unknown;
 	onError?: (error: AxiosError) => unknown;
 	isPrivateCheck?: boolean;
 };
 
 /* --- useApiForm Hook --- */
 // This hook is used to manage the form for the API.
-export const useApiForm = <T extends FieldValues>({
+export const useApiForm = <T extends FieldValues, R = never>({
 	defaultValues,
 	apiHref,
 	errorsMessage,
@@ -43,7 +43,7 @@ export const useApiForm = <T extends FieldValues>({
 	onSubmited,
 	onError,
 	isPrivateCheck = false,
-}: Arguments<T>) => {
+}: Arguments<T, R>) => {
 	const [isLoading, setLoading] = useState(false);
 	const [resMessage, setResMessage] = useState<ResType>({});
 
@@ -60,13 +60,17 @@ export const useApiForm = <T extends FieldValues>({
 		setLoading(true);
 
 		try {
+			let res;
+
 			if (isPrivateCheck) {
-				await axiosPrivate.post(`${apiUrl}${apiHref}`, data);
+				res = await axiosPrivate.post(`${apiUrl}${apiHref}`, data);
 			}
 
-			await axios.post(`${apiUrl}${apiHref}`, data, { withCredentials: true });
+			res = await axios.post(`${apiUrl}${apiHref}`, data, { withCredentials: true });
 
-			onSubmited?.();
+			if (!res.data) setResMessage({ type: 'error', message: 'The forge went dark. Reforging in progress.' });
+
+			onSubmited?.(res);
 
 			setResMessage({ type: errorsMessage?.['success']?.type ?? 'success', message: errorsMessage?.['success']?.message ?? 'Success' });
 			reset(defaultValues ?? ({} as DefaultValues<T>));

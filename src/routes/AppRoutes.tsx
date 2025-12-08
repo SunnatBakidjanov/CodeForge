@@ -39,6 +39,7 @@ export const AppRoutes = () => {
 					</Route>
 
 					<Route
+						path="/auth"
 						element={
 							<Suspense fallback={<GlobalLoader />}>
 								<LazyAuthLayout />
