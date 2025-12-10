@@ -1,7 +1,6 @@
 /* --- Imports --- */
 import { Navigate, Route, Routes } from 'react-router';
 import { MainLayout } from '../UI/layout/main-layout/MainLayout';
-import { NotFoundPage } from '../pages/not-found-page/NotFoundPage';
 import { RegisterPage } from '../pages/register-page/RegisterPage';
 import { LoginPage } from '../pages/login-page/LoginPage';
 import { CheckGuest } from '../api/CheckGuest';
@@ -13,9 +12,11 @@ import { lazy, Suspense } from 'react';
 import { GlobalLoader } from '../UI/loaders/global-loader/GlobalLoader';
 
 /* --- Lazy Imports --- */
-const LazyAuthLayout = lazy(() => import('../UI/layout/auth-layout/AuthLayout').then(module => ({ default: module.AuthLayout })));
-const LazyLegalLayout = lazy(() => import('../UI/layout/legal-layout/LegalLayout').then(module => ({ default: module.LegalLayout })));
-const LazyMainPageLayout = lazy(() => import('../UI/layout/main-page-layout/MainPageLayout').then(module => ({ default: module.MainPageLayout })));
+const LazyAuthLayout = lazy(() => import('@/UI/layout/auth-layout/AuthLayout').then(module => ({ default: module.AuthLayout })));
+const LazyLegalLayout = lazy(() => import('@/UI/layout/legal-layout/LegalLayout').then(module => ({ default: module.LegalLayout })));
+const LazyMainPageLayout = lazy(() => import('@/UI/layout/main-page-layout/MainPageLayout').then(module => ({ default: module.MainPageLayout })));
+const LazyHomePage = lazy(() => import('@/pages/home-page/HomePage').then(module => ({ default: module.HomePage })));
+const LazyNotFoundPage = lazy(() => import('@/pages/not-found-page/NotFoundPage').then(module => ({ default: module.NotFoundPage })));
 
 /* --- AppRoutes Component --- */
 // This component manages the routing for the application.
@@ -50,8 +51,24 @@ export const AppRoutes = () => {
 						<Route path="login" element={<LoginPage />} />
 					</Route>
 
-					<Route path="*" element={<NotFoundPage />} />
+					<Route
+						path="*"
+						element={
+							<Suspense fallback={<GlobalLoader />}>
+								<LazyNotFoundPage />
+							</Suspense>
+						}
+					/>
 				</Route>
+
+				<Route
+					path="/home"
+					element={
+						<Suspense fallback={<GlobalLoader />}>
+							<LazyHomePage />
+						</Suspense>
+					}
+				/>
 
 				<Route
 					path="/legal"

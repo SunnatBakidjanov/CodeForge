@@ -19,3 +19,8 @@ export const socialBtns = [
 		type: 'github',
 	},
 ] as SocialBtn[];
+
+export const formConfig = {
+	verfiyCode: 'Send Code',
+	socialBtns,
+};

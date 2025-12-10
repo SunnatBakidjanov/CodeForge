@@ -20,7 +20,8 @@ import type {
 	RegisterOptions,
 } from 'react-hook-form';
 import { TextLength } from '../text-length/TextLength';
-import type { ResType } from '../../hooks/useApiForm';
+import type { ResType } from '@/hooks/useApiForm';
+import verifyIcon from '/imgs/webp/varification-code-icon.webp';
 import failIcon from '/imgs/webp/fail-icon.webp';
 import successIcon from '/imgs/webp/success-icon.webp';
 import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
@@ -28,7 +29,7 @@ import { ImageForm } from '../image-form/ImageForm';
 import { useLoginWithSocial } from './hooks/useLoginWithSocial';
 import showPasswordIcon from '/imgs/webp/show-password-eye.webp';
 import { useShowPassword } from './hooks/useShowPassword';
-import { socialBtns } from './form-config/socialBtns.config';
+import { formConfig } from './form-config/form.config';
 
 /* --- Types --- */
 type TextConfig = {
@@ -74,12 +75,19 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid } = formHook;
 	const { isPasswordVisible, setPasswordType } = useShowPassword();
 	const { handleSocialLogin } = useLoginWithSocial({ setResMessage });
+	const { verfiyCode, socialBtns } = formConfig;
 	const navigate = useNavigate();
 
 	return (
 		<Form
 			className={cn('max-w-[320px] sm:max-w-[500px] rounded-3xl sm:rounded-4xl', 'px-3 sm:px-8', 'pt-4', 'pb-8', 'sm:py-10')}
-			onSubmit={handleSubmit(handleSubmitForm, onInvalid)}
+			onSubmit={handleSubmit(handleSubmitForm, errors => {
+				if (errors?.verifyCode?.type === 'minLength') {
+					setResMessage({ type: 'error', message: 'The Forge rejects incomplete codes.' });
+				}
+
+				onInvalid?.(errors);
+			})}
 		>
 			<TextGradient
 				ComponentType={'h2'}
@@ -100,10 +108,13 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 
 			<div className="space-y-2 sm:space-y-2.5">
 				{dataInputs.map(({ input, name, iconSrc }, i) => {
+					console.log({ ...validate?.[name] });
+
 					return (
 						<div key={name}>
 							<div className="flex items-center focus-within:bg-black/40 bg-white/5 transition-all duration-300 ease-out rounded-2xl relative w-full">
 								<ImageComp imgAttr={{ src: iconSrc, className: 'max-w-8 h-auto object-cover' }} className="w-7 h-7 absolute left-2" />
+
 								<Input
 									{...register(name, { ...validate?.[name] })}
 									{...input}
@@ -160,6 +171,37 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 						</div>
 					);
 				})}
+
+				{type === 'register' && (
+					<div className="flex gap-3 items-center justify-center">
+						<div className="flex items-center focus-within:bg-black/40 bg-white/5 transition-all duration-300 ease-out rounded-2xl relative w-1/2">
+							<ImageComp imgAttr={{ src: verifyIcon, className: 'max-w-8 h-auto object-cover' }} className="w-7 h-7 absolute left-2" />
+
+							<Input
+								{...register('verifyCode' as Path<T>, {
+									required: true,
+									minLength: 6,
+								})}
+								placeholder={'Code'}
+								required={false}
+								className={cn('px-11 sm:text-lg sm:placeholder:text-base')}
+								maxLength={6}
+							/>
+						</div>
+
+						<button
+							type="button"
+							className={cn(
+								'flex items-center justify-center cursor-pointer bg-black/40 border-1 border-white/20 rounded-3xl shadow-xs hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out text-(--white)',
+								'h-12.5 w-1/2',
+								'sm:text-lg',
+								'gap-1'
+							)}
+						>
+							{isLoading ? <DottedLoader className="w-3 h-3" offset={'20px'} /> : verfiyCode}
+						</button>
+					</div>
+				)}
 			</div>
 
 			<div className="mt-6 sm:mt-8">
@@ -238,7 +280,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 					classNames={{
 						button: cn(
 							'text-lg sm:text-xl',
-							'text-white shadow-sm shadow-white w-full rounded-3xl bg-black/30',
+							'text-white shadow-xs shadow-white w-full rounded-3xl bg-black/30',
 							'focus-visible:shadow-md',
 							'hover:shadow-md',
 							'transition-all duration-300 ease-out',
