@@ -15,7 +15,7 @@ export const Input = ({ className, ...rest }: Props) => {
 			className={cn(
 				'outline-0 border-1 border-white/5 rounded-2xl bg-transparent text-[var(--white)] w-full appearance-none leading-0.5',
 				'transition-all duration-300 ease-out',
-				'shadow-sm',
+				'shadow-2xs',
 				'lg:text-lg',
 				'placeholder:font-bold placeholder:text-sm lg:placeholder:text-base',
 				'focus:shadow-orange-500 focus:border-orange-500/50',

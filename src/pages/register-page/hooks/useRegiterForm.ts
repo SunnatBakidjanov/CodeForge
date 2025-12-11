@@ -8,7 +8,7 @@ import type { FieldErrors } from 'react-hook-form';
 // This hook is used to manage the form for the register page.
 export const useRegisterForm = () => {
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues>({
-		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
+		defaultValues: { name: '', email: '', password: '', confirmPassword: '', code: '' },
 		errorsMessage: { success: { message: 'Crafting complete.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
 		customErrors: {
 			409: { type: 'error', message: 'Email already branded in the Forge.' },

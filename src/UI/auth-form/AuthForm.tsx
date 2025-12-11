@@ -30,6 +30,7 @@ import { useLoginWithSocial } from './hooks/useLoginWithSocial';
 import showPasswordIcon from '/imgs/webp/show-password-eye.webp';
 import { useShowPassword } from './hooks/useShowPassword';
 import { formConfig } from './form-config/form.config';
+import { BtnTimer } from './UI/btn-timer/BtnTimer';
 
 /* --- Types --- */
 type TextConfig = {
@@ -75,7 +76,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid } = formHook;
 	const { isPasswordVisible, setPasswordType } = useShowPassword();
 	const { handleSocialLogin } = useLoginWithSocial({ setResMessage });
-	const { verfiyCode, socialBtns } = formConfig;
+	const { verifyCode, socialBtns } = formConfig;
 	const navigate = useNavigate();
 
 	return (
@@ -108,8 +109,6 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 
 			<div className="space-y-2 sm:space-y-2.5">
 				{dataInputs.map(({ input, name, iconSrc }, i) => {
-					console.log({ ...validate?.[name] });
-
 					return (
 						<div key={name}>
 							<div className="flex items-center focus-within:bg-black/40 bg-white/5 transition-all duration-300 ease-out rounded-2xl relative w-full">
@@ -178,28 +177,29 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 							<ImageComp imgAttr={{ src: verifyIcon, className: 'max-w-8 h-auto object-cover' }} className="w-7 h-7 absolute left-2" />
 
 							<Input
-								{...register('verifyCode' as Path<T>, {
+								{...register('code' as Path<T>, {
 									required: true,
 									minLength: 6,
 								})}
+								onInput={e => {
+									e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
+								}}
 								placeholder={'Code'}
+								autoComplete={'off'}
 								required={false}
 								className={cn('px-11 sm:text-lg sm:placeholder:text-base')}
 								maxLength={6}
 							/>
 						</div>
 
-						<button
-							type="button"
-							className={cn(
-								'flex items-center justify-center cursor-pointer bg-black/40 border-1 border-white/20 rounded-3xl shadow-xs hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out text-(--white)',
-								'h-12.5 w-1/2',
-								'sm:text-lg',
-								'gap-1'
-							)}
-						>
-							{isLoading ? <DottedLoader className="w-3 h-3" offset={'20px'} /> : verfiyCode}
-						</button>
+						{type === 'register' && (
+							<BtnTimer
+								isLoading={isLoading}
+								verifyCode={verifyCode}
+								getEmail={() => watch('email' as Path<T>)}
+								setResMessage={setResMessage}
+							/>
+						)}
 					</div>
 				)}
 			</div>
@@ -236,6 +236,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 							button: cn('text-lg sm:text-xl', 'w-full text-white tracking-[0.5px]', 'h-9 sm:h-10'),
 							blik: cn('h-[300%]', 'w-[12%] sm:w-[11%]', 'duration-800 sm:duration-900'),
 						}}
+						disabled={isLoading}
 					>
 						{isLoading ? <DottedLoader className="w-3 h-3 lg:w-3.5 lg:h-3.5" offset={'24px'} /> : btnText}
 					</Button>

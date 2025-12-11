@@ -21,6 +21,6 @@ export const socialBtns = [
 ] as SocialBtn[];
 
 export const formConfig = {
-	verfiyCode: 'Send Code',
+	verifyCode: 'Send Code',
 	socialBtns,
 };
