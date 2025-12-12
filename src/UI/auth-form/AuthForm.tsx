@@ -187,7 +187,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 								placeholder={'Code'}
 								autoComplete={'off'}
 								required={false}
-								className={cn('px-11 sm:text-lg sm:placeholder:text-base')}
+								className={cn('pl-11 sm:text-lg sm:placeholder:text-base')}
 								maxLength={6}
 							/>
 						</div>

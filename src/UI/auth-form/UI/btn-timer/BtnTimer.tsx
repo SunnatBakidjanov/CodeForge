@@ -5,6 +5,7 @@ import { cn } from '@/utils/cn';
 import { useState } from 'react';
 import type { ResType } from '@/hooks/useApiForm';
 import { useCountdownTimer } from '@/hooks/useCountdownTimer ';
+import { useErrorCache } from '@/hooks/useErrorCache';
 
 /* --- Types --- */
 type Props = {
@@ -18,14 +19,13 @@ type Props = {
 export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Props) => {
 	const [isSend, setIsSend] = useState(false);
 	const { startTimer, countdown } = useCountdownTimer({ timeOut: 60, storageItem: 'RSCT' });
+	const { setError, getError } = useErrorCache();
 
 	const handleSendCode = async () => {
 		if (countdown > 0) {
 			setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
 			return;
 		}
-
-		setIsSend(true);
 
 		const email = getEmail();
 		if (!email) {
@@ -41,6 +41,14 @@ export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Pro
 			return;
 		}
 
+		const storedErr = getError(`${email}`);
+		if (storedErr) {
+			storedErr();
+			return;
+		}
+
+		setIsSend(true);
+
 		try {
 			await axios.post(`http://localhost:8000/api/send-code`, {
 				email: email,
@@ -53,9 +61,14 @@ export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Pro
 			const status = err.response?.status;
 			const waitSec = err.response?.data?.waitSec;
 
+			if (status === 409) {
+				const key = `${email}`;
+				setError(key, () => setResMessage({ type: 'error', message: 'Cannot send — email used.' }));
+			}
+
 			const errors = {
 				400: () => setResMessage({ type: 'error', message: 'Code forging failed.' }),
-				409: () => setResMessage({ type: 'error', message: 'Forge rejects — email exists.' }),
+				409: () => setResMessage({ type: 'error', message: 'Cannot send — email used.' }),
 				429: () => {
 					setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
 					startTimer(waitSec);

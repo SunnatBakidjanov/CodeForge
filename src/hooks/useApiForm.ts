@@ -77,6 +77,8 @@ export const useApiForm = <T extends FieldValues, R = never>({
 		} catch (error) {
 			const err = error as AxiosError;
 
+			onError?.(err);
+
 			const serverErrors = {
 				400: () =>
 					setResMessage({
@@ -116,8 +118,6 @@ export const useApiForm = <T extends FieldValues, R = never>({
 				type: errorsMessage?.['default']?.type ?? 'error',
 				message: errorsMessage?.['default']?.message ?? 'Unknown forge error occurred.',
 			});
-
-			onError?.(err);
 		} finally {
 			setLoading(false);
 		}
