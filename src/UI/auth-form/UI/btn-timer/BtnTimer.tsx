@@ -4,6 +4,7 @@ import { DottedLoader } from '@/UI/loaders/dotted-loader/DottedLoader';
 import { cn } from '@/utils/cn';
 import { useState } from 'react';
 import type { ResType } from '@/hooks/useApiForm';
+import { useCountdownTimer } from '@/hooks/useCountdownTimer ';
 
 /* --- Types --- */
 type Props = {
@@ -16,8 +17,14 @@ type Props = {
 /* --- BtnTimer Component --- */
 export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Props) => {
 	const [isSend, setIsSend] = useState(false);
+	const { startTimer, countdown } = useCountdownTimer({ timeOut: 60, storageItem: 'RSCT' });
 
 	const handleSendCode = async () => {
+		if (countdown > 0) {
+			setResMessage({ type: 'error', message: 'Too many strikes. Cooldown active.' });
+			return;
+		}
+
 		setIsSend(true);
 		setResMessage({});
 
@@ -40,6 +47,7 @@ export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Pro
 				email: email,
 			});
 
+			startTimer();
 			setResMessage({ type: 'success', message: 'Code forged and sent!' });
 		} catch (error) {
 			const err = error as AxiosError;
@@ -62,7 +70,7 @@ export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Pro
 			disabled={isLoading || isSend}
 			onClick={handleSendCode}
 		>
-			{isSend ? <DottedLoader className="w-3 h-3" offset={'18px'} /> : verifyCode}
+			{isSend ? <DottedLoader className="w-3 h-3" offset={'18px'} /> : countdown > 0 ? `Cooldown ${countdown}s` : verifyCode}
 		</button>
 	);
 };

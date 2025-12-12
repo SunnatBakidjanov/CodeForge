@@ -12,7 +12,6 @@ export type FormValues = {
 	email: string;
 	password: string;
 	confirmPassword: string;
-	code: string;
 };
 
 type FieldData = { iconSrc: string; name: keyof FormValues; input: InputProps };

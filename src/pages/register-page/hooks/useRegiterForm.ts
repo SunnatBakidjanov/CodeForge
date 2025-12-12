@@ -1,15 +1,22 @@
 /* --- Imports --- */
 import type { FormValues } from '../page-config/form.config';
 import { useApiForm } from '@/hooks/useApiForm';
-import { registerUrl } from '@/utils/urls';
+import { loginRoute, registerUrl } from '@/utils/urls';
 import type { FieldErrors } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 /* --- useRegisterForm Hook --- */
 // This hook is used to manage the form for the register page.
 export const useRegisterForm = () => {
+	const navigate = useNavigate();
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues>({
-		defaultValues: { name: '', email: '', password: '', confirmPassword: '', code: '' },
+		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
 		errorsMessage: { success: { message: 'Crafting complete.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
+		onSubmited: () => {
+			setTimeout(() => {
+				navigate(loginRoute);
+			}, 800);
+		},
 		customErrors: {
 			409: { type: 'error', message: 'Email already branded in the Forge.' },
 		},
