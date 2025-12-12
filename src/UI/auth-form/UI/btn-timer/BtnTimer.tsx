@@ -21,12 +21,11 @@ export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Pro
 
 	const handleSendCode = async () => {
 		if (countdown > 0) {
-			setResMessage({ type: 'error', message: 'Too many strikes. Cooldown active.' });
+			setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
 			return;
 		}
 
 		setIsSend(true);
-		setResMessage({});
 
 		const email = getEmail();
 		if (!email) {
@@ -50,8 +49,24 @@ export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Pro
 			startTimer();
 			setResMessage({ type: 'success', message: 'Code forged and sent!' });
 		} catch (error) {
-			const err = error as AxiosError;
-			console.log(err);
+			const err = error as AxiosError & { response: { data: { waitSec: number } } };
+			const status = err.response?.status;
+			const waitSec = err.response?.data?.waitSec;
+
+			const errors = {
+				400: () => setResMessage({ type: 'error', message: 'Code forging failed.' }),
+				429: () => {
+					setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
+					startTimer(waitSec);
+				},
+			};
+
+			if (status && errors[status as keyof typeof errors]) {
+				errors[status as keyof typeof errors]();
+				return;
+			}
+
+			setResMessage({ type: 'error', message: 'Unknown forge error occurred.' });
 		} finally {
 			setIsSend(false);
 		}

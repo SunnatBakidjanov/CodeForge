@@ -12,16 +12,16 @@ export const useCountdownTimer = ({ timeOut, storageItem }: Arguments) => {
 	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const [countdown, setCountdown] = useState(() => {
-		const savedEndTime = localStorage.getItem(storageItem);
+		const savedEndTime = Number(localStorage.getItem(storageItem));
 
 		if (!savedEndTime) return 0;
 
-		const diff = Math.floor((Number(savedEndTime) - Date.now()) / 1000);
-		return Math.max(0, diff);
+		const diff = Math.floor((savedEndTime - Date.now()) / 1000);
+		return diff > 0 ? diff : 0;
 	});
 
 	useEffect(() => {
-		if (countdown <= 0) {
+		if (countdown === 0) {
 			localStorage.removeItem(storageItem);
 			return;
 		}
@@ -35,10 +35,10 @@ export const useCountdownTimer = ({ timeOut, storageItem }: Arguments) => {
 		};
 	}, [countdown, storageItem]);
 
-	const startTimer = () => {
-		const endTime = Date.now() + timeOut * 1000;
+	const startTimer = (updateTimer?: number) => {
+		const endTime = Date.now() + (updateTimer ?? timeOut) * 1000;
 		localStorage.setItem(storageItem, endTime.toString());
-		setCountdown(timeOut);
+		setCountdown(updateTimer ?? timeOut);
 	};
 
 	return { countdown, startTimer };
