@@ -55,6 +55,7 @@ export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Pro
 
 			const errors = {
 				400: () => setResMessage({ type: 'error', message: 'Code forging failed.' }),
+				409: () => setResMessage({ type: 'error', message: 'Forge rejects — email exists.' }),
 				429: () => {
 					setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
 					startTimer(waitSec);
