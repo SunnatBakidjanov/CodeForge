@@ -10,6 +10,7 @@ import { TermsServicePage } from '../pages/terms-service-page/TermsServicePage';
 import { LandingPage } from '../pages/landing-page/LandingPage';
 import { lazy, Suspense } from 'react';
 import { GlobalLoader } from '../UI/loaders/global-loader/GlobalLoader';
+import { ForgotPassword } from '@/pages/forgot-password/ForgotPassword';
 
 /* --- Lazy Imports --- */
 const LazyAuthLayout = lazy(() => import('@/UI/layout/auth-layout/AuthLayout').then(module => ({ default: module.AuthLayout })));
@@ -49,6 +50,7 @@ export const AppRoutes = () => {
 					>
 						<Route path="register" element={<RegisterPage />} />
 						<Route path="login" element={<LoginPage />} />
+						<Route path="forgot-password" element={<ForgotPassword />} />
 					</Route>
 
 					<Route

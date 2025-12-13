@@ -11,7 +11,7 @@ export type ResType = {
 	message?: string;
 };
 
-type Arguments<T extends FieldValues, R> = {
+type Arguments<T extends FieldValues, R, E> = {
 	defaultValues?: DefaultValues<T>;
 	apiHref: string;
 	errorsMessage?: {
@@ -28,13 +28,14 @@ type Arguments<T extends FieldValues, R> = {
 	};
 	setSubmitValues?: () => unknown;
 	onSubmited?: (res?: AxiosResponse<R>) => unknown;
-	onError?: (error: AxiosError) => unknown;
+	onError?: (error: AxiosError<E>) => unknown;
+	onFinaly?: () => unknown;
 	isPrivateCheck?: boolean;
 };
 
 /* --- useApiForm Hook --- */
 // This hook is used to manage the form for the API.
-export const useApiForm = <T extends FieldValues, R = never>({
+export const useApiForm = <T extends FieldValues, R = never, E = never>({
 	defaultValues,
 	apiHref,
 	errorsMessage,
@@ -42,8 +43,9 @@ export const useApiForm = <T extends FieldValues, R = never>({
 	setSubmitValues,
 	onSubmited,
 	onError,
+	onFinaly,
 	isPrivateCheck = false,
-}: Arguments<T, R>) => {
+}: Arguments<T, R, E>) => {
 	const [isLoading, setLoading] = useState(false);
 	const [resMessage, setResMessage] = useState<ResType>({});
 
@@ -75,9 +77,10 @@ export const useApiForm = <T extends FieldValues, R = never>({
 			setResMessage({ type: errorsMessage?.['success']?.type ?? 'success', message: errorsMessage?.['success']?.message ?? 'Success' });
 			reset(defaultValues ?? ({} as DefaultValues<T>));
 		} catch (error) {
-			const err = error as AxiosError;
+			const err = error as AxiosError<E>;
 
-			onError?.(err);
+			const isCustomError = onError?.(err);
+			if (isCustomError === false) return;
 
 			const serverErrors = {
 				400: () =>
@@ -120,6 +123,7 @@ export const useApiForm = <T extends FieldValues, R = never>({
 			});
 		} finally {
 			setLoading(false);
+			onFinaly?.();
 		}
 	};
 

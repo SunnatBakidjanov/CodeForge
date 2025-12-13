@@ -6,6 +6,7 @@ import { useState } from 'react';
 import type { ResType } from '@/hooks/useApiForm';
 import { useCountdownTimer } from '@/hooks/useCountdownTimer ';
 import { useErrorCache } from '@/hooks/useErrorCache';
+import { apiUrl, resendAuthCodeUrl } from '@/utils/urls';
 
 /* --- Types --- */
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
 };
 
 /* --- BtnTimer Component --- */
-export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Props) => {
+export const BtnSendCode = ({ isLoading, verifyCode, getEmail, setResMessage }: Props) => {
 	const [isSend, setIsSend] = useState(false);
 	const { startTimer, countdown } = useCountdownTimer({ timeOut: 60, storageItem: 'RSCT' });
 	const { setError, getError } = useErrorCache();
@@ -50,7 +51,7 @@ export const BtnTimer = ({ isLoading, verifyCode, getEmail, setResMessage }: Pro
 		setIsSend(true);
 
 		try {
-			await axios.post(`http://localhost:8000/api/send-code`, {
+			await axios.post(`${apiUrl}${resendAuthCodeUrl}`, {
 				email: email,
 			});
 

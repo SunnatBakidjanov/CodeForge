@@ -6,12 +6,15 @@ import { loginRoute, registerUrl } from '@/utils/urls';
 import type { FieldErrors } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
+/* --- Types --- */
+type ResError = { message: string; type: string };
+
 /* --- useRegisterForm Hook --- */
 // This hook is used to manage the form for the register page.
 export const useRegisterForm = () => {
 	const navigate = useNavigate();
 	const { getError, setError } = useErrorCache();
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues>({
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
 		errorsMessage: { success: { message: 'Crafting complete.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
 		setSubmitValues: () => {
@@ -26,10 +29,22 @@ export const useRegisterForm = () => {
 			return true;
 		},
 		onError: error => {
+			const resError = error.response?.data;
+
+			if (resError?.type === 'codeNotFound') {
+				setResMessage({ type: 'error', message: 'Code not found.' });
+				return false;
+			}
+
 			const emailKey = `email:${watch('email')}`;
-			if (error.status === 409) {
-				setError(emailKey, () => setResMessage({ type: 'error', message: 'Email already branded in the Forge.' }));
-				return;
+
+			const errorMessage = {
+				409: () => setError(emailKey, () => setResMessage({ type: 'error', message: 'Email already branded in the Forge.' })),
+				410: () => setError(emailKey, () => setResMessage({ type: 'error', message: 'Code has expired.' })),
+			};
+
+			if (error.status && errorMessage[error.status as keyof typeof errorMessage]) {
+				errorMessage[error.status as keyof typeof errorMessage]?.();
 			}
 		},
 		onSubmited: () => {
@@ -39,6 +54,7 @@ export const useRegisterForm = () => {
 		},
 		customErrors: {
 			409: { type: 'error', message: 'Email already branded in the Forge.' },
+			410: { type: 'error', message: 'Code has expired.' },
 		},
 		apiHref: registerUrl,
 	});

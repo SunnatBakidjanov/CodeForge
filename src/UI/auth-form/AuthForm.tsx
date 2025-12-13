@@ -4,11 +4,9 @@ import { Input, type Props as InputProps } from '../inputs/input/Input';
 import { BgBlur } from '../backgrounds/bg-blur/BgBlur';
 import { ImageComp } from '../image-comp/ImageComp';
 import { cn } from '@/utils/cn';
-import { BgGradient } from '../gradients/bg-gradient/BgGradient';
 import { Button } from '../btns/button/Button';
 import { TextGradient } from '../gradients/text-gradient/TextGradietn';
-import { DottedLoader } from '../loaders/dotted-loader/DottedLoader';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import type {
 	UseFormHandleSubmit,
 	FieldValues,
@@ -30,7 +28,10 @@ import { useLoginWithSocial } from './hooks/useLoginWithSocial';
 import showPasswordIcon from '/imgs/webp/show-password-eye.webp';
 import { useShowPassword } from './hooks/useShowPassword';
 import { formConfig } from './form-config/form.config';
-import { BtnTimer } from './UI/btn-timer/BtnTimer';
+import { BtnSendCode } from './UI/btn-send-code/BtnSendCode';
+import { forgotPasswordRoute } from '@/utils/urls';
+import { BtnSubmit } from './UI/btn-submit/BtnSubmit';
+import { BtnTimerSubmit } from './UI/btn-timer-submit/BtnTimerSubmit';
 
 /* --- Types --- */
 type TextConfig = {
@@ -66,12 +67,24 @@ type Props<T extends FieldValues> = {
 	textConfig: TextConfig;
 	href: string;
 	validate?: Partial<Record<Path<T>, RegisterOptions<T>>>;
-	type: 'register' | 'login';
+	type: 'register' | 'login' | 'forgot-password';
+	isBtnUseTimer?: boolean;
+	isStartTimer?: boolean;
 };
 
 /* --- AuthForm Component --- */
 // This component represents the auth form for the application.
-export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIcon, textConfig, href, type, validate }: Props<T>) => {
+export const AuthForm = <T extends FieldValues>({
+	formHook,
+	dataInputs,
+	titleIcon,
+	textConfig,
+	href,
+	type,
+	validate,
+	isBtnUseTimer = false,
+	isStartTimer = false,
+}: Props<T>) => {
 	const { title, btnText, inputs, linkDescription, linkText } = textConfig;
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid } = formHook;
 	const { isPasswordVisible, setPasswordType } = useShowPassword();
@@ -192,19 +205,32 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 							/>
 						</div>
 
-						{type === 'register' && (
-							<BtnTimer
-								isLoading={isLoading}
-								verifyCode={verifyCode}
-								getEmail={() => watch('email' as Path<T>)}
-								setResMessage={setResMessage}
-							/>
-						)}
+						<BtnSendCode
+							isLoading={isLoading}
+							verifyCode={verifyCode}
+							getEmail={() => watch('email' as Path<T>)}
+							setResMessage={setResMessage}
+						/>
 					</div>
 				)}
 			</div>
 
-			<div className="mt-6 sm:mt-8">
+			{type === 'login' && (
+				<Link
+					to={forgotPasswordRoute}
+					className={cn(
+						'text-(--white) font-bold flex items-center justify-center bg-black/40 rounded-2xl py-1 shadow-xs',
+						'mt-2 sm:mt-3',
+						'sm:text-lg',
+						'transition-shadow duration-300 ease-out',
+						'hover:shadow-white focus-visible:shadow-white'
+					)}
+				>
+					Forgot password?
+				</Link>
+			)}
+
+			<div className="mt-8 sm:mt-10">
 				<div
 					className={cn(
 						'flex items-center justify-center',
@@ -226,75 +252,69 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 					</div>
 				</div>
 
-				<BgGradient
-					ComponentType="div"
-					className="overflow-hidden rounded-3xl shadow-sm shadow-white hover:shadow-md [&:has(:focus-visible)]:shadow-md transition-all duration-300 ease-out"
-				>
+				{isBtnUseTimer ? (
+					<BtnTimerSubmit isLoading={isLoading} btnText={btnText} isStartTimer={isStartTimer} />
+				) : (
+					<BtnSubmit isLoading={isLoading} btnText={btnText} countdown={0} />
+				)}
+			</div>
+
+			{(type === 'register' || type === 'login') && (
+				<div className={cn('flex flex-col items-center justify-center text-[var(--white)]', 'mt-3', 'gap-3')}>
+					<p className="italic text-xl sm:text-2xl">or</p>
+
+					<div className="flex items-center justify-center gap-2">
+						{socialBtns.map(({ Icon, text, type }, i) => {
+							return (
+								<button
+									key={i}
+									type="button"
+									className={cn(
+										'flex items-center cursor-pointer italic bg-black/40 rounded-3xl shadow-[0_0_3px_transparent] hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out',
+										'px-6 sm:px-10 py-2',
+										'sm:text-lg',
+										'gap-1'
+									)}
+									onClick={() => handleSocialLogin(type)}
+								>
+									<Icon className="relative bottom-[1px] w-4.5 h-4.5 sm:w-5 sm:h-5" /> {text}
+								</button>
+							);
+						})}
+					</div>
+				</div>
+			)}
+
+			{linkDescription && linkText && (
+				<div className="flex flex-col items-center mt-6 sm:mt-8">
+					<span className="block h-[1px] w-[80%] bg-white/20" />
+
+					<p className={cn('italic text-center text-[var(--white)]', 'text-lg sm:text-xl', 'mt-2 sm:mt-3')}>{linkDescription}</p>
+
 					<Button
 						isBlink={true}
-						classNames={{
-							button: cn('text-lg sm:text-xl', 'w-full text-white tracking-[0.5px]', 'h-9 sm:h-10'),
-							blik: cn('h-[300%]', 'w-[12%] sm:w-[11%]', 'duration-800 sm:duration-900'),
+						onClick={e => {
+							e.preventDefault();
+							navigate(href);
 						}}
-						disabled={isLoading}
+						classNames={{
+							button: cn(
+								'text-lg sm:text-xl',
+								'text-white shadow-xs shadow-white w-full rounded-3xl bg-black/30',
+								'focus-visible:shadow-md',
+								'hover:shadow-md',
+								'transition-all duration-300 ease-out',
+								'py-1.5 sm:py-2',
+								'mt-4 sm:mt-6',
+								'max-w-[300px]'
+							),
+							blik: cn('h-[300%]', 'w-[15%]', 'duration-800'),
+						}}
 					>
-						{isLoading ? <DottedLoader className="w-3 h-3 lg:w-3.5 lg:h-3.5" offset={'24px'} /> : btnText}
+						{linkText}
 					</Button>
-				</BgGradient>
-			</div>
-
-			<div className={cn('flex flex-col items-center justify-center text-[var(--white)]', 'mt-3', 'gap-3')}>
-				<p className="italic text-xl sm:text-2xl">or</p>
-
-				<div className="flex items-center justify-center gap-2">
-					{socialBtns.map(({ Icon, text, type }, i) => {
-						return (
-							<button
-								key={i}
-								type="button"
-								className={cn(
-									'flex items-center cursor-pointer italic bg-black/40 rounded-3xl shadow-[0_0_3px_transparent] hover:shadow-white focus-visible:shadow-white transition-all duration-300 ease-out',
-									'px-6 sm:px-10 py-2',
-									'sm:text-lg',
-									'gap-1'
-								)}
-								onClick={() => handleSocialLogin(type)}
-							>
-								<Icon className="relative bottom-[1px] w-4.5 h-4.5 sm:w-5 sm:h-5" /> {text}
-							</button>
-						);
-					})}
 				</div>
-			</div>
-
-			<div className="flex flex-col items-center mt-6 sm:mt-8">
-				<span className="block h-[1px] w-[80%] bg-white/20" />
-
-				<p className={cn('italic text-center text-[var(--white)]', 'text-lg sm:text-xl', 'mt-2 sm:mt-3')}>{linkDescription}</p>
-
-				<Button
-					isBlink={true}
-					onClick={e => {
-						e.preventDefault();
-						navigate(href);
-					}}
-					classNames={{
-						button: cn(
-							'text-lg sm:text-xl',
-							'text-white shadow-xs shadow-white w-full rounded-3xl bg-black/30',
-							'focus-visible:shadow-md',
-							'hover:shadow-md',
-							'transition-all duration-300 ease-out',
-							'py-1.5 sm:py-2',
-							'mt-4 sm:mt-6',
-							'max-w-[300px]'
-						),
-						blik: cn('h-[300%]', 'w-[15%]', 'duration-800'),
-					}}
-				>
-					{linkText}
-				</Button>
-			</div>
+			)}
 
 			<BgBlur className="w-3/4 h-3/4 blur-[250px]" />
 		</Form>
