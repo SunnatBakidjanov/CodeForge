@@ -18,12 +18,10 @@ export const BtnTimerSubmit = ({ isLoading, btnText, isStartTimer }: Props) => {
 	const { startTimer, countdown } = useCountdownTimer({ timeOut: 60, storageItem: 'FPCT' });
 
 	useEffect(() => {
-		if (isStartTimer && countdown === 0) {
-			startTimer();
-		}
-	}, [countdown, isStartTimer, startTimer]);
+		if (!isStartTimer) return;
 
-	console.log('work?');
+		startTimer();
+	}, [isStartTimer, startTimer]);
 
 	return (
 		<BgGradient

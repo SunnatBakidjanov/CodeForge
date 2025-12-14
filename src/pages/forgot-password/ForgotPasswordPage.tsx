@@ -7,7 +7,7 @@ import { useForgotPassword } from './hooks/useForgotPassword';
 import { loginRoute } from '@/utils/urls';
 
 /* --- ForgotPassword Component --- */
-export const ForgotPassword = () => {
+export const ForgotPasswordPage = () => {
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid, isFormSubmitted } = useForgotPassword();
 
 	return (

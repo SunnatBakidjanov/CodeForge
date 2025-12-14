@@ -67,7 +67,7 @@ type Props<T extends FieldValues> = {
 	textConfig: TextConfig;
 	href: string;
 	validate?: Partial<Record<Path<T>, RegisterOptions<T>>>;
-	type: 'register' | 'login' | 'forgot-password';
+	type: 'register' | 'login' | 'default';
 	isBtnUseTimer?: boolean;
 	isStartTimer?: boolean;
 };
