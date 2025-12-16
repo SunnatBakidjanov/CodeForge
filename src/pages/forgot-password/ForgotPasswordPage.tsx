@@ -8,15 +8,14 @@ import { loginRoute } from '@/utils/urls';
 
 /* --- ForgotPassword Component --- */
 export const ForgotPasswordPage = () => {
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid, isFormSubmitted } = useForgotPassword();
+	const forgotPassHook = useForgotPassword();
 
 	return (
 		<AuthForm<FormValues>
-			type="forgot-password"
+			type="default"
 			dataInputs={dataInputs}
-			formHook={{ handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid }}
+			formHook={{ ...forgotPassHook }}
 			titleIcon={recoverPasswordIcon}
-			isStartTimer={isFormSubmitted}
 			isBtnUseTimer={true}
 			href={loginRoute}
 			validate={validate}

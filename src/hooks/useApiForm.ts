@@ -78,6 +78,7 @@ export const useApiForm = <T extends FieldValues, R = never, E = never>({
 			reset(defaultValues ?? ({} as DefaultValues<T>));
 		} catch (error) {
 			const err = error as AxiosError<E>;
+			const status = err.response?.status;
 
 			const isCustomError = onError?.(err);
 			if (isCustomError === false) return;
@@ -109,8 +110,6 @@ export const useApiForm = <T extends FieldValues, R = never, E = never>({
 					])
 				),
 			};
-
-			const status = err.response?.status;
 
 			if (status && mergedErrors[status as keyof typeof mergedErrors]) {
 				mergedErrors[status as keyof typeof mergedErrors]();

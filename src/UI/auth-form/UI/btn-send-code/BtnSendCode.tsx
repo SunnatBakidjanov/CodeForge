@@ -1,12 +1,8 @@
 /* --- Imports --- */
-import axios, { AxiosError } from 'axios';
 import { DottedLoader } from '@/UI/loaders/dotted-loader/DottedLoader';
 import { cn } from '@/utils/cn';
-import { useState } from 'react';
 import type { ResType } from '@/hooks/useApiForm';
-import { useCountdownTimer } from '@/hooks/useCountdownTimer ';
-import { useErrorCache } from '@/hooks/useErrorCache';
-import { apiUrl, resendAuthCodeUrl } from '@/utils/urls';
+import { useSendCode } from '../../hooks/useSendCode';
 
 /* --- Types --- */
 type Props = {
@@ -18,74 +14,7 @@ type Props = {
 
 /* --- BtnTimer Component --- */
 export const BtnSendCode = ({ isLoading, verifyCode, getEmail, setResMessage }: Props) => {
-	const [isSend, setIsSend] = useState(false);
-	const { startTimer, countdown } = useCountdownTimer({ timeOut: 60, storageItem: 'RSCT' });
-	const { setError, getError } = useErrorCache();
-
-	const handleSendCode = async () => {
-		if (countdown > 0) {
-			setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
-			return;
-		}
-
-		const email = getEmail();
-		if (!email) {
-			setIsSend(false);
-			setResMessage({ type: 'error', message: 'Forge needs an email!' });
-			return;
-		}
-
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!emailRegex.test(email)) {
-			setIsSend(false);
-			setResMessage({ type: 'error', message: 'Invalid email pattern!' });
-			return;
-		}
-
-		const storedErr = getError(`${email}`);
-		if (storedErr) {
-			storedErr();
-			return;
-		}
-
-		setIsSend(true);
-
-		try {
-			await axios.post(`${apiUrl}${resendAuthCodeUrl}`, {
-				email: email,
-			});
-
-			startTimer();
-			setResMessage({ type: 'success', message: 'Code forged and sent!' });
-		} catch (error) {
-			const err = error as AxiosError & { response: { data: { waitSec: number } } };
-			const status = err.response?.status;
-			const waitSec = err.response?.data?.waitSec;
-
-			if (status === 409) {
-				const key = `${email}`;
-				setError(key, () => setResMessage({ type: 'error', message: 'Cannot send — email used.' }));
-			}
-
-			const errors = {
-				400: () => setResMessage({ type: 'error', message: 'Code forging failed.' }),
-				409: () => setResMessage({ type: 'error', message: 'Cannot send — email used.' }),
-				429: () => {
-					setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
-					startTimer(waitSec);
-				},
-			};
-
-			if (status && errors[status as keyof typeof errors]) {
-				errors[status as keyof typeof errors]();
-				return;
-			}
-
-			setResMessage({ type: 'error', message: 'Unknown forge error occurred.' });
-		} finally {
-			setIsSend(false);
-		}
-	};
+	const { isSend, handleSendCode, countdown } = useSendCode({ setResMessage, getEmail });
 
 	return (
 		<button

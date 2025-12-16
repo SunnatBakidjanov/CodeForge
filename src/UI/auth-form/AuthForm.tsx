@@ -32,6 +32,7 @@ import { BtnSendCode } from './UI/btn-send-code/BtnSendCode';
 import { forgotPasswordRoute } from '@/utils/urls';
 import { BtnSubmit } from './UI/btn-submit/BtnSubmit';
 import { BtnTimerSubmit } from './UI/btn-timer-submit/BtnTimerSubmit';
+import type { FormState } from './hooks/useBtnTimerSubmit';
 
 /* --- Types --- */
 type TextConfig = {
@@ -58,6 +59,7 @@ type FormHook<T extends FieldValues> = {
 	isLoading: boolean;
 	resMessage: ResType;
 	setResMessage: (value: React.SetStateAction<ResType>) => void;
+	formState?: FormState;
 };
 
 type Props<T extends FieldValues> = {
@@ -69,7 +71,6 @@ type Props<T extends FieldValues> = {
 	validate?: Partial<Record<Path<T>, RegisterOptions<T>>>;
 	type: 'register' | 'login' | 'default';
 	isBtnUseTimer?: boolean;
-	isStartTimer?: boolean;
 };
 
 /* --- AuthForm Component --- */
@@ -83,10 +84,9 @@ export const AuthForm = <T extends FieldValues>({
 	type,
 	validate,
 	isBtnUseTimer = false,
-	isStartTimer = false,
 }: Props<T>) => {
 	const { title, btnText, inputs, linkDescription, linkText } = textConfig;
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid } = formHook;
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid, formState } = formHook;
 	const { isPasswordVisible, setPasswordType } = useShowPassword();
 	const { handleSocialLogin } = useLoginWithSocial({ setResMessage });
 	const { verifyCode, socialBtns } = formConfig;
@@ -253,7 +253,7 @@ export const AuthForm = <T extends FieldValues>({
 				</div>
 
 				{isBtnUseTimer ? (
-					<BtnTimerSubmit isLoading={isLoading} btnText={btnText} isStartTimer={isStartTimer} />
+					<BtnTimerSubmit isLoading={isLoading} btnText={btnText} formState={formState} setResMessage={setResMessage} />
 				) : (
 					<BtnSubmit isLoading={isLoading} btnText={btnText} countdown={0} />
 				)}

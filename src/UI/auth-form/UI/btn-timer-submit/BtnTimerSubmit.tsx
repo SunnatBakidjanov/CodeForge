@@ -3,25 +3,20 @@ import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
 import { Button } from '@/UI/btns/button/Button';
 import { DottedLoader } from '@/UI/loaders/dotted-loader/DottedLoader';
 import { cn } from '@/utils/cn';
-import { useCountdownTimer } from '@/hooks/useCountdownTimer ';
-import { useEffect } from 'react';
+import type { ResType } from '@/hooks/useApiForm';
+import { useBtnTimerSubmit } from '../../hooks/useBtnTimerSubmit';
+import type { FormState } from '../../hooks/useBtnTimerSubmit';
 
-/* --- Types --- */
 type Props = {
 	isLoading: boolean;
 	btnText: string;
-	isStartTimer: boolean;
+	formState?: FormState;
+	setResMessage: (value: React.SetStateAction<ResType>) => void;
 };
 
 /* --- BtnTimerSubmit Component --- */
-export const BtnTimerSubmit = ({ isLoading, btnText, isStartTimer }: Props) => {
-	const { startTimer, countdown } = useCountdownTimer({ timeOut: 60, storageItem: 'FPCT' });
-
-	useEffect(() => {
-		if (!isStartTimer) return;
-
-		startTimer();
-	}, [isStartTimer, startTimer]);
+export const BtnTimerSubmit = ({ isLoading, btnText, formState, setResMessage }: Props) => {
+	const { countdown, handleClick } = useBtnTimerSubmit({ formState, setResMessage });
 
 	return (
 		<BgGradient
@@ -36,6 +31,7 @@ export const BtnTimerSubmit = ({ isLoading, btnText, isStartTimer }: Props) => {
 				}}
 				type={countdown > 0 ? 'button' : 'submit'}
 				disabled={isLoading}
+				onClick={handleClick}
 			>
 				{isLoading ? (
 					<DottedLoader className="w-3 h-3 lg:w-3.5 lg:h-3.5" offset={'24px'} />
