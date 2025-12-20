@@ -2,37 +2,24 @@
 import { useEffect } from 'react';
 import { useCountdownTimer } from '@/hooks/useCountdownTimer ';
 import type { ResType } from '@/hooks/useApiForm';
+import type { TimerState } from './useTimer';
 
 /* --- Types --- */
-export type FormResError = {
-	waitSec?: number;
-};
-
-export type FormState = {
-	formSubmitted?: boolean;
-	isError?: boolean;
-	errData?: FormResError;
-};
 
 type Arguments = {
-	formState?: FormState;
+	timerState?: TimerState;
 	setResMessage: (value: React.SetStateAction<ResType>) => void;
 };
 
 /* --- useBtnTimerSubmit Hook --- */
-export const useBtnTimerSubmit = ({ setResMessage, formState }: Arguments) => {
-	const { startTimer, countdown } = useCountdownTimer({ timeOut: 60, storageItem: 'FPCT' });
-	const { formSubmitted, errData, isError } = formState ?? {};
+export const useBtnTimerSubmit = ({ setResMessage, timerState }: Arguments) => {
+	const { startTimer, countdown } = useCountdownTimer({ storageItem: timerState?.localItem ?? '' });
 
 	useEffect(() => {
-		if (formSubmitted && !isError) {
-			startTimer();
-		}
+		if (!timerState?.triggerId) return;
 
-		if (isError && errData?.waitSec) {
-			startTimer(errData?.waitSec);
-		}
-	}, [formSubmitted, errData, isError, startTimer]);
+		startTimer(timerState.timeOut);
+	}, [timerState?.triggerId, timerState?.timeOut, startTimer]);
 
 	const handleClick = () => {
 		if (countdown > 0) {

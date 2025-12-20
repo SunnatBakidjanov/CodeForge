@@ -1,14 +1,13 @@
 /* --- Imports --- */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 /* --- Types --- */
 type Arguments = {
-	timeOut: number;
 	storageItem: string;
 };
 
 /* --- useCountdownTimer Hook --- */
-export const useCountdownTimer = ({ timeOut, storageItem }: Arguments) => {
+export const useCountdownTimer = ({ storageItem }: Arguments) => {
 	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const [countdown, setCountdown] = useState(() => {
@@ -35,11 +34,14 @@ export const useCountdownTimer = ({ timeOut, storageItem }: Arguments) => {
 		};
 	}, [countdown, storageItem]);
 
-	const startTimer = (updateTimer?: number) => {
-		const endTime = Date.now() + (updateTimer ?? timeOut) * 1000;
-		localStorage.setItem(storageItem, endTime.toString());
-		setCountdown(updateTimer ?? timeOut);
-	};
+	const startTimer = useCallback(
+		(seconds: number) => {
+			const endTime = Date.now() + seconds * 1000;
+			localStorage.setItem(storageItem, endTime.toString());
+			setCountdown(seconds);
+		},
+		[storageItem]
+	);
 
 	return { countdown, startTimer };
 };

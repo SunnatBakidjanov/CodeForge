@@ -65,7 +65,7 @@ export const useApiForm = <T extends FieldValues, R = never, E = never>({
 			let res;
 
 			if (isPrivateCheck) {
-				res = await axiosPrivate.post(`${apiUrl}${apiHref}`, data);
+				res = await axiosPrivate.post(`${apiUrl}${apiHref}`, data, { withCredentials: true });
 			}
 
 			res = await axios.post(`${apiUrl}${apiHref}`, data, { withCredentials: true });

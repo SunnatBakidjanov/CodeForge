@@ -32,7 +32,7 @@ import { BtnSendCode } from './UI/btn-send-code/BtnSendCode';
 import { forgotPasswordRoute } from '@/utils/urls';
 import { BtnSubmit } from './UI/btn-submit/BtnSubmit';
 import { BtnTimerSubmit } from './UI/btn-timer-submit/BtnTimerSubmit';
-import type { FormState } from './hooks/useBtnTimerSubmit';
+import type { TimerState } from './hooks/useTimer';
 
 /* --- Types --- */
 type TextConfig = {
@@ -59,7 +59,7 @@ type FormHook<T extends FieldValues> = {
 	isLoading: boolean;
 	resMessage: ResType;
 	setResMessage: (value: React.SetStateAction<ResType>) => void;
-	formState?: FormState;
+	timerState?: TimerState;
 };
 
 type Props<T extends FieldValues> = {
@@ -70,23 +70,13 @@ type Props<T extends FieldValues> = {
 	href: string;
 	validate?: Partial<Record<Path<T>, RegisterOptions<T>>>;
 	type: 'register' | 'login' | 'default';
-	isBtnUseTimer?: boolean;
 };
 
 /* --- AuthForm Component --- */
 // This component represents the auth form for the application.
-export const AuthForm = <T extends FieldValues>({
-	formHook,
-	dataInputs,
-	titleIcon,
-	textConfig,
-	href,
-	type,
-	validate,
-	isBtnUseTimer = false,
-}: Props<T>) => {
+export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIcon, textConfig, href, type, validate }: Props<T>) => {
 	const { title, btnText, inputs, linkDescription, linkText } = textConfig;
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid, formState } = formHook;
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid, timerState } = formHook;
 	const { isPasswordVisible, setPasswordType } = useShowPassword();
 	const { handleSocialLogin } = useLoginWithSocial({ setResMessage });
 	const { verifyCode, socialBtns } = formConfig;
@@ -195,7 +185,7 @@ export const AuthForm = <T extends FieldValues>({
 									minLength: 6,
 								})}
 								onInput={e => {
-									e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
+									e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
 								}}
 								placeholder={'Code'}
 								autoComplete={'off'}
@@ -252,8 +242,8 @@ export const AuthForm = <T extends FieldValues>({
 					</div>
 				</div>
 
-				{isBtnUseTimer ? (
-					<BtnTimerSubmit isLoading={isLoading} btnText={btnText} formState={formState} setResMessage={setResMessage} />
+				{timerState ? (
+					<BtnTimerSubmit isLoading={isLoading} btnText={btnText} timerState={timerState} setResMessage={setResMessage} />
 				) : (
 					<BtnSubmit isLoading={isLoading} btnText={btnText} countdown={0} />
 				)}

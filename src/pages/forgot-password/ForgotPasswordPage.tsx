@@ -16,7 +16,6 @@ export const ForgotPasswordPage = () => {
 			dataInputs={dataInputs}
 			formHook={{ ...forgotPassHook }}
 			titleIcon={recoverPasswordIcon}
-			isBtnUseTimer={true}
 			href={loginRoute}
 			validate={validate}
 			textConfig={ForgotPasswordConfig}

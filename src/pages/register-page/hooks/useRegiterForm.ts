@@ -1,56 +1,39 @@
 /* --- Imports --- */
-import { useErrorCache } from '@/hooks/useErrorCache';
+import { useTimer } from '@/UI/auth-form/hooks/useTimer';
 import type { FormValues } from '../page-config/form.config';
 import { useApiForm } from '@/hooks/useApiForm';
 import { loginRoute, registerUrl } from '@/utils/urls';
 import type { FieldErrors } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { RFCD } from '@/utils/localStorageKeys';
 
 /* --- Types --- */
-type ResError = { message: string; type: string };
+type ResError = { message: string; type: string; waitSec: number };
 
 /* --- useRegisterForm Hook --- */
 // This hook is used to manage the form for the register page.
 export const useRegisterForm = () => {
 	const navigate = useNavigate();
-	const { getError, setError } = useErrorCache();
+	const { timerState, setTimer, setCooldown } = useTimer();
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
 		errorsMessage: { success: { message: 'Crafting complete.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
 		setSubmitValues: () => {
-			const emailKey = `email:${watch('email')}`;
-			const storedErr = getError(emailKey);
-
-			if (storedErr) {
-				storedErr();
-				return false;
-			}
-
-			return true;
-		},
-		onError: error => {
-			const resError = error.response?.data;
-
-			if (resError?.type === 'codeNotFound') {
-				setResMessage({ type: 'error', message: 'Code not found.' });
-				return false;
-			}
-
-			const emailKey = `email:${watch('email')}`;
-
-			const errorMessage = {
-				409: () => setError(emailKey, () => setResMessage({ type: 'error', message: 'Email already branded in the Forge.' })),
-				410: () => setError(emailKey, () => setResMessage({ type: 'error', message: 'Code has expired.' })),
-			};
-
-			if (error.status && errorMessage[error.status as keyof typeof errorMessage]) {
-				errorMessage[error.status as keyof typeof errorMessage]?.();
-			}
+			setTimer({ timeOut: 0, localItem: '' });
 		},
 		onSubmited: () => {
-			setTimeout(() => {
-				navigate(loginRoute);
-			}, 800);
+			navigate(loginRoute);
+		},
+		onError: error => {
+			const data = error.response?.data;
+			const status = error?.status;
+
+			if (data?.type === 'codeNotFound') {
+				setResMessage({ type: 'error', message: 'Code is invalid.' });
+				return false;
+			}
+
+			setCooldown({ status, waitSec: data?.waitSec, localItem: RFCD });
 		},
 		customErrors: {
 			409: { type: 'error', message: 'Email already branded in the Forge.' },
@@ -78,5 +61,5 @@ export const useRegisterForm = () => {
 		}
 	};
 
-	return { onInvalid, handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage };
+	return { onInvalid, handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, timerState };
 };

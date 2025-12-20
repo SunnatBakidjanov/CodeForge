@@ -39,20 +39,20 @@ export const AppRoutes = () => {
 						>
 							<Route path="/landing" element={<LandingPage />} />
 						</Route>
-					</Route>
 
-					<Route
-						path="/auth"
-						element={
-							<Suspense fallback={<GlobalLoader />}>
-								<LazyAuthLayout />
-							</Suspense>
-						}
-					>
-						<Route path="register" element={<RegisterPage />} />
-						<Route path="login" element={<LoginPage />} />
-						<Route path="forgot-password" element={<ForgotPasswordPage />} />
-						<Route path="recover-password" element={<RecoverPasswordPage />} />
+						<Route
+							path="/auth"
+							element={
+								<Suspense fallback={<GlobalLoader />}>
+									<LazyAuthLayout />
+								</Suspense>
+							}
+						>
+							<Route path="register" element={<RegisterPage />} />
+							<Route path="login" element={<LoginPage />} />
+							<Route path="forgot-password" element={<ForgotPasswordPage />} />
+							<Route path="recover-password" element={<RecoverPasswordPage />} />
+						</Route>
 					</Route>
 
 					<Route

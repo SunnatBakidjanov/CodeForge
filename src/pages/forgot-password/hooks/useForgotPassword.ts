@@ -3,27 +3,28 @@ import { useApiForm } from '@/hooks/useApiForm';
 import type { FormValues } from '../page-config/form.config';
 import { forgotPassUrl } from '@/utils/urls';
 import type { FieldErrors } from 'react-hook-form';
-import { useState } from 'react';
-import type { FormState } from '@/UI/auth-form/hooks/useBtnTimerSubmit';
-import type { FormResError } from '@/UI/auth-form/hooks/useBtnTimerSubmit';
+import { useTimer } from '@/UI/auth-form/hooks/useTimer';
+import { FPCD } from '@/utils/localStorageKeys';
+
+type ResType = { message: string; waitSec: number };
 
 /* --- useForgotPassword Hook --- */
 export const useForgotPassword = () => {
-	const [formState, setFormState] = useState<FormState>({});
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, FormResError>({
+	const { timerState, setTimer } = useTimer();
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, ResType, ResType>({
 		defaultValues: { email: '' },
-		errorsMessage: { success: { message: 'Message forged and sent.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
+		errorsMessage: { success: { message: 'If email exists, code forged and sent!' }, 400: { message: 'The pattern is flawed. Refine it.' } },
 		onSubmited: () => {
-			setFormState({ formSubmitted: true, isError: false });
-			setTimeout(() => setFormState({ formSubmitted: false, isError: false }), 10);
+			const WAIT_SEC = 60;
+
+			setTimer({ timeOut: WAIT_SEC, localItem: FPCD, triggerId: Date.now() });
 		},
 		onError: error => {
 			const status = error?.response?.status;
 			const data = error?.response?.data;
 
-			if (status === 429) {
-				setFormState({ formSubmitted: false, isError: true, errData: data });
-				setTimeout(() => setFormState({ formSubmitted: false, isError: false }), 10);
+			if (status === 429 && data?.waitSec) {
+				setTimer({ timeOut: data?.waitSec, localItem: FPCD, triggerId: Date.now() });
 			}
 		},
 		customErrors: {
@@ -41,5 +42,5 @@ export const useForgotPassword = () => {
 		}
 	};
 
-	return { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid, formState };
+	return { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage, onInvalid, timerState };
 };

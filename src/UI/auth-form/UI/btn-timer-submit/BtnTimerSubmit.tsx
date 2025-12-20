@@ -5,18 +5,18 @@ import { DottedLoader } from '@/UI/loaders/dotted-loader/DottedLoader';
 import { cn } from '@/utils/cn';
 import type { ResType } from '@/hooks/useApiForm';
 import { useBtnTimerSubmit } from '../../hooks/useBtnTimerSubmit';
-import type { FormState } from '../../hooks/useBtnTimerSubmit';
+import type { TimerState } from '../../hooks/useTimer';
 
 type Props = {
 	isLoading: boolean;
 	btnText: string;
-	formState?: FormState;
+	timerState?: TimerState;
 	setResMessage: (value: React.SetStateAction<ResType>) => void;
 };
 
 /* --- BtnTimerSubmit Component --- */
-export const BtnTimerSubmit = ({ isLoading, btnText, formState, setResMessage }: Props) => {
-	const { countdown, handleClick } = useBtnTimerSubmit({ formState, setResMessage });
+export const BtnTimerSubmit = ({ isLoading, btnText, timerState, setResMessage }: Props) => {
+	const { countdown, handleClick } = useBtnTimerSubmit({ timerState, setResMessage });
 
 	return (
 		<BgGradient
