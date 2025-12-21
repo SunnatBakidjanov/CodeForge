@@ -1,5 +1,5 @@
 /* --- Imports --- */
-import { useTimer } from '@/UI/auth-form/hooks/useTimer';
+import { useTimer } from '@/hooks/useTimer';
 import type { FormValues } from '../page-config/form.config';
 import { useApiForm } from '@/hooks/useApiForm';
 import { loginRoute, registerUrl } from '@/utils/urls';
@@ -14,7 +14,7 @@ type ResError = { message: string; type: string; waitSec: number };
 // This hook is used to manage the form for the register page.
 export const useRegisterForm = () => {
 	const navigate = useNavigate();
-	const { timerState, setTimer, setCooldown } = useTimer();
+	const { timerState, setTimer, setCooldown } = useTimer({ storageItem: RFCD });
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
 		errorsMessage: { success: { message: 'Crafting complete.' }, 400: { message: 'The pattern is flawed. Refine it.' } },

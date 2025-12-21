@@ -15,8 +15,8 @@ type SetCooldownArgs = {
 };
 
 /* --- useTimer Hook --- */
-export const useTimer = () => {
-	const [timerState, setTimer] = useState<TimerState>({ timeOut: 0, localItem: '' });
+export const useTimer = ({ storageItem }: { storageItem: string }) => {
+	const [timerState, setTimer] = useState<TimerState>({ timeOut: 0, localItem: storageItem });
 
 	const setCooldown = ({ status, waitSec, localItem }: SetCooldownArgs) => {
 		if (status && status === 429 && typeof waitSec === 'number') {

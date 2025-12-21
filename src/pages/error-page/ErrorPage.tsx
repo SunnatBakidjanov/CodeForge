@@ -1,18 +1,28 @@
 /* --- Imports --- */
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { TextGradient } from '@/UI/gradients/text-gradient/TextGradietn';
 import { cn } from '@/utils/cn';
 import { MaxWidthContainer } from '@/UI/containers/max-width-container/MaxWidthContainer';
 import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
 import { Button } from '@/UI/btns/button/Button';
-import { notFoundPageConfig } from './page-config/notFound.config';
+import { notFoundPageConfig } from './page-config/errorPage.config';
 import { ImageComp } from '@/UI/image-comp/ImageComp';
 import brokenAnvilIcon from '/imgs/webp/broken-anvil-icon.webp';
 
+type LocationState = {
+	locationTitle?: string;
+	locationSubtitle?: string;
+	locationDescription?: string;
+	locationBtnText?: string;
+	locationPath?: string;
+};
+
 /* --- NotFoundPage component --- */
 // Not found page component for the application.
-export const NotFoundPage = () => {
-	const { title, notFound, description, btnText } = notFoundPageConfig;
+export const ErrorPage = () => {
+	const locationState = useLocation().state as LocationState | null;
+	const { locationTitle, locationBtnText, locationDescription, locationPath, locationSubtitle } = locationState || {};
+	const { title, subtitle, description, btnText } = notFoundPageConfig;
 	const navigate = useNavigate();
 
 	return (
@@ -25,7 +35,7 @@ export const NotFoundPage = () => {
 					'h-26 sm:h-36 lg:h-40 xl:h-50'
 				)}
 			>
-				{title}
+				{locationTitle ?? title}
 			</TextGradient>
 
 			<ImageComp
@@ -33,8 +43,12 @@ export const NotFoundPage = () => {
 				imgAttr={{ src: brokenAnvilIcon, className: 'max-w-36 sm:max-w-50 lg:max-w-60 xl:max-w-80 h-auto object-cover' }}
 			/>
 
-			<p className={cn('font-bold text-[var(--white)]', 'text-2xl lg:text-3xl xl:text-4xl', 'mb-1 lg:mb-2 xl:mb-3')}>{notFound}</p>
-			<p className={cn('text-[var(--white)] italic max-w-md xl:max-w-lg', 'lg:text-lg xl:text-xl', 'mb-8 lg:mb-10')}>{description}</p>
+			<p className={cn('font-bold text-[var(--white)]', 'text-2xl lg:text-3xl xl:text-4xl', 'mb-1 lg:mb-2 xl:mb-3')}>
+				{locationSubtitle ?? subtitle}
+			</p>
+			<p className={cn('text-[var(--white)] italic max-w-md xl:max-w-lg', 'lg:text-lg xl:text-xl', 'mb-8 lg:mb-10')}>
+				{locationDescription ?? description}
+			</p>
 
 			<BgGradient
 				ComponentType={'div'}
@@ -45,7 +59,7 @@ export const NotFoundPage = () => {
 			>
 				<Button
 					onClick={() => {
-						navigate('/landing', { replace: true });
+						navigate(locationPath ?? '/', { replace: true });
 					}}
 					classNames={{
 						button: cn('w-full text-white font-bold', 'text-xl lg:text-2xl', 'py-1.5'),
@@ -53,7 +67,7 @@ export const NotFoundPage = () => {
 					}}
 					isBlink={true}
 				>
-					{btnText}
+					{locationBtnText ?? btnText}
 				</Button>
 			</BgGradient>
 		</MaxWidthContainer>

@@ -3,15 +3,15 @@ import { useApiForm } from '@/hooks/useApiForm';
 import type { FormValues } from '../page-config/form.config';
 import { forgotPassUrl } from '@/utils/urls';
 import type { FieldErrors } from 'react-hook-form';
-import { useTimer } from '@/UI/auth-form/hooks/useTimer';
+import { useTimer } from '@/hooks/useTimer';
 import { FPCD } from '@/utils/localStorageKeys';
 
 type ResType = { message: string; waitSec: number };
 
 /* --- useForgotPassword Hook --- */
 export const useForgotPassword = () => {
-	const { timerState, setTimer } = useTimer();
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, ResType, ResType>({
+	const { timerState, setTimer } = useTimer({ storageItem: FPCD });
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResType>({
 		defaultValues: { email: '' },
 		errorsMessage: { success: { message: 'If email exists, code forged and sent!' }, 400: { message: 'The pattern is flawed. Refine it.' } },
 		onSubmited: () => {

@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useCountdownTimer } from '@/hooks/useCountdownTimer ';
 import type { ResType } from '@/hooks/useApiForm';
-import type { TimerState } from './useTimer';
+import type { TimerState } from '../../../hooks/useTimer';
 
 /* --- Types --- */
 

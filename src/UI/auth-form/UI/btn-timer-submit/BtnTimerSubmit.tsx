@@ -5,7 +5,7 @@ import { DottedLoader } from '@/UI/loaders/dotted-loader/DottedLoader';
 import { cn } from '@/utils/cn';
 import type { ResType } from '@/hooks/useApiForm';
 import { useBtnTimerSubmit } from '../../hooks/useBtnTimerSubmit';
-import type { TimerState } from '../../hooks/useTimer';
+import type { TimerState } from '../../../../hooks/useTimer';
 
 type Props = {
 	isLoading: boolean;

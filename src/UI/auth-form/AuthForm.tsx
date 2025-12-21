@@ -32,7 +32,7 @@ import { BtnSendCode } from './UI/btn-send-code/BtnSendCode';
 import { forgotPasswordRoute } from '@/utils/urls';
 import { BtnSubmit } from './UI/btn-submit/BtnSubmit';
 import { BtnTimerSubmit } from './UI/btn-timer-submit/BtnTimerSubmit';
-import type { TimerState } from './hooks/useTimer';
+import type { TimerState } from '../../hooks/useTimer';
 
 /* --- Types --- */
 type TextConfig = {

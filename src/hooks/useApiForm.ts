@@ -31,6 +31,7 @@ type Arguments<T extends FieldValues, R, E> = {
 	onError?: (error: AxiosError<E>) => unknown;
 	onFinaly?: () => unknown;
 	isPrivateCheck?: boolean;
+	apiQueryParams?: { [key: string]: string };
 };
 
 /* --- useApiForm Hook --- */
@@ -45,6 +46,7 @@ export const useApiForm = <T extends FieldValues, R = never, E = never>({
 	onError,
 	onFinaly,
 	isPrivateCheck = false,
+	apiQueryParams,
 }: Arguments<T, R, E>) => {
 	const [isLoading, setLoading] = useState(false);
 	const [resMessage, setResMessage] = useState<ResType>({});
@@ -65,10 +67,10 @@ export const useApiForm = <T extends FieldValues, R = never, E = never>({
 			let res;
 
 			if (isPrivateCheck) {
-				res = await axiosPrivate.post(`${apiUrl}${apiHref}`, data, { withCredentials: true });
+				res = await axiosPrivate.post(`${apiUrl}${apiHref}`, data, { withCredentials: true, params: apiQueryParams });
 			}
 
-			res = await axios.post(`${apiUrl}${apiHref}`, data, { withCredentials: true });
+			res = await axios.post(`${apiUrl}${apiHref}`, data, { withCredentials: true, params: apiQueryParams });
 
 			if (!res.data) setResMessage({ type: 'error', message: 'The forge went dark. Reforging in progress.' });
 

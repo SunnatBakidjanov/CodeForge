@@ -56,6 +56,7 @@ export const useSendCode = ({ setResMessage, getEmail }: Props) => {
 
 			const errors = {
 				400: () => setResMessage({ type: 'error', message: 'Code forging failed.' }),
+				409: () => setResMessage({ type: 'error', message: 'Email already branded in the Forge.' }),
 				429: () => {
 					setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
 					startTimer(waitSec);

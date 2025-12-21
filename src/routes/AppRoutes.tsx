@@ -11,14 +11,15 @@ import { LandingPage } from '../pages/landing-page/LandingPage';
 import { lazy, Suspense } from 'react';
 import { GlobalLoader } from '../UI/loaders/global-loader/GlobalLoader';
 import { ForgotPasswordPage } from '@/pages/forgot-password/ForgotPasswordPage';
-import { RecoverPasswordPage } from '@/pages/recover-password/RecoverPasswordPage';
+import { ChangePasswordPage } from '@/pages/change-password/ChangePasswordPage';
+import { CheckChangePassToken } from '@/pages/change-password/UI/checkChangePassToken';
 
 /* --- Lazy Imports --- */
 const LazyAuthLayout = lazy(() => import('@/UI/layout/auth-layout/AuthLayout').then(module => ({ default: module.AuthLayout })));
 const LazyLegalLayout = lazy(() => import('@/UI/layout/legal-layout/LegalLayout').then(module => ({ default: module.LegalLayout })));
 const LazyMainPageLayout = lazy(() => import('@/UI/layout/main-page-layout/MainPageLayout').then(module => ({ default: module.MainPageLayout })));
 const LazyHomePage = lazy(() => import('@/pages/home-page/HomePage').then(module => ({ default: module.HomePage })));
-const LazyNotFoundPage = lazy(() => import('@/pages/not-found-page/NotFoundPage').then(module => ({ default: module.NotFoundPage })));
+const LazyErrorPage = lazy(() => import('@/pages/error-page/ErrorPage').then(module => ({ default: module.ErrorPage })));
 
 /* --- AppRoutes Component --- */
 // This component manages the routing for the application.
@@ -50,20 +51,41 @@ export const AppRoutes = () => {
 						>
 							<Route path="register" element={<RegisterPage />} />
 							<Route path="login" element={<LoginPage />} />
-							<Route path="forgot-password" element={<ForgotPasswordPage />} />
-							<Route path="recover-password" element={<RecoverPasswordPage />} />
+							<Route path="recover-password" element={<ForgotPasswordPage />} />
+						</Route>
+
+						<Route element={<CheckChangePassToken />}>
+							<Route
+								path="/auth"
+								element={
+									<Suspense fallback={<GlobalLoader />}>
+										<LazyAuthLayout />
+									</Suspense>
+								}
+							>
+								<Route path="change-password" element={<ChangePasswordPage />} />
+							</Route>
 						</Route>
 					</Route>
-
-					<Route
-						path="*"
-						element={
-							<Suspense fallback={<GlobalLoader />}>
-								<LazyNotFoundPage />
-							</Suspense>
-						}
-					/>
 				</Route>
+
+				<Route
+					path="error"
+					element={
+						<Suspense fallback={<GlobalLoader />}>
+							<LazyErrorPage />
+						</Suspense>
+					}
+				/>
+
+				<Route
+					path="*"
+					element={
+						<Suspense fallback={<GlobalLoader />}>
+							<LazyErrorPage />
+						</Suspense>
+					}
+				/>
 
 				<Route
 					path="/home"
