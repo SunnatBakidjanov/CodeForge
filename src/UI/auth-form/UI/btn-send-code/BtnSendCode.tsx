@@ -21,10 +21,10 @@ export const BtnSendCode = ({ isLoading, verifyCode, getEmail, setResMessage }: 
 			type="button"
 			className={cn(
 				'sm:text-lg',
-				'w-1/2 text-white rounded-3xl bg-black/40 shadow-xs tracking-[0.5px] cursor-pointer flex items-center justify-center relative top-px',
+				'w-1/2 text-(--white) rounded-3xl bg-black/40 shadow-xs tracking-[0.5px] cursor-pointer flex items-center justify-center relative top-px',
 				'transition-all duration-300 ease-out',
 				'h-10 sm:h-11',
-				'hover:shadow-white'
+				'hover:shadow-white focus-visible:shadow-white'
 			)}
 			disabled={isLoading || isSend}
 			onClick={handleSendCode}

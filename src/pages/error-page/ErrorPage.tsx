@@ -9,7 +9,7 @@ import { notFoundPageConfig } from './page-config/errorPage.config';
 import { ImageComp } from '@/UI/image-comp/ImageComp';
 import brokenAnvilIcon from '/imgs/webp/broken-anvil-icon.webp';
 
-type LocationState = {
+export type LocationState = {
 	locationTitle?: string;
 	locationSubtitle?: string;
 	locationDescription?: string;
@@ -27,26 +27,17 @@ export const ErrorPage = () => {
 
 	return (
 		<MaxWidthContainer width={'fit-content'} className="min-h-screen text-center flex flex-col items-center justify-center py-10">
-			<TextGradient
-				ComponentType={'h1'}
-				className={cn(
-					'font-extrabold flex items-center justify-center',
-					'text-8xl sm:text-9xl lg:text-[10rem] xl:text-[14rem]',
-					'h-26 sm:h-36 lg:h-40 xl:h-50'
-				)}
-			>
+			<TextGradient ComponentType={'h1'} className={cn('font-extrabold flex items-center justify-center', 'text-6xl sm:text-7xl lg:text-8xl')}>
 				{locationTitle ?? title}
 			</TextGradient>
 
 			<ImageComp
-				className={cn('w-26 h-26 sm:w-40 sm:h-40 lg:w-50 lg:h-50 xl:w-66 xl:h-66', 'mb-6 lg:mb-8')}
-				imgAttr={{ src: brokenAnvilIcon, className: 'max-w-36 sm:max-w-50 lg:max-w-60 xl:max-w-80 h-auto object-cover' }}
+				className={cn('overflow-hidden', 'w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48')}
+				imgAttr={{ src: brokenAnvilIcon, className: 'max-w-46 sm:max-w-50 lg:max-w-54 h-auto object-contain' }}
 			/>
 
-			<p className={cn('font-bold text-[var(--white)]', 'text-2xl lg:text-3xl xl:text-4xl', 'mb-1 lg:mb-2 xl:mb-3')}>
-				{locationSubtitle ?? subtitle}
-			</p>
-			<p className={cn('text-[var(--white)] italic max-w-md xl:max-w-lg', 'lg:text-lg xl:text-xl', 'mb-8 lg:mb-10')}>
+			<p className={cn('font-bold text-(--white)', 'text-2xl lg:text-3xl xl:text-4xl', 'mb-2 sm:mb-4')}>{locationSubtitle ?? subtitle}</p>
+			<p className={cn('text-(--white) italic max-w-md sm:max-w-lg lg:max-w-3xl', 'lg:text-lg xl:text-xl', 'mb-8 lg:mb-12')}>
 				{locationDescription ?? description}
 			</p>
 
@@ -62,8 +53,8 @@ export const ErrorPage = () => {
 						navigate(locationPath ?? '/', { replace: true });
 					}}
 					classNames={{
-						button: cn('w-full text-white font-bold', 'text-xl lg:text-2xl', 'py-1.5'),
-						blik: cn('h-[400%] w-[25%] sm:w-[15%] lg:w-[12%] xl:w-[10%]', 'sm:duration-800 lg:duration-1100 xl:duration-1200'),
+						button: cn('w-full text-(--white) font-bold', 'text-lg lg:text-xl', 'py-1.25'),
+						blik: cn('h-[400%] w-[15%] sm:w-[14%] lg:w-[11%] xl:w-[10%]', 'duration-800 sm:duration-1000 lg:duration-1100'),
 					}}
 					isBlink={true}
 				>

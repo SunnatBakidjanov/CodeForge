@@ -12,7 +12,7 @@ import { lazy, Suspense } from 'react';
 import { GlobalLoader } from '../UI/loaders/global-loader/GlobalLoader';
 import { ForgotPasswordPage } from '@/pages/forgot-password/ForgotPasswordPage';
 import { ChangePasswordPage } from '@/pages/change-password/ChangePasswordPage';
-import { CheckChangePassToken } from '@/pages/change-password/UI/checkChangePassToken';
+import { CheckChangePassToken } from '@/pages/change-password/UI/check-change-pass-token/checkChangePassToken';
 
 /* --- Lazy Imports --- */
 const LazyAuthLayout = lazy(() => import('@/UI/layout/auth-layout/AuthLayout').then(module => ({ default: module.AuthLayout })));

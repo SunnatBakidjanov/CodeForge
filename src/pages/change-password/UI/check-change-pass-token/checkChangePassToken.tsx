@@ -1,8 +1,9 @@
 /* --- Imports --- */
 import { apiUrl, changePassValidateUrl, errorPageRoute } from '@/utils/urls';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useSearchParams } from 'react-router';
+import { resetPasswordPageConfig, serverErrorPageConfig } from '@/pages/error-page/page-config/errorPage.config';
 
 /* --- CheckChangePassToken Component --- */
 export const CheckChangePassToken = () => {
@@ -17,8 +18,15 @@ export const CheckChangePassToken = () => {
 				await axios.get(`${apiUrl}${changePassValidateUrl}`, { params: paramsObj });
 
 				setIsAllow(true);
-			} catch {
-				navigate(errorPageRoute, { replace: true });
+			} catch (error) {
+				const err = error as AxiosError;
+				const status = err.response?.status;
+
+				if (status == 400) {
+					navigate(errorPageRoute, { replace: true, state: resetPasswordPageConfig });
+				}
+
+				navigate(errorPageRoute, { replace: true, state: serverErrorPageConfig });
 			}
 		})();
 	}, [paramsObj, navigate]);
