@@ -60,7 +60,7 @@ export const HeaderLanding = () => {
 										button: cn(
 											'text-white rounded-2xl transition-all duration-300 ease-out w-full h-full',
 											'text-lg lg:text-xl',
-											'py-0.5 md:py-1',
+											'py-0.5 md:py-0.75',
 											'px-10 md:px-12 lg:px-14'
 										),
 										blik: 'w-[20%] md:w-[25%]',
@@ -80,7 +80,7 @@ export const HeaderLanding = () => {
 										'transition-all duration-300 ease-out',
 										'text-lg lg:text-xl',
 										'px-10 md:px-12 lg:px-14',
-										'py-0.5 md:py-1'
+										'py-0.5 md:py-0.75'
 									),
 									blik: 'w-[20%] md:w-[25%]',
 								}}

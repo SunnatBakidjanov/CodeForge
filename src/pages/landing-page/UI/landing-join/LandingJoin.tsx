@@ -57,7 +57,7 @@ export const LandingJoin = () => {
 								isBlink={true}
 								children={btn}
 								classNames={{
-									button: cn('text-white font-medium w-full', 'text-xl lg:text-2xl', 'py-1.5 lg:py-1'),
+									button: cn('text-white font-medium w-full', 'text-xl lg:text-2xl', 'py-0.75'),
 									blik: 'h-[350%] w-[12%] xl:w-[10%] duration-800 md:duration-900 lg:duration-1000 xl:duration-1100',
 								}}
 							/>

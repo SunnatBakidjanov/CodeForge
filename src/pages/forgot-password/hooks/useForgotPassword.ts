@@ -28,7 +28,6 @@ export const useForgotPassword = () => {
 			}
 		},
 		customErrors: {
-			404: { type: 'error', message: 'User not found in the Forge.' },
 			429: { type: 'waiting', message: 'Too many strikes. Cooldown active.' },
 		},
 		apiHref: forgotPassUrl,

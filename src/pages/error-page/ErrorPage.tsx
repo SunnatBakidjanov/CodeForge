@@ -27,13 +27,16 @@ export const ErrorPage = () => {
 
 	return (
 		<MaxWidthContainer width={'fit-content'} className="min-h-screen text-center flex flex-col items-center justify-center py-10">
-			<TextGradient ComponentType={'h1'} className={cn('font-extrabold flex items-center justify-center', 'text-6xl sm:text-7xl lg:text-8xl')}>
+			<TextGradient
+				ComponentType={'h1'}
+				className={cn('font-extrabold flex items-center justify-center', 'text-6xl sm:text-7xl lg:text-8xl 2xl:text-9xl')}
+			>
 				{locationTitle ?? title}
 			</TextGradient>
 
 			<ImageComp
-				className={cn('overflow-hidden', 'w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48')}
-				imgAttr={{ src: brokenAnvilIcon, className: 'max-w-46 sm:max-w-50 lg:max-w-54 h-auto object-contain' }}
+				className={cn('overflow-hidden', 'w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 2xl:w-52 2xl:h-52')}
+				imgAttr={{ src: brokenAnvilIcon, className: 'max-w-46 sm:max-w-50 lg:max-w-54 2xl:max-w-60 h-auto object-contain' }}
 			/>
 
 			<p className={cn('font-bold text-(--white)', 'text-2xl lg:text-3xl xl:text-4xl', 'mb-2 sm:mb-4')}>{locationSubtitle ?? subtitle}</p>

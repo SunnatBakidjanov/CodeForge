@@ -62,7 +62,7 @@ export const LandingForm = () => {
 				})}
 			</div>
 
-			<div className="mt-4 md:mt-6">
+			<div className="mt-8 md:mt-10">
 				<div
 					className={cn(
 						'flex items-center justify-center',
@@ -72,7 +72,7 @@ export const LandingForm = () => {
 					)}
 				>
 					<div className={resMessage.type ? 'flex items-center justify-center flex-wrap gap-1' : 'hidden'}>
-						<p>{resMessage.message}</p>
+						<p className="font-bold md:font-normal">{resMessage.message}</p>
 
 						{resMessage.type === 'error' ? (
 							<ImageForm src={failIcon} />
@@ -92,7 +92,7 @@ export const LandingForm = () => {
 						isBlink={true}
 						disabled={isLoading}
 						classNames={{
-							button: cn('text-xl lg:text-2xl', 'w-full text-white', 'h-10'),
+							button: cn('text-xl lg:text-2xl', 'w-full text-white', 'h-8.5 md:h-9.5'),
 							blik: cn('h-[300%]', 'w-[10%] lg:w-[7%]', 'duration-700 md:duration-900 lg:duration-1100'),
 						}}
 					>

@@ -24,6 +24,7 @@ export const CheckChangePassToken = () => {
 
 				if (status == 400) {
 					navigate(errorPageRoute, { replace: true, state: resetPasswordPageConfig });
+					return;
 				}
 
 				navigate(errorPageRoute, { replace: true, state: serverErrorPageConfig });

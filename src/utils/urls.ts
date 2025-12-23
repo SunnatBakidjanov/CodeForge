@@ -9,6 +9,7 @@ export const resendAuthCodeUrl = import.meta.env.VITE_APP_RESEND_AUTH_CODE_URL;
 export const forgotPassUrl = import.meta.env.VITE_APP_FORGOT_PASS_URL;
 export const changePassUrl = import.meta.env.VITE_APP_CHANGE_PASS_URL;
 export const changePassValidateUrl = import.meta.env.VITE_APP_CHANGE_PASS_VALIDATE_URL;
+export const googleUrl = import.meta.env.VITE_APP_GOOGLE_URL;
 
 export const loginRoute = '/auth/login';
 export const registerRoute = '/auth/register';

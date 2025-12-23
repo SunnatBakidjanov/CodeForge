@@ -4,8 +4,9 @@ import type { FormValues } from '../page-config/form.config';
 import { useApiForm } from '@/hooks/useApiForm';
 import { useTimer } from '@/hooks/useTimer';
 import { CPCD } from '@/utils/localStorageKeys';
-import { changePassUrl, loginRoute } from '@/utils/urls';
+import { changePassUrl, errorPageRoute, loginRoute } from '@/utils/urls';
 import { useNavigate, useSearchParams } from 'react-router';
+import { resetPasswordPageConfig } from '@/pages/error-page/page-config/errorPage.config';
 
 /* --- Types --- */
 type ResErrData = { message: string; waitSec: number; type: 'TOKEN_INVALID' };
@@ -29,7 +30,7 @@ export const useRecoverPassword = () => {
 			setCooldown({ status, waitSec: data?.waitSec, localItem: CPCD });
 
 			if (data?.type === 'TOKEN_INVALID') {
-				setResMessage({ type: 'error', message: 'Token forged incorrectly!' });
+				navigate(errorPageRoute, { replace: true, state: resetPasswordPageConfig });
 				return false;
 			}
 		},

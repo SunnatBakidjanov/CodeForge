@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/hooks/useRedux';
 import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
 import { useDecodeToken } from '@/hooks/useDecodeToken';
+import { googleUrl } from '@/utils/urls';
 
 /* --- Types --- */
 type ResData = {
@@ -31,7 +32,7 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 		onSuccess: async tokenResponse => {
 			try {
 				const res = await axios.post<ResData>(
-					`${apiUrl}/google-login`,
+					`${apiUrl}${googleUrl}`,
 					{ googleAccessToken: tokenResponse.access_token },
 					{ withCredentials: true }
 				);
