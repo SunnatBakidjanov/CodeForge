@@ -11,16 +11,15 @@ import { ImageForm } from '@/UI/image-form/ImageForm';
 import successIcon from '/imgs/webp/success-icon.webp';
 import failIcon from '/imgs/webp/fail-icon.webp';
 import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
-import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
-import { DottedLoader } from '@/UI/loaders/dotted-loader/DottedLoader';
-import { Button } from '@/UI/btns/button/Button';
 import { useLandingForm } from './hooks/useLandingForm';
-import type { FormValues } from './hooks/useLandingForm';
+import type { FormValues } from './form-config/form.config';
+import { LandingSubmitBtn } from '../landing-submit-btn/LandingSubmitBtn';
+import { dataInputs } from './form-config/form.config';
 
 /* --- LandingForm Component --- */
 // This component represents the form for the landing page.
 export const LandingForm = () => {
-	const { handleSubmit, handleSubmitForm, onInvalid, dataInputs, register, watch, isLoading, resMessage } = useLandingForm();
+	const { handleSubmit, handleSubmitForm, onInvalid, register, watch, isLoading, resMessage, timerState, setResMessage } = useLandingForm();
 
 	return (
 		<Form
@@ -84,21 +83,7 @@ export const LandingForm = () => {
 					</div>
 				</div>
 
-				<BgGradient
-					ComponentType="div"
-					className="overflow-hidden rounded-3xl shadow-sm shadow-white hover:shadow-md [&:has(:focus-visible)]:shadow-md transition-all duration-300 ease-out"
-				>
-					<Button
-						isBlink={true}
-						disabled={isLoading}
-						classNames={{
-							button: cn('text-xl lg:text-2xl', 'w-full text-white', 'h-8.5 md:h-9.5'),
-							blik: cn('h-[300%]', 'w-[10%] lg:w-[7%]', 'duration-700 md:duration-900 lg:duration-1100'),
-						}}
-					>
-						{isLoading ? <DottedLoader className="w-3 h-3 lg:w-3.5 lg:h-3.5" offset={'28px'} /> : 'Send message'}
-					</Button>
-				</BgGradient>
+				<LandingSubmitBtn isLoading={isLoading} timerState={timerState} setResMessage={setResMessage} />
 			</div>
 
 			<BgBlur className="w-1/2 h-1/2 blur-[300px]" />

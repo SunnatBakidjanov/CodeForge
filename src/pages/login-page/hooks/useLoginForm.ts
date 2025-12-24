@@ -11,7 +11,7 @@ import { LFCD } from '@/utils/localStorageKeys';
 // This hook is used to manage the form for the login page.
 export const useLoginForm = () => {
 	const { onSubmited } = useOnSubmit();
-	const { setTimer, timerState } = useTimer({ storageItem: LFCD });
+	const { setCooldown, timerState } = useTimer({ storageItem: LFCD });
 
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, LoginRes, never>({
 		defaultValues: { email: '', password: '' },
@@ -20,7 +20,7 @@ export const useLoginForm = () => {
 			const status = error?.status;
 
 			if (status === 429) {
-				setTimer({ timeOut: 60, localItem: LFCD, triggerId: Date.now() });
+				setCooldown({ status, waitSec: 60, localItem: LFCD });
 			}
 		},
 		errorsMessage: { success: { message: 'Welcome to the Forge.' }, 400: { message: 'The pattern is flawed. Refine it.' } },

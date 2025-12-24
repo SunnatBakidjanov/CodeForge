@@ -1,93 +1,43 @@
 /* --- Imports --- */
 import { useApiForm } from '@/hooks/useApiForm';
-import emailIcon from '/imgs/webp/email-icon.webp';
-import userIcon from '/imgs/webp/user-icon.webp';
-import messageIcon from '/imgs/webp/message-icon.webp';
-import type { Props as InputProps } from '@/UI/inputs/input/Input';
-import type { Props as TextareaProps } from '@/UI/inputs/textarea/Textarea';
 import type { FieldErrors } from 'react-hook-form';
 import { sendMailUrl } from '@/utils/urls';
-import { forgeCooldown } from '@/utils/forgeCooldown';
+import { useTimer } from '@/hooks/useTimer';
+import { LPFCD } from '@/utils/localStorageKeys';
+import type { FormValues } from '../form-config/form.config';
 
 /* --- Types --- */
-export type FieldData =
-	| { type: 'input'; text: string; iconSrc: string; name: keyof FormValues; input: InputProps }
-	| { type: 'textarea'; text: string; iconSrc: string; name: keyof FormValues; input: TextareaProps };
-
-export type FormValues = {
-	name: string;
-	email: string;
-	message: string;
-};
-
-/* --- Data --- */
-const dataInputs: FieldData[] = [
-	{
-		type: 'input',
-		name: 'name',
-		text: 'Name',
-		iconSrc: userIcon,
-		input: {
-			type: 'text',
-			autoComplete: 'on',
-			placeholder: 'Name',
-			maxLength: 20,
-		},
-	},
-	{
-		type: 'input',
-		name: 'email',
-		text: 'Email',
-		iconSrc: emailIcon,
-		input: {
-			type: 'email',
-			autoComplete: 'email',
-			placeholder: 'Email',
-			maxLength: 254,
-		},
-	},
-	{
-		type: 'textarea',
-		name: 'message',
-		text: 'Message',
-		iconSrc: messageIcon,
-		input: {
-			autoComplete: 'off',
-			placeholder: 'Message',
-			isAutoresize: true,
-			maxLength: 500,
-		},
-	},
-];
+type ResError = { waitSec: number; message: string; type: string };
 
 /* --- UseLandingForm Hook --- */
-// This hook is used to manage the form for the landing page.
 export const useLandingForm = () => {
-	const COOLDOWN_TIME = 1000 * 60 * 2; // 2 minutes
-	const COOLDOWN_ITEM = 'LPSM';
+	const { timerState, setCooldown, setTimer } = useTimer({ storageItem: LPFCD });
 
-	const { handleSubmit, handleSubmitForm, isLoading, register, watch, resMessage, setResMessage } = useApiForm<FormValues>({
+	const { handleSubmit, handleSubmitForm, isLoading, register, watch, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		setSubmitValues: () => {
-			const isCooldown = forgeCooldown({ cooldownMs: COOLDOWN_TIME, cooldownItem: COOLDOWN_ITEM });
 			const guestId = document.cookie.split('=')[1];
 
 			if (!guestId) {
 				setResMessage({ type: 'error', message: 'Guest path lost. Reload the Forge.' });
 				return false;
 			}
+		},
+		onSubmited: () => {
+			const WAIT_SEC = 59;
 
-			if (isCooldown) {
-				setResMessage({
-					type: 'waiting',
-					message: 'Too many strikes. Cooldown active.',
-				});
+			setTimer({ timeOut: WAIT_SEC, localItem: LPFCD, triggerId: Date.now(), isShowTimer: true });
+		},
+		onError: error => {
+			const status = error?.response?.status;
+			const data = error?.response?.data;
+
+			if (data?.type === 'IP_BLOCKED') {
+				setResMessage({ type: 'error', message: 'Forge protection triggered. Try again later.' });
+				setCooldown({ status, waitSec: data?.waitSec, localItem: LPFCD, isShowTimer: false, resType: data?.type });
 				return false;
 			}
 
-			return true;
-		},
-		onSubmited: () => {
-			localStorage.setItem(COOLDOWN_ITEM, String(Date.now()));
+			setCooldown({ status, waitSec: data?.waitSec, localItem: LPFCD, isShowTimer: true });
 		},
 		defaultValues: { name: '', email: '', message: '' },
 		errorsMessage: { success: { message: 'Message successfully engraved.' } },
@@ -105,13 +55,14 @@ export const useLandingForm = () => {
 	};
 
 	return {
+		setResMessage,
 		handleSubmit,
 		handleSubmitForm,
 		isLoading,
 		register,
 		watch,
 		resMessage,
-		dataInputs,
 		onInvalid,
+		timerState,
 	};
 };

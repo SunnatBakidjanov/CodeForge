@@ -3,3 +3,4 @@ export const LFCD = 'LFCD'; // Login Form Cooldown
 export const RSCCD = 'RSCCD'; // Register Send Code Cooldown
 export const FPCD = 'FPCD'; // Forgot Password Cooldown
 export const CPCD = 'CPCD'; // Change Password Cooldown
+export const LPFCD = 'LPFCD'; // Login Page Form Cooldown

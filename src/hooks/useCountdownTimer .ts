@@ -4,14 +4,28 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 /* --- Types --- */
 type Arguments = {
 	storageItem: string;
+	isShowTimer?: boolean;
+	resType?: string | number | null | undefined;
+};
+
+type StorageState = {
+	savedEndTime: number;
+	isShowTimer?: boolean;
+	resType?: string | number | null | undefined;
 };
 
 /* --- useCountdownTimer Hook --- */
-export const useCountdownTimer = ({ storageItem }: Arguments) => {
+export const useCountdownTimer = ({ storageItem, isShowTimer, resType }: Arguments) => {
 	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+	const getStorage = () => {
+		const stored = localStorage.getItem(storageItem);
+		const parsed = stored ? (JSON.parse(stored) as StorageState) : { savedEndTime: 0, isShowTimer: false, resType: resType };
+		return { ...parsed };
+	};
+
 	const [countdown, setCountdown] = useState(() => {
-		const savedEndTime = Number(localStorage.getItem(storageItem));
+		const savedEndTime = getStorage()?.savedEndTime;
 
 		if (!savedEndTime) return 0;
 
@@ -37,11 +51,11 @@ export const useCountdownTimer = ({ storageItem }: Arguments) => {
 	const startTimer = useCallback(
 		(seconds: number) => {
 			const endTime = Date.now() + seconds * 1000;
-			localStorage.setItem(storageItem, endTime.toString());
+			localStorage.setItem(storageItem, JSON.stringify({ savedEndTime: endTime, isShowTimer: isShowTimer, resType: resType }));
 			setCountdown(seconds);
 		},
-		[storageItem]
+		[storageItem, isShowTimer, resType]
 	);
 
-	return { countdown, startTimer };
+	return { countdown, startTimer, getStorage };
 };
