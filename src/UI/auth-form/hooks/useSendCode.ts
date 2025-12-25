@@ -15,10 +15,14 @@ type Props = {
 /* --- useSendCode Hook --- */
 export const useSendCode = ({ setResMessage, getEmail }: Props) => {
 	const [isSend, setIsSend] = useState(false);
-	const { startTimer, countdown } = useCountdownTimer({ storageItem: RSCCD });
+	const { startTimer, countdown, getStorage } = useCountdownTimer({ storageItem: RSCCD });
+	const WAIT_SEC = 59;
 
 	const handleSendCode = async () => {
-		const COOLDOWN_TIME = 60;
+		if (getStorage()?.resType === 'IP_BLOCKED') {
+			setResMessage({ type: 'waiting', message: 'Forge protection triggered. Try again later.' });
+			return;
+		}
 
 		if (countdown > 0) {
 			setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
@@ -46,20 +50,27 @@ export const useSendCode = ({ setResMessage, getEmail }: Props) => {
 				email: email,
 			});
 
-			startTimer(COOLDOWN_TIME);
+			startTimer({ savedEndTime: WAIT_SEC, isShowTimer: true, resType: null });
 
 			setResMessage({ type: 'success', message: 'If email exists, code forged and sent!' });
 		} catch (error) {
-			const err = error as AxiosError & { response: { data: { waitSec: number } } };
+			const err = error as AxiosError & { response: { data: { waitSec: number; type: string } } };
 			const status = err.response?.status;
 			const waitSec = err.response?.data?.waitSec;
+			const resType = err.response?.data?.type;
+
+			if (resType === 'IP_BLOCKED') {
+				setResMessage({ type: 'error', message: 'Forge protection triggered. Try again later.' });
+				startTimer({ savedEndTime: waitSec, isShowTimer: false, resType: resType });
+				return;
+			}
 
 			const errors = {
 				400: () => setResMessage({ type: 'error', message: 'Code forging failed.' }),
 				409: () => setResMessage({ type: 'error', message: 'Email already branded in the Forge.' }),
 				429: () => {
 					setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
-					startTimer(waitSec);
+					startTimer({ savedEndTime: waitSec || WAIT_SEC, isShowTimer: true, resType: null });
 				},
 			};
 
@@ -74,5 +85,5 @@ export const useSendCode = ({ setResMessage, getEmail }: Props) => {
 		}
 	};
 
-	return { isSend, handleSendCode, countdown };
+	return { isSend, handleSendCode, countdown, getStorage };
 };

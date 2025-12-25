@@ -19,19 +19,19 @@ type Props = {
 export const LandingSubmitBtn = ({ isLoading, timerState, setResMessage }: Props) => {
 	const { countdown, startTimer, getStorage } = useCountdownTimer({
 		storageItem: timerState?.localItem ?? '',
-		isShowTimer: timerState?.isShowTimer,
-		resType: timerState?.resType,
 	});
 
 	useEffect(() => {
 		if (!timerState?.triggerId) return;
 
-		startTimer(timerState.timeOut);
-	}, [timerState?.triggerId, timerState?.timeOut, startTimer]);
+		if (timerState?.timeOut) {
+			startTimer({ savedEndTime: timerState?.timeOut, isShowTimer: timerState?.isShowTimer, resType: timerState?.resType });
+		}
+	}, [timerState?.triggerId, timerState?.timeOut, timerState?.isShowTimer, timerState?.resType, startTimer]);
 
 	const handleClick = () => {
 		if (getStorage()?.resType === 'IP_BLOCKED') {
-			setResMessage({ type: 'error', message: 'Forge protection triggered. Try again later.' });
+			setResMessage({ type: 'waiting', message: 'Forge protection triggered. Try again later.' });
 			return;
 		}
 

@@ -14,7 +14,7 @@ type Props = {
 
 /* --- BtnTimer Component --- */
 export const BtnSendCode = ({ isLoading, verifyCode, getEmail, setResMessage }: Props) => {
-	const { isSend, handleSendCode, countdown } = useSendCode({ setResMessage, getEmail });
+	const { isSend, handleSendCode, countdown, getStorage } = useSendCode({ setResMessage, getEmail });
 
 	return (
 		<button
@@ -29,7 +29,13 @@ export const BtnSendCode = ({ isLoading, verifyCode, getEmail, setResMessage }: 
 			disabled={isLoading || isSend}
 			onClick={handleSendCode}
 		>
-			{isSend ? <DottedLoader className="w-3 h-3" offset={'18px'} /> : countdown > 0 ? `Cooldown ${countdown}s` : verifyCode}
+			{isSend ? (
+				<DottedLoader className="w-3 h-3" offset={'18px'} />
+			) : countdown > 0 && getStorage()?.isShowTimer ? (
+				`Cooldown ${countdown}s`
+			) : (
+				verifyCode
+			)}
 		</button>
 	);
 };

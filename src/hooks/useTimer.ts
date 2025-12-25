@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 /* --- Types --- */
 export type TimerState = {
-	timeOut: number;
-	localItem: string;
+	timeOut?: number;
+	localItem?: string;
 	triggerId?: number;
 	isShowTimer?: boolean;
 	resType?: string | number | null | undefined;
@@ -13,14 +13,14 @@ export type TimerState = {
 type SetCooldownArgs = {
 	status?: number;
 	waitSec?: number;
-	localItem: string;
+	localItem?: string;
 	isShowTimer?: boolean;
 	resType?: string | number | null | undefined;
 };
 
 /* --- useTimer Hook --- */
 export const useTimer = ({ storageItem }: { storageItem: string }) => {
-	const [timerState, setTimer] = useState<TimerState>({ timeOut: 0, localItem: storageItem });
+	const [timerState, setTimer] = useState<TimerState>({ timeOut: 0, localItem: storageItem, resType: '' });
 
 	const setCooldown = ({ status, waitSec, localItem, isShowTimer, resType }: SetCooldownArgs) => {
 		if (status && status === 429 && typeof waitSec === 'number') {

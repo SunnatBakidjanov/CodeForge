@@ -56,7 +56,7 @@ export const ErrorPage = () => {
 						navigate(locationPath ?? '/', { replace: true });
 					}}
 					classNames={{
-						button: cn('w-full text-(--white) font-bold', 'text-lg lg:text-xl', 'py-1.25'),
+						button: cn('w-full text-white font-bold', 'text-lg lg:text-xl', 'py-1.25'),
 						blik: cn('h-[400%] w-[15%] sm:w-[14%] lg:w-[11%] xl:w-[10%]', 'duration-800 sm:duration-1000 lg:duration-1100'),
 					}}
 					isBlink={true}

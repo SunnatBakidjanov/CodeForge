@@ -13,9 +13,19 @@ export const CheckGuest = () => {
 	const user = useAppSelector(state => state.user);
 
 	useEffect(() => {
+		const isAuth = Boolean(user?.id);
+
+		if (isAuth) {
+			dispatch(setIsGuest({ isGuest: false }));
+			return;
+		}
+
 		const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith('CFG='));
 
-		if (hasGuestCookie || user.email) return;
+		if (hasGuestCookie) {
+			dispatch(setIsGuest({ isGuest: true }));
+			return;
+		}
 
 		(async () => {
 			try {

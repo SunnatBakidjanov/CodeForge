@@ -16,7 +16,7 @@ type Props = {
 
 /* --- BtnTimerSubmit Component --- */
 export const BtnTimerSubmit = ({ isLoading, btnText, timerState, setResMessage }: Props) => {
-	const { countdown, handleClick } = useBtnTimerSubmit({ timerState, setResMessage });
+	const { countdown, handleClick, getStorage } = useBtnTimerSubmit({ timerState, setResMessage });
 
 	return (
 		<BgGradient
@@ -35,7 +35,7 @@ export const BtnTimerSubmit = ({ isLoading, btnText, timerState, setResMessage }
 			>
 				{isLoading ? (
 					<DottedLoader className="w-3 h-3 lg:w-3.5 lg:h-3.5" offset={'24px'} />
-				) : countdown > 0 ? (
+				) : countdown > 0 && getStorage()?.isShowTimer ? (
 					`Cooldown ${countdown}s`
 				) : (
 					btnText

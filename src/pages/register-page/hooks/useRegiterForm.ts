@@ -14,12 +14,13 @@ type ResError = { message: string; type: string; waitSec: number };
 // This hook is used to manage the form for the register page.
 export const useRegisterForm = () => {
 	const navigate = useNavigate();
-	const { timerState, setTimer, setCooldown } = useTimer({ storageItem: RFCD });
+	const { timerState, setCooldown } = useTimer({ storageItem: RFCD });
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
-		errorsMessage: { success: { message: 'Crafting complete.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
-		setSubmitValues: () => {
-			setTimer({ timeOut: 0, localItem: '' });
+		errorsMessage: {
+			success: { message: 'Crafting complete.' },
+			400: { message: 'The pattern is flawed. Refine it.' },
+			429: { type: 'waiting', message: 'Forge protection triggered. Try again later.' },
 		},
 		onSubmited: () => {
 			navigate(loginRoute);
@@ -28,12 +29,15 @@ export const useRegisterForm = () => {
 			const data = error.response?.data;
 			const status = error?.status;
 
+			if (data?.type === 'IP_BLOCKED') {
+				setCooldown({ status, waitSec: data?.waitSec, localItem: RFCD, isShowTimer: false, resType: data?.type });
+				return false;
+			}
+
 			if (data?.type === 'codeNotFound') {
 				setResMessage({ type: 'error', message: 'Code is invalid.' });
 				return false;
 			}
-
-			setCooldown({ status, waitSec: data?.waitSec, localItem: RFCD });
 		},
 		customErrors: {
 			409: { type: 'error', message: 'Email already branded in the Forge.' },
