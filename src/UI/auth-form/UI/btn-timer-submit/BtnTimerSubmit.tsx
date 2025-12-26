@@ -6,6 +6,7 @@ import { cn } from '@/utils/cn';
 import type { ResType } from '@/hooks/useApiForm';
 import { useBtnTimerSubmit } from '../../hooks/useBtnTimerSubmit';
 import type { TimerState } from '../../../../hooks/useTimer';
+import { CountDownTimer } from '@/UI/count-down-timer/CountDownTimer';
 
 type Props = {
 	isLoading: boolean;
@@ -36,7 +37,7 @@ export const BtnTimerSubmit = ({ isLoading, btnText, timerState, setResMessage }
 				{isLoading ? (
 					<DottedLoader className="w-3 h-3 lg:w-3.5 lg:h-3.5" offset={'24px'} />
 				) : countdown > 0 && getStorage()?.isShowTimer ? (
-					`Cooldown ${countdown}s`
+					<CountDownTimer time={countdown} classNames={{ spiner: 'w-9 h-9 sm:w-10 sm:h-10' }} />
 				) : (
 					btnText
 				)}

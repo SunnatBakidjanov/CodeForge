@@ -7,6 +7,7 @@ import type { TimerState } from '@/hooks/useTimer';
 import { useCountdownTimer } from '@/hooks/useCountdownTimer ';
 import { useEffect } from 'react';
 import type { ResType } from '@/hooks/useApiForm';
+import { CountDownTimer } from '@/UI/count-down-timer/CountDownTimer';
 
 /* --- Type --- */
 type Props = {
@@ -58,7 +59,7 @@ export const LandingSubmitBtn = ({ isLoading, timerState, setResMessage }: Props
 				{isLoading ? (
 					<DottedLoader className="w-3 h-3 lg:w-3.5 lg:h-3.5" offset="24px" />
 				) : countdown > 0 && getStorage()?.isShowTimer ? (
-					`Cooldown ${countdown}s`
+					<CountDownTimer time={countdown} classNames={{ spiner: 'w-10 h-10 md:w-11 md:h-11' }} />
 				) : (
 					'Send message'
 				)}

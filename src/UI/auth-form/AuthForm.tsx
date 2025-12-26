@@ -105,7 +105,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 				{title}
 				<ImageComp
 					className="w-10 sm:w-14 h-14 sm:h-14 ml-1.5 sm:ml-3 relative bottom-[3px]"
-					imgAttr={{ src: titleIcon, className: 'max-w-11 sm:max-w-16 h-auto object-cover' }}
+					imgAttr={{ src: titleIcon, className: 'max-w-11 sm:max-w-16 h-auto object-contain' }}
 					loader={{ classNames: { container: 'w-8 h-8 sm:w-12 sm:h-12' } }}
 				/>
 			</TextGradient>

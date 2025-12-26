@@ -12,6 +12,7 @@ import { LandingTitle } from '../landing-title/LandingTitle';
 import hammerAndAnvil from '/imgs/webp/hammer-and-anvil-2.webp';
 import { LandingContainer } from '../landing-container/LandingContainer';
 import { LandingParagraph } from '../landing-paragraph/LandingParagraph';
+import { registerRoute } from '@/utils/urls';
 
 /** --- LandingJoin Component --- */
 export const LandingJoin = () => {
@@ -53,7 +54,7 @@ export const LandingJoin = () => {
 							)}
 						>
 							<Button
-								onClick={() => navigate('/register')}
+								onClick={() => navigate(registerRoute)}
 								isBlink={true}
 								children={btn}
 								classNames={{

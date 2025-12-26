@@ -3,6 +3,7 @@ import { DottedLoader } from '@/UI/loaders/dotted-loader/DottedLoader';
 import { cn } from '@/utils/cn';
 import type { ResType } from '@/hooks/useApiForm';
 import { useSendCode } from '../../hooks/useSendCode';
+import { CountDownTimer } from '@/UI/count-down-timer/CountDownTimer';
 
 /* --- Types --- */
 type Props = {
@@ -21,7 +22,7 @@ export const BtnSendCode = ({ isLoading, verifyCode, getEmail, setResMessage }: 
 			type="button"
 			className={cn(
 				'sm:text-lg',
-				'w-1/2 text-(--white) rounded-3xl bg-black/40 shadow-xs tracking-[0.5px] cursor-pointer flex items-center justify-center relative top-px',
+				'w-1/2 text-(--white) rounded-3xl bg-black/40 shadow-xs tracking-[0.5px] cursor-pointer flex items-center justify-center relative top-px overflow-hidden',
 				'transition-all duration-300 ease-out',
 				'h-10 sm:h-11',
 				'hover:shadow-white focus-visible:shadow-white'
@@ -32,7 +33,7 @@ export const BtnSendCode = ({ isLoading, verifyCode, getEmail, setResMessage }: 
 			{isSend ? (
 				<DottedLoader className="w-3 h-3" offset={'18px'} />
 			) : countdown > 0 && getStorage()?.isShowTimer ? (
-				`Cooldown ${countdown}s`
+				<CountDownTimer time={countdown} classNames={{ spiner: 'w-9 h-9 sm:w-10 sm:h-10' }} />
 			) : (
 				verifyCode
 			)}

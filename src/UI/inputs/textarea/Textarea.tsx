@@ -34,7 +34,7 @@ export const Textarea = ({ className, isAutoresize, onInput, ...rest }: Props) =
 				'transition-all duration-300 ease-out',
 				'lg:text-lg',
 				'placeholder:font-bold lg:placeholder:text-lg placeholder:not-italic',
-				'focus:shadow-orange-500 focus:border-orange-500/50',
+				'focus:shadow-orange-500 focus:border-orange-500/50 hover:shadow-orange-500',
 				'px-4',
 				'py-2.5',
 				'min-h-40',
