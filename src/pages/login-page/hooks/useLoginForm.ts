@@ -8,7 +8,7 @@ import { useTimer } from '@/hooks/useTimer';
 import { LFCD } from '@/utils/localStorageKeys';
 
 /* --- Types --- */
-type ResError = {
+export type ResError = {
 	message: string;
 	waitSec: number;
 	type: string;
@@ -23,6 +23,7 @@ export const useLoginForm = () => {
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, LoginRes, ResError>({
 		defaultValues: { email: '', password: '' },
 		onSubmited,
+
 		onError: error => {
 			const status = error?.status;
 			const waitSec = error?.response?.data?.waitSec;

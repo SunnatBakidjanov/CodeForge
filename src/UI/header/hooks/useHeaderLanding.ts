@@ -1,6 +1,6 @@
 /* --- Imports --- */
 import { useRef, useEffect, useState } from 'react';
-import { useResize } from '../../../../hooks/useResize';
+import { useResize } from '@/hooks/useResize';
 
 /* --- useHeaderLanding Hook --- */
 export const useHeaderLanding = () => {

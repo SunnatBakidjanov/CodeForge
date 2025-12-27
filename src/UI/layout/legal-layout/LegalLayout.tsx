@@ -1,12 +1,13 @@
 /* --- Imports --- */
 import { Outlet } from 'react-router';
-import { HeaderLegal } from '../../headers/header-legal/HeaderLegal';
+import { Header } from '@/UI/header/Header';
+import { LegalNav } from '@/UI/header/UI/leagal-nav/LegalNav';
 
 /* --- LegalLayout Component --- */
 export const LegalLayout = () => {
 	return (
 		<div className="min-h-screen">
-			<HeaderLegal />
+			<Header Nav={LegalNav} />
 			<Outlet />
 		</div>
 	);
