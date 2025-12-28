@@ -23,13 +23,13 @@ export const LegalNav = ({ isOpen, height }: NavProps) => {
 				transition={{ duration: 0.4, ease: isOpen ? 'backOut' : 'backIn' }}
 				style={{ top: `${height}px` }}
 			>
-				<div className="flex flex-col items-center gap-2 relative z-2">
+				<div className="flex flex-col items-center gap-2.5 relative z-2">
 					<LinksList
 						links={links}
 						activeLink={activeLink}
 						isHasTabindex={true}
 						isOpen={isOpen}
-						classNames={{ text: 'w-full text-center text-base bg-black/60', imgContainer: 'w-full h-8.5 w-8.5', img: 'max-w-18' }}
+						classNames={{ text: 'w-full text-center text-base bg-black/60 text-lg', imgContainer: 'w-full h-10 w-10', img: 'max-w-20' }}
 					/>
 				</div>
 
