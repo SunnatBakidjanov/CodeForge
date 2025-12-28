@@ -1,33 +1,40 @@
 /* --- Imports --- */
 import type { NavProps } from '../../Header';
-import { BtnBurger } from '@/UI/btns/btn-burger/BtnBurger';
 import { useLegalNav } from './hooks/useLegalNav';
-import { Link } from 'react-router';
 import { cn } from '@/utils/cn';
-import { ImageComp } from '@/UI/image-comp/ImageComp';
-import backIcon from 'public/imgs/webp/back-icon.webp';
+import { LinksList } from './UI/LinksList';
+import { BgBlur } from '@/UI/backgrounds/bg-blur/BgBlur';
+import { motion } from 'framer-motion';
 
 /* --- LegalNav Component --- */
-export const LegalNav = ({ handleOpen }: NavProps) => {
-	const { links } = useLegalNav();
+export const LegalNav = ({ isOpen, height }: NavProps) => {
+	const { links, activeLink } = useLegalNav();
 
 	return (
 		<>
-			<BtnBurger classNames={{ btn: 'md:hidden', container: 'gap-1.25 w-8 h-6', lines: 'w-full h-[3px]' }} btnProps={{ onClick: handleOpen }} />
-
-			<div className={cn('hidden md:flex items-center justify-center gap-4')}>
-				{links.map(({ link, text, type }, i) => {
-					return type === 'text' ? (
-						<Link to={link ?? '/'} key={i}>
-							{text}
-						</Link>
-					) : (
-						<Link to={link ?? '/'} key={i}>
-							<ImageComp imgAttr={{ src: backIcon, className: 'w-4 h-4' }} />
-						</Link>
-					);
-				})}
+			<div className={cn('hidden md:flex items-center justify-center gap-3')}>
+				<LinksList links={links} activeLink={activeLink} />
 			</div>
+
+			<motion.div
+				className={cn('md:hidden absolute overflow-hidden w-full left-0 border-b-1 border-white/20 bg-black', 'mt-px', 'py-5.5 px-4')}
+				initial={{ y: '50%', opacity: 0, pointerEvents: 'none' }}
+				animate={{ y: isOpen ? 0 : '50%', opacity: isOpen ? 1 : 0, pointerEvents: isOpen ? 'auto' : 'none' }}
+				transition={{ duration: 0.4, ease: isOpen ? 'backOut' : 'backIn' }}
+				style={{ top: `${height}px` }}
+			>
+				<div className="flex flex-col items-center gap-2 relative z-2">
+					<LinksList
+						links={links}
+						activeLink={activeLink}
+						isHasTabindex={true}
+						isOpen={isOpen}
+						classNames={{ text: 'w-full text-center text-base bg-black/60', imgContainer: 'w-full h-8.5 w-8.5', img: 'max-w-18' }}
+					/>
+				</div>
+
+				<BgBlur className="w-3/4 h-1/2 blur-[80px] z-1" />
+			</motion.div>
 		</>
 	);
 };

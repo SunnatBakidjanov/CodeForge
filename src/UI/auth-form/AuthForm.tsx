@@ -6,7 +6,7 @@ import { ImageComp } from '../image-comp/ImageComp';
 import { cn } from '@/utils/cn';
 import { Button } from '../btns/button/Button';
 import { TextGradient } from '../gradients/text-gradient/TextGradietn';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import type {
 	UseFormHandleSubmit,
 	FieldValues,
@@ -80,7 +80,6 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 	const { isPasswordVisible, setPasswordType } = useShowPassword();
 	const { handleSocialLogin } = useLoginWithSocial({ setResMessage });
 	const { verifyCode, socialBtns } = formConfig;
-	const navigate = useNavigate();
 
 	return (
 		<Form
@@ -281,28 +280,20 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 
 					<p className={cn('italic text-center text-[var(--white)]', 'text-lg sm:text-xl', 'mt-2 sm:mt-3')}>{linkDescription}</p>
 
-					<Button
-						isBlink={true}
-						onClick={e => {
-							e.preventDefault();
-							navigate(href);
-						}}
-						classNames={{
-							button: cn(
-								'text-lg sm:text-xl',
-								'text-white shadow-xs shadow-white w-full rounded-3xl bg-black/30',
-								'focus-visible:shadow-md',
-								'hover:shadow-md',
-								'transition-all duration-300 ease-out',
-								'py-1.5 sm:py-2',
-								'mt-4 sm:mt-6',
-								'max-w-[300px]'
-							),
-							blik: cn('h-[300%]', 'w-[15%]', 'duration-800'),
-						}}
-					>
-						{linkText}
-					</Button>
+					<Link
+						to={href}
+						children={linkText}
+						className={cn(
+							'text-lg sm:text-xl',
+							'text-white text-center shadow-xs shadow-white w-full rounded-3xl bg-black/30',
+							'focus-visible:shadow-md',
+							'hover:shadow-md',
+							'transition-all duration-300 ease-out',
+							'py-1.5 sm:py-2',
+							'mt-4 sm:mt-6',
+							'max-w-[300px]'
+						)}
+					/>
 				</div>
 			)}
 

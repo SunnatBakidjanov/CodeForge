@@ -1,6 +1,5 @@
 /* --- Imports --- */
-import { useNavigate } from 'react-router';
-import { Button } from '@/UI/btns/button/Button';
+import { Link } from 'react-router';
 import { MaxWidthContainer } from '@/UI/containers/max-width-container/MaxWidthContainer';
 import { SectionContainer } from '@/UI/containers/section-container/SectionContainer';
 import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
@@ -17,7 +16,6 @@ import { registerRoute } from '@/utils/urls';
 /** --- LandingJoin Component --- */
 export const LandingJoin = () => {
 	const { title, description, joinDescription, btn } = JoinSectionConfig;
-	const navigate = useNavigate();
 
 	return (
 		<SectionContainer>
@@ -53,14 +51,10 @@ export const LandingJoin = () => {
 								'mt-6 lg:mt-8'
 							)}
 						>
-							<Button
-								onClick={() => navigate(registerRoute)}
-								isBlink={true}
+							<Link
+								to={registerRoute}
 								children={btn}
-								classNames={{
-									button: cn('text-white font-medium w-full', 'text-xl lg:text-2xl', 'py-0.75'),
-									blik: 'h-[350%] w-[12%] xl:w-[10%] duration-800 md:duration-900 lg:duration-1000 xl:duration-1100',
-								}}
+								className={cn('text-white font-medium w-full text-center block', 'text-xl lg:text-2xl', 'py-0.75')}
 							/>
 						</BgGradient>
 					</div>

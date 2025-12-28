@@ -1,11 +1,12 @@
 /** --- Imports --- */
 import type { PageConfigType } from '@/UI/legal/Legal';
 
-/** --- pageConfig --- */
+/* --- pageConfig --- */
 export const pageConfig = {
 	hideTitle: 'CodeForge Terms of Service',
 	title: 'Terms of Service — ',
 	lastUpdated: 'Last Updated: November 18, 2025',
+	discription: 'The following terms govern your access and use of the platform./nUsing the service means accepting these conditions.',
 	dataPoints: [
 		{
 			title: 'General Provisions',

@@ -9,7 +9,7 @@ import { MainLayoutNav } from '@/UI/header/UI/main-layout-nav/MainLayoutNav';
 export const MainPageLayout = () => {
 	return (
 		<>
-			<Header Nav={MainLayoutNav} />
+			<Header Nav={MainLayoutNav} burgerClassNames={{ btn: 'sm:hidden' }} />
 			<Outlet />
 			<Footer />
 		</>

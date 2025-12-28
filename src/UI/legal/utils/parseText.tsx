@@ -35,7 +35,7 @@ export const parseText = (text: string[], i: number) => {
 							<a
 								key={k}
 								href={`mailto:${email}`}
-								className="hover:text-[var(--react-blue)]/80 underline underline-offset-8 focus-visible:text-[var(--react-blue)]/80 font-bold transition-all duration-200 ease-out"
+								className="hover:text-(--hot-orange)/80 underline underline-offset-8 focus-visible:text-(--hot-orange)/80 font-bold transition-all duration-200 ease-out"
 							>
 								{email}
 							</a>
@@ -49,7 +49,7 @@ export const parseText = (text: string[], i: number) => {
 							<span key={k} className="flex flex-col mt-1.5">
 								{list.map((item, l) => (
 									<span key={l}>
-										<VscCircleFilled className="inline text-[var(--react-blue)]/90 mr-1 relative bottom-[1px] w-5 h-5" />
+										<VscCircleFilled className="inline text-(--hot-orange)/80 mr-1 relative bottom-[0.5px] sm:bottom-px w-4 h-4 sm:w-5 sm:h-5" />
 										{item}
 									</span>
 								))}

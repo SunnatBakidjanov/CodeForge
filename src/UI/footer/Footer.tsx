@@ -5,11 +5,11 @@ import { MaxWidthContainer } from '../containers/max-width-container/MaxWidthCon
 import { MainTitle } from '../main-title/MainTitle';
 
 /* --- Types --- */
-type Props = { classNames?: { [key in 'bgBlur' | 'footer']?: string } };
+type Props = { classNames?: { [key in 'bgBlur' | 'footer']?: string }; children?: React.ReactNode };
 
 /* --- Footer Component --- */
 // This component represents the footer of the application.
-export const Footer = ({ classNames }: Props) => {
+export const Footer = ({ classNames, children }: Props) => {
 	return (
 		<footer className={cn('bg-black/30 relative', 'pb-6 sm:pb-7', 'pt-5 sm:pt-6', classNames?.footer)}>
 			<MaxWidthContainer>
@@ -31,6 +31,8 @@ export const Footer = ({ classNames }: Props) => {
 					</p>
 				</div>
 			</MaxWidthContainer>
+
+			{children}
 
 			<BgBlur className={cn('h-1/4 blur-[120px]', classNames?.bgBlur)} />
 		</footer>

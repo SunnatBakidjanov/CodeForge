@@ -2,7 +2,7 @@
 import { cn } from '../../../utils/cn';
 import { BgGradient } from '../../gradients/bg-gradient/BgGradient';
 
-type Props = {
+export type Props = {
 	classNames?: { [key in 'btn' | 'container' | 'lines']?: string };
 	btnProps?: Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'>;
 };
@@ -13,7 +13,7 @@ export const BtnBurger = ({ classNames, btnProps }: Props) => {
 		<button
 			type="button"
 			className={cn(
-				'rounded-3xl p-2 shadow-sm hover:shadow-white focus-visible:shadow-white transition-shadow duration-300 ease-out',
+				'rounded-3xl p-2 hover:bg-white/10 focus-visible:bg-white/10 transition-all duration-300 ease-out cursor-pointer',
 				classNames?.btn
 			)}
 			{...btnProps}

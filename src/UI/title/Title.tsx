@@ -25,9 +25,11 @@ export type Props<T extends React.ElementType> = {
 /* --- Title Component --- */
 // This component represents a title element for the application.
 export const Title = ({ TitleType, children, defaultStyles, className, ...rest }: Props<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>) => {
+	const Title = TitleType || 'h1';
+
 	return (
-		<TitleType className={cn(cvaStyles({ styles: defaultStyles }), className)} {...rest}>
+		<Title className={cn(cvaStyles({ styles: defaultStyles }), className)} {...rest}>
 			{children}
-		</TitleType>
+		</Title>
 	);
 };

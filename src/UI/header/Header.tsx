@@ -5,6 +5,7 @@ import { MaxWidthContainer } from '../containers/max-width-container/MaxWidthCon
 import { MainTitle } from '../main-title/MainTitle';
 import { useHeaderLanding } from './hooks/useHeaderLanding';
 import { landingRoute } from '@/utils/urls';
+import { BtnBurger, type Props as BurgerProps } from '../btns/btn-burger/BtnBurger';
 
 /* --- Types --- */
 export type NavProps = {
@@ -15,13 +16,16 @@ export type NavProps = {
 
 type Props = {
 	Nav?: React.ComponentType<NavProps>;
+	isHasBurger?: boolean;
+	burgerClassNames?: BurgerProps['classNames'];
 	navigateLink?: string;
 };
 
 /* --- HeaderLanding Component --- */
 // This component represents the header of the landing page.
-export const Header = ({ Nav, navigateLink }: Props) => {
+export const Header = ({ Nav, navigateLink, isHasBurger = true, burgerClassNames }: Props) => {
 	const { headerRef, height, scrolled, isOpen, handleOpen } = useHeaderLanding();
+	const { btn: burgerBtn, container: burgerContiner, lines: burgerLines } = burgerClassNames || {};
 
 	return (
 		<header ref={headerRef} className={cn('relative overflow-hidden w-full z-10', 'h-16 sm:h-18 lg:h-19')}>
@@ -35,13 +39,23 @@ export const Header = ({ Nav, navigateLink }: Props) => {
 					<div className={cn('w-full will-change-[height] flex items-center justify-between')} style={{ height: `${height}px` }}>
 						<MainTitle
 							href={navigateLink || landingRoute}
-							textGradient={{ ComponentType: 'button' }}
 							classNames={{
-								textGradient: 'font-bold text-xl sm:text-2xl lg:text-[26px]',
+								textGradient: 'font-bold text-xl lg:text-[26px]',
 								img: 'max-w-9 sm:max-w-10 lg:max-w-11',
 								imgContainer: 'w-7 h-7 ml-1.5 sm:ml-2 lg:ml-2.5 sm:w-8 md:h-8',
 							}}
 						/>
+
+						{isHasBurger && (
+							<BtnBurger
+								classNames={{
+									btn: burgerBtn,
+									container: cn('gap-1.25 w-8 h-8', burgerContiner),
+									lines: cn('w-full h-[3px]', burgerLines),
+								}}
+								btnProps={{ onClick: handleOpen }}
+							/>
+						)}
 
 						{Nav && <Nav height={height} isOpen={isOpen} handleOpen={handleOpen} />}
 
