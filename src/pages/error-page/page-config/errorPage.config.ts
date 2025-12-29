@@ -26,3 +26,11 @@ export const serverErrorPageConfig = {
 	locationSubtitle: 'The Forge Went Dark',
 	locationBtnText: 'Return to Forge',
 } as LocationState;
+
+export const guestErrorConfig = {
+	locationPath: '/',
+	locationDescription: 'The guest key has faltered. Reforge your path to continue.',
+	locationTitle: '400',
+	locationSubtitle: 'Guest Token Invalid',
+	locationBtnText: 'Reforge Token',
+};

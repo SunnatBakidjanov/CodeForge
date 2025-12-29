@@ -1,38 +1,44 @@
 /* --- Imports --- */
 import { apiUrl, changePassValidateUrl, errorPageRoute } from '@/utils/urls';
 import axios, { AxiosError } from 'axios';
-import { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useSearchParams } from 'react-router';
 import { resetPasswordPageConfig, serverErrorPageConfig } from '@/pages/error-page/page-config/errorPage.config';
+import { GlobalLoader } from '@/UI/loaders/global-loader/GlobalLoader';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 /* --- CheckChangePassToken Component --- */
 export const CheckChangePassToken = () => {
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-	const [isAllow, setIsAllow] = useState(false);
 	const paramsObj = Object.fromEntries(searchParams.entries());
 
+	const getChangePassToken = async () => {
+		await axios.get(`${apiUrl}${changePassValidateUrl}`, { params: paramsObj });
+
+		return { isCheckToken: true };
+	};
+
+	const { isError, error, isLoading } = useQuery({
+		queryKey: [changePassValidateUrl],
+		queryFn: getChangePassToken,
+		retry: false,
+	});
+
 	useEffect(() => {
-		(async () => {
-			try {
-				await axios.get(`${apiUrl}${changePassValidateUrl}`, { params: paramsObj });
+		const err = error as AxiosError;
+		const status = err?.status;
 
-				setIsAllow(true);
-			} catch (error) {
-				const err = error as AxiosError;
-				const status = err.response?.status;
+		if (status === 400) {
+			navigate(errorPageRoute, { replace: true, state: resetPasswordPageConfig });
+			return;
+		}
 
-				if (status == 400) {
-					navigate(errorPageRoute, { replace: true, state: resetPasswordPageConfig });
-					return;
-				}
+		navigate(errorPageRoute, { replace: true, state: serverErrorPageConfig });
+		return;
+	}, [isError, navigate, error]);
 
-				navigate(errorPageRoute, { replace: true, state: serverErrorPageConfig });
-			}
-		})();
-	}, [paramsObj, navigate]);
-
-	if (!isAllow) return null;
+	if (isLoading) return <GlobalLoader />;
 
 	return <Outlet />;
 };

@@ -1,46 +1,32 @@
 /* --- Imports --- */
-import { useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
-import { apiUrl, guestUrl } from '../utils/urls';
-import { Outlet } from 'react-router';
-import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-import { setIsGuest } from '../redux/guest-slice/slice';
+import axios from 'axios';
+import { apiUrl, errorPageRoute, guestUrl } from '../utils/urls';
+import { useQuery } from '@tanstack/react-query';
+import { GlobalLoader } from '@/UI/loaders/global-loader/GlobalLoader';
+import { useNavigate } from 'react-router';
+import { guestErrorConfig } from '@/pages/error-page/page-config/errorPage.config';
+
+const checkGuest = async () => {
+	const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith('CFG='));
+	if (hasGuestCookie) return { isGuest: true };
+
+	await axios.get(`${apiUrl}${guestUrl}`, { withCredentials: true });
+	return { isGuest: true };
+};
 
 /* --- CheckGuest Component --- */
 // This component checks if the user is a guest.
-export const CheckGuest = () => {
-	const dispatch = useAppDispatch();
-	const user = useAppSelector(state => state.user);
+export const CheckGuest = ({ children }: { children: React.ReactNode }) => {
+	const navigate = useNavigate();
+	const { isLoading, isError } = useQuery({
+		queryKey: [guestUrl],
+		queryFn: checkGuest,
+		retry: false,
+	});
 
-	useEffect(() => {
-		const isAuth = Boolean(user?.id);
+	if (isLoading) return <GlobalLoader />;
 
-		if (isAuth) {
-			dispatch(setIsGuest({ isGuest: false }));
-			return;
-		}
+	if (isError) navigate(errorPageRoute, { replace: true, state: guestErrorConfig });
 
-		const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith('CFG='));
-
-		if (hasGuestCookie) {
-			dispatch(setIsGuest({ isGuest: true }));
-			return;
-		}
-
-		(async () => {
-			try {
-				await axios.get(`${apiUrl}${guestUrl}`, {
-					withCredentials: true,
-				});
-
-				dispatch(setIsGuest({ isGuest: true }));
-			} catch (error) {
-				const err = error as AxiosError;
-
-				if (err) dispatch(setIsGuest({ isGuest: false }));
-			}
-		})();
-	}, [dispatch, user]);
-
-	return <Outlet />;
+	return children;
 };

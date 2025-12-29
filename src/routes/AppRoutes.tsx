@@ -7,7 +7,6 @@ import { CheckGuest } from '../api/CheckGuest';
 import { AppLayout } from '../UI/layout/app-layout/AppLayout';
 import { PrivatePolityPage } from '../pages/private-policy-page/PrivatePolicyPage';
 import { TermsServicePage } from '../pages/terms-service-page/TermsServicePage';
-import { LandingPage } from '../pages/landing-page/LandingPage';
 import { lazy, Suspense } from 'react';
 import { GlobalLoader } from '../UI/loaders/global-loader/GlobalLoader';
 import { ForgotPasswordPage } from '@/pages/forgot-password/ForgotPasswordPage';
@@ -20,6 +19,7 @@ const LazyLegalLayout = lazy(() => import('@/UI/layout/legal-layout/LegalLayout'
 const LazyMainPageLayout = lazy(() => import('@/UI/layout/main-page-layout/MainPageLayout').then(module => ({ default: module.MainPageLayout })));
 const LazyHomePage = lazy(() => import('@/pages/home-page/HomePage').then(module => ({ default: module.HomePage })));
 const LazyErrorPage = lazy(() => import('@/pages/error-page/ErrorPage').then(module => ({ default: module.ErrorPage })));
+const LazyLandingPage = lazy(() => import('@/pages/landing-page/LandingPage').then(module => ({ default: module.LandingPage })));
 
 /* --- AppRoutes Component --- */
 // This component manages the routing for the application.
@@ -30,17 +30,36 @@ export const AppRoutes = () => {
 				<Route element={<MainLayout />}>
 					<Route path="/" element={<Navigate to={'/landing'} replace />} />
 
-					<Route element={<CheckGuest />}>
+					<Route
+						element={
+							<Suspense fallback={<GlobalLoader />}>
+								<CheckGuest>
+									<LazyMainPageLayout />
+								</CheckGuest>
+							</Suspense>
+						}
+					>
+						<Route path="/landing" element={<LazyLandingPage />} />
+					</Route>
+
+					<Route>
 						<Route
+							path="/auth"
 							element={
 								<Suspense fallback={<GlobalLoader />}>
-									<LazyMainPageLayout />
+									<CheckGuest>
+										<LazyAuthLayout />
+									</CheckGuest>
 								</Suspense>
 							}
 						>
-							<Route path="/landing" element={<LandingPage />} />
+							<Route path="register" element={<RegisterPage />} />
+							<Route path="login" element={<LoginPage />} />
+							<Route path="recover-password" element={<ForgotPasswordPage />} />
 						</Route>
+					</Route>
 
+					<Route element={<CheckChangePassToken />}>
 						<Route
 							path="/auth"
 							element={
@@ -49,22 +68,7 @@ export const AppRoutes = () => {
 								</Suspense>
 							}
 						>
-							<Route path="register" element={<RegisterPage />} />
-							<Route path="login" element={<LoginPage />} />
-							<Route path="recover-password" element={<ForgotPasswordPage />} />
-						</Route>
-
-						<Route element={<CheckChangePassToken />}>
-							<Route
-								path="/auth"
-								element={
-									<Suspense fallback={<GlobalLoader />}>
-										<LazyAuthLayout />
-									</Suspense>
-								}
-							>
-								<Route path="change-password" element={<ChangePasswordPage />} />
-							</Route>
+							<Route path="change-password" element={<ChangePasswordPage />} />
 						</Route>
 					</Route>
 				</Route>
