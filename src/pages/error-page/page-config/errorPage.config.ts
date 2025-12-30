@@ -29,7 +29,8 @@ export const serverErrorPageConfig = {
 
 export const guestErrorConfig = {
 	locationPath: '/',
-	locationDescription: 'The guest key has faltered. Reforge your path to continue.',
+	locationDescription:
+		'Your guest token is stored in cookies. If cookies are disabled in your browser, the Forge cannot grant you access. Re-enable cookies to continue.',
 	locationTitle: '400',
 	locationSubtitle: 'Guest Token Invalid',
 	locationBtnText: 'Reforge Token',

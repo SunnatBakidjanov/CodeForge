@@ -27,13 +27,13 @@ export const LinksList = ({ links, activeLink, classNames, isOpen, isHasTabindex
 				className={cn(
 					'block font-bold lg:font-normal',
 					'transition-all duration-300 ease-out',
-					'py-1.25 lg:py-1 px-8 lg:px-10',
-					'text-white bg-black/80 rounded-3xl',
+					'py-1.25 lg:py-1.25 px-6 lg:px-10',
+					'text-white bg-black/40 rounded-3xl',
 					'lg:text-xl',
 					'shadow-xs shadow-white',
-					'hover:shadow-md focus-visible:shadow-md',
+					'shadow-white hover:shadow-md focus-visible:shadow-md',
 					classNames?.text,
-					activeLink(link) && 'bg-gradient-to-br from-yellow-500 via-orange-400 to-orange-600'
+					activeLink(link) && 'shadow-md bg-black'
 				)}
 			>
 				{text}
@@ -44,9 +44,9 @@ export const LinksList = ({ links, activeLink, classNames, isOpen, isHasTabindex
 				key={i}
 				tabIndex={tabIndex}
 				className={cn(
-					'flex items-center justify-center overflow-hidden rounded-3xl bg-black/80 shadow-sm shadow-white',
+					'flex items-center justify-center overflow-hidden rounded-3xl bg-black/40 shadow-xs shadow-white',
 					'hover:shadow-md focus-within:shadow-md',
-					'px-8 lg:px-12',
+					'px-6 lg:px-12',
 					'transition-all duration-300 ease-out',
 					classNames?.text
 				)}
@@ -56,7 +56,7 @@ export const LinksList = ({ links, activeLink, classNames, isOpen, isHasTabindex
 						src: backIcon,
 						className: cn('relative top-px max-w-18 lg:max-w-20 h-auto drop-shadow-[0_0_1px_var(--hot-orange)]', classNames?.img),
 					}}
-					className={cn('h-8 w-8 lg:w-9 lg:h-9', classNames?.imgContainer)}
+					className={cn('h-8.5 w-8.5 lg:w-9.5 lg:h-9.5', classNames?.imgContainer)}
 				/>
 			</Link>
 		);

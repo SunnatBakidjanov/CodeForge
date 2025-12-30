@@ -1,11 +1,11 @@
 /* --- Imports --- */
 import type { FormValues } from '../page-config/form.config';
 import { useApiForm } from '@/hooks/useApiForm';
-import { loginUrl } from '@/utils/urls';
+import { homeRoute, loginUrl } from '@/utils/urls';
 import { type FieldErrors } from 'react-hook-form';
-import { useOnSubmit, type LoginRes } from './useOnSubmit';
 import { useTimer } from '@/hooks/useTimer';
 import { LFCD } from '@/utils/localStorageKeys';
+import { useNavigate } from 'react-router';
 
 /* --- Types --- */
 export type ResError = {
@@ -17,13 +17,14 @@ export type ResError = {
 /* --- UseLoginForm Hook --- */
 // This hook is used to manage the form for the login page.
 export const useLoginForm = () => {
-	const { onSubmited } = useOnSubmit();
+	const navigate = useNavigate();
 	const { setCooldown, timerState } = useTimer({ storageItem: LFCD });
 
-	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, LoginRes, ResError>({
+	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		defaultValues: { email: '', password: '' },
-		onSubmited,
-
+		onSubmited: () => {
+			navigate(homeRoute, { replace: true });
+		},
 		onError: error => {
 			const status = error?.status;
 			const waitSec = error?.response?.data?.waitSec;

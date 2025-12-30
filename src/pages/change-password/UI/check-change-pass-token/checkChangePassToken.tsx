@@ -26,6 +26,8 @@ export const CheckChangePassToken = () => {
 	});
 
 	useEffect(() => {
+		if (!isError) return;
+
 		const err = error as AxiosError;
 		const status = err?.status;
 

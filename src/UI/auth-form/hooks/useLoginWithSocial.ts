@@ -6,7 +6,6 @@ import type { ResType } from '@/hooks/useApiForm';
 import { useAppDispatch } from '@/hooks/useRedux';
 import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
-import { useDecodeToken } from '@/hooks/useDecodeToken';
 import { googleUrl } from '@/utils/urls';
 
 /* --- Types --- */
@@ -25,7 +24,6 @@ type EventDataType = {
 export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: React.SetStateAction<ResType>) => void }) => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const { decodeAccessToken } = useDecodeToken();
 	const [githubPopup, setGithubPopup] = useState<Window | null>(null);
 
 	const googleLogin = useGoogleLogin({
@@ -42,8 +40,6 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 					setResMessage({ message: 'Invalid pattern detected.', type: 'error' });
 					return;
 				}
-
-				decodeAccessToken(data.token);
 
 				setResMessage({ message: 'Welcome to the Forge.', type: 'success' });
 				navigate(homeRoute);
@@ -120,8 +116,6 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 			}
 
 			if (type === 'success' && accessToken) {
-				decodeAccessToken(accessToken);
-
 				setResMessage({ type: 'success', message: 'Welcome to the Forge.' });
 
 				navigate(homeRoute);
@@ -144,7 +138,7 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 		window.addEventListener('message', handler);
 
 		return () => window.removeEventListener('message', handler);
-	}, [dispatch, navigate, setResMessage, decodeAccessToken, githubPopup]);
+	}, [dispatch, navigate, setResMessage, githubPopup]);
 
 	return { handleSocialLogin };
 };
