@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router';
 import { MainLayout } from '../UI/layout/main-layout/MainLayout';
 import { RegisterPage } from '../pages/register-page/RegisterPage';
 import { LoginPage } from '../pages/login-page/LoginPage';
-import { CheckGuest } from '../api/CheckGuest';
+import { CheckGuest } from '../UI/protection/check-guest/CheckGuest';
 import { AppLayout } from '../UI/layout/app-layout/AppLayout';
 import { PrivatePolityPage } from '../pages/private-policy-page/PrivatePolicyPage';
 import { TermsServicePage } from '../pages/terms-service-page/TermsServicePage';

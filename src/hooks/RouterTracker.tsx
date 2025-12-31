@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { setPrevRoute } from '../redux/prev-route-slice/slice';
-import { useAppDispatch } from '../hooks/useRedux';
+import { useAppDispatch } from './useRedux';
 
 /* --- RouterTracker Component --- */
 export const RouterTracker = ({ checkRoute }: { checkRoute: string[] }) => {

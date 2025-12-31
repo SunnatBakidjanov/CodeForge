@@ -30,10 +30,10 @@ export const LinksList = ({ links, activeLink, classNames, isOpen, isHasTabindex
 					'py-1.25 lg:py-1.25 px-6 lg:px-10',
 					'text-white bg-black/40 rounded-3xl',
 					'lg:text-xl',
-					'shadow-xs shadow-white',
-					'shadow-white hover:shadow-md focus-visible:shadow-md',
+					'shadow-[0_0_2px_white]',
+					'hover:shadow-[0_1px_5px_white] focus-visible:shadow-[0_1px_5px_white]',
 					classNames?.text,
-					activeLink(link) && 'shadow-md bg-black'
+					activeLink(link) && 'shadow-white shadow-sm'
 				)}
 			>
 				{text}
@@ -44,8 +44,8 @@ export const LinksList = ({ links, activeLink, classNames, isOpen, isHasTabindex
 				key={i}
 				tabIndex={tabIndex}
 				className={cn(
-					'flex items-center justify-center overflow-hidden rounded-3xl bg-black/40 shadow-xs shadow-white',
-					'hover:shadow-md focus-within:shadow-md',
+					'flex items-center justify-center overflow-hidden rounded-3xl bg-black/40 shadow-[0_0_2px_white]',
+					'hover:shadow-[0_1px_5px_white] focus-visible:shadow-[0_1px_5px_white]',
 					'px-6 lg:px-12',
 					'transition-all duration-300 ease-out',
 					classNames?.text

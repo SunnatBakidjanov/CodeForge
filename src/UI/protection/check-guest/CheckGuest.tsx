@@ -1,30 +1,17 @@
 /* --- Imports --- */
-import axios, { AxiosError } from 'axios';
-import { apiUrl, errorPageRoute, guestUrl, homeRoute } from '../utils/urls';
-import { useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { errorPageRoute, homeRoute } from '../../../utils/urls';
 import { GlobalLoader } from '@/UI/loaders/global-loader/GlobalLoader';
 import { Outlet, useNavigate } from 'react-router';
-import { serverErrorPageConfig } from '@/pages/error-page/page-config/errorPage.config';
+import { serverErrorPageConfig, guestErrorConfig } from '@/pages/error-page/page-config/errorPage.config';
 import { useEffect } from 'react';
-
-const checkGuest = async () => {
-	const GUEST_COOKIE_NAME = 'CFG=';
-	const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith(GUEST_COOKIE_NAME));
-	if (hasGuestCookie) return { isGuest: true };
-
-	await axios.get(`${apiUrl}${guestUrl}`, { withCredentials: true });
-	return { isGuest: true };
-};
+import { useCheckGuest, GUEST_COOKIE_NAME } from '@/api/useCheckGuest';
 
 /* --- CheckGuest Component --- */
 // This component checks if the user is a guest.
 export const CheckGuest = ({ usePlace }: { usePlace?: 'landing' | 'auth' }) => {
 	const navigate = useNavigate();
-	const { isLoading, isError, error } = useQuery({
-		queryKey: [guestUrl],
-		queryFn: checkGuest,
-		retry: false,
-	});
+	const { isError, error, isLoading, isSuccess } = useCheckGuest();
 
 	useEffect(() => {
 		if (!isError) return;
@@ -37,6 +24,11 @@ export const CheckGuest = ({ usePlace }: { usePlace?: 'landing' | 'auth' }) => {
 			return;
 		}
 
+		if (usePlace === 'landing') {
+			const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith(GUEST_COOKIE_NAME));
+			if (!hasGuestCookie) navigate(errorPageRoute, { replace: true, state: guestErrorConfig });
+		}
+
 		if (usePlace === 'auth') {
 			navigate(homeRoute, { replace: true });
 		}
@@ -44,5 +36,7 @@ export const CheckGuest = ({ usePlace }: { usePlace?: 'landing' | 'auth' }) => {
 
 	if (isLoading) return <GlobalLoader />;
 
-	return <Outlet />;
+	if (isSuccess) return <Outlet />;
+
+	return null;
 };
