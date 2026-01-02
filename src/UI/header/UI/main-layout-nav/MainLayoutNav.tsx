@@ -5,9 +5,14 @@ import { registerRoute, loginRoute } from '@/utils/urls';
 import { BgBlur } from '@/UI/backgrounds/bg-blur/BgBlur';
 import { motion } from 'framer-motion';
 import type { NavProps } from '@/UI/header/Header';
+import { useMe } from '@/api/useMe';
+import { BtnUser } from '@/UI/btns/btn-user/BtnUser';
 
 export const MainLayoutNav = ({ height, isOpen }: NavProps) => {
-	return (
+	const { data } = useMe({ staleTime: Infinity });
+	const userType = data?.type === 'guest';
+
+	return userType ? (
 		<>
 			<div className="hidden sm:flex items-center justify-center gap-2 md:gap-3">
 				<BgGradient
@@ -104,5 +109,7 @@ export const MainLayoutNav = ({ height, isOpen }: NavProps) => {
 				<BgBlur className="h-1/2 w-2/3 blur-[130px] sm:hidden" />
 			</motion.div>
 		</>
+	) : (
+		<BtnUser userData={data?.userData} />
 	);
 };

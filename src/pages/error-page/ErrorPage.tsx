@@ -8,34 +8,30 @@ import { Button } from '@/UI/btns/button/Button';
 import { notFoundPageConfig } from './page-config/errorPage.config';
 import { ImageComp } from '@/UI/image-comp/ImageComp';
 import brokenAnvilIcon from '/imgs/webp/broken-anvil-icon.webp';
-import { useEffect } from 'react';
-import { GUEST_COOKIE_NAME } from '@/api/useCheckGuest';
 
+/* --- Types --- */
 export type LocationState = {
 	locationTitle?: string;
 	locationSubtitle?: string;
 	locationDescription?: string;
 	locationBtnText?: string;
 	locationPath?: string;
-	checkGuest?: boolean;
+};
+
+type Props = {
+	pageState?: LocationState;
+	useCallbackFn?: () => unknown;
 };
 
 /* --- NotFoundPage component --- */
 // Not found page component for the application.
-export const ErrorPage = () => {
+export const ErrorPage = ({ pageState, useCallbackFn }: Props) => {
 	const locationState = useLocation().state as LocationState | null;
-	const { locationTitle, locationBtnText, locationDescription, locationPath, locationSubtitle, checkGuest = false } = locationState || {};
+	const { locationTitle, locationBtnText, locationDescription, locationPath, locationSubtitle } = (locationState || pageState) ?? {};
 	const { title, subtitle, description, btnText } = notFoundPageConfig;
 	const navigate = useNavigate();
-	const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith(GUEST_COOKIE_NAME));
 
-	useEffect(() => {
-		if (!checkGuest) return;
-
-		if (hasGuestCookie) {
-			navigate(locationPath || '/', { replace: true });
-		}
-	}, [checkGuest, hasGuestCookie, locationPath, navigate]);
+	useCallbackFn?.();
 
 	return (
 		<MaxWidthContainer width={'fit-content'} className="min-h-screen text-center flex flex-col items-center justify-center py-10">

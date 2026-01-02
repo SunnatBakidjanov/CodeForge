@@ -1,20 +1,32 @@
 /* --- Imports --- */
 import { useQuery } from '@tanstack/react-query';
-import { apiUrl } from '@/utils/urls';
+import { apiUrl, getMeUrl } from '@/utils/urls';
 import axiosPrivate from './axiosPrivate';
 
 /* --- Types --- */
-type UserData = {
+export type UserData = {
 	id: string;
 	name: string;
 	email: string;
 	role: 'creator' | 'admin' | 'user';
 };
 
+type ResData = {
+	userData: UserData;
+	message: string;
+	type: 'user' | 'guest';
+};
+
+type UseMeOptions = {
+	staleTime?: number;
+};
+
 /* --- useMe Hook --- */
-export const useMe = () => {
+export const useMe = (options?: UseMeOptions) => {
+	const { staleTime } = options ?? {};
+
 	const checkMe = async () => {
-		const res = await axiosPrivate.get<UserData>(`${apiUrl}/me`, { withCredentials: true });
+		const res = await axiosPrivate.get<ResData>(`${apiUrl}${getMeUrl}`, { withCredentials: true });
 		return res?.data;
 	};
 
@@ -22,5 +34,6 @@ export const useMe = () => {
 		queryKey: ['me'],
 		queryFn: checkMe,
 		retry: false,
+		staleTime: staleTime ?? 0,
 	});
 };

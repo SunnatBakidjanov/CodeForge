@@ -10,6 +10,8 @@ export const forgotPassUrl = import.meta.env.VITE_APP_FORGOT_PASS_URL;
 export const changePassUrl = import.meta.env.VITE_APP_CHANGE_PASS_URL;
 export const changePassValidateUrl = import.meta.env.VITE_APP_CHANGE_PASS_VALIDATE_URL;
 export const googleUrl = import.meta.env.VITE_APP_GOOGLE_URL;
+export const getMeUrl = import.meta.env.VITE_APP_GET_ME_URL;
+export const logoutUrl = import.meta.env.VITE_APP_LOGOUT_URL;
 
 export const loginRoute = '/auth/login';
 export const registerRoute = '/auth/register';

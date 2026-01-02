@@ -34,5 +34,4 @@ export const guestErrorConfig = {
 	locationTitle: '400',
 	locationSubtitle: 'Guest Token Invalid',
 	locationBtnText: 'Reforge Token',
-	checkGuest: true,
 } as LocationState;

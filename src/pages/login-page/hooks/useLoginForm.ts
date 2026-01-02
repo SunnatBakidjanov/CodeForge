@@ -6,6 +6,7 @@ import { type FieldErrors } from 'react-hook-form';
 import { useTimer } from '@/hooks/useTimer';
 import { LFCD } from '@/utils/localStorageKeys';
 import { useNavigate } from 'react-router';
+import { useQueryClient } from '@tanstack/react-query';
 
 /* --- Types --- */
 export type ResError = {
@@ -19,10 +20,12 @@ export type ResError = {
 export const useLoginForm = () => {
 	const navigate = useNavigate();
 	const { setCooldown, timerState } = useTimer({ storageItem: LFCD });
+	const queryClient = useQueryClient();
 
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		defaultValues: { email: '', password: '' },
 		onSubmited: () => {
+			queryClient.removeQueries({ queryKey: ['me'] });
 			navigate(homeRoute, { replace: true });
 		},
 		onError: error => {
