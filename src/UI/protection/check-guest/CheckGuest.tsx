@@ -11,7 +11,8 @@ import { useCheckGuest, GUEST_COOKIE_NAME } from '@/api/useCheckGuest';
 // This component checks if the user is a guest.
 export const CheckGuest = ({ usePlace }: { usePlace?: 'landing' | 'auth' }) => {
 	const navigate = useNavigate();
-	const { isError, error, isLoading, isSuccess } = useCheckGuest();
+	const { isError, error, isLoading, isSuccess, data } = useCheckGuest();
+	const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith(GUEST_COOKIE_NAME));
 
 	useEffect(() => {
 		if (!isError) return;
@@ -23,16 +24,23 @@ export const CheckGuest = ({ usePlace }: { usePlace?: 'landing' | 'auth' }) => {
 			navigate(errorPageRoute, { replace: true, state: serverErrorPageConfig });
 			return;
 		}
+	}, [isError, navigate, usePlace, error]);
 
-		if (usePlace === 'landing') {
-			const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith(GUEST_COOKIE_NAME));
-			if (!hasGuestCookie) navigate(errorPageRoute, { replace: true, state: guestErrorConfig });
-		}
+	useEffect(() => {
+		if (!isSuccess) return;
 
 		if (usePlace === 'auth') {
-			navigate(homeRoute, { replace: true });
+			if (!hasGuestCookie && data?.type === 'user') {
+				navigate(homeRoute, { replace: true });
+			}
 		}
-	}, [isError, navigate, usePlace, error]);
+
+		if (usePlace === 'landing') {
+			if (!hasGuestCookie && data?.type === 'guest') {
+				navigate(errorPageRoute, { replace: true, state: guestErrorConfig });
+			}
+		}
+	}, [isSuccess, navigate, usePlace, data, hasGuestCookie]);
 
 	if (isLoading) return <GlobalLoader />;
 
