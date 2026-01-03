@@ -30,6 +30,7 @@ export const CheckMe = ({ usePlace }: Props) => {
 	const [errorMap, setErrorMap] = useState<ErrorMap>({});
 	const { logout } = useLogout();
 	const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith(GUEST_COOKIE_NAME));
+	const { handleGuestClick, useGuest } = useGuestError();
 
 	useEffect(() => {
 		if (!isError) return;
@@ -68,7 +69,7 @@ export const CheckMe = ({ usePlace }: Props) => {
 
 	if (isLoading) return <GlobalLoader />;
 
-	if (errorMap.guestCookieError) return <ErrorPage pageState={guestErrorConfig} useCallbackFn={useGuestError} />;
+	if (errorMap.guestCookieError) return <ErrorPage pageState={guestErrorConfig} useCallbackFn={useGuest} handleClick={handleGuestClick} />;
 
 	if (isSuccess) return <Outlet />;
 

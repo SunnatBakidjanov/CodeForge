@@ -21,11 +21,12 @@ export type LocationState = {
 type Props = {
 	pageState?: LocationState;
 	useCallbackFn?: () => unknown;
+	handleClick?: () => unknown;
 };
 
 /* --- NotFoundPage component --- */
 // Not found page component for the application.
-export const ErrorPage = ({ pageState, useCallbackFn }: Props) => {
+export const ErrorPage = ({ pageState, useCallbackFn, handleClick }: Props) => {
 	const locationState = useLocation().state as LocationState | null;
 	const { locationTitle, locationBtnText, locationDescription, locationPath, locationSubtitle } = (locationState || pageState) ?? {};
 	const { title, subtitle, description, btnText } = notFoundPageConfig;
@@ -61,6 +62,11 @@ export const ErrorPage = ({ pageState, useCallbackFn }: Props) => {
 			>
 				<Button
 					onClick={() => {
+						if (handleClick) {
+							handleClick();
+							return;
+						}
+
 						navigate(locationPath ?? '/', { replace: true });
 					}}
 					classNames={{

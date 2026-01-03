@@ -7,17 +7,16 @@ import { useAppDispatch } from '@/hooks/useRedux';
 import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
 import { googleUrl } from '@/utils/urls';
+import { useQueryClient } from '@tanstack/react-query';
 
 /* --- Types --- */
 type ResData = {
 	message: string;
-	token: string;
 };
 
 type EventDataType = {
 	type: string;
 	status: number;
-	accessToken: string;
 };
 
 /* --- useLoginWithSocial Hook --- */
@@ -25,6 +24,7 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const [githubPopup, setGithubPopup] = useState<Window | null>(null);
+	const queryClient = useQueryClient();
 
 	const googleLogin = useGoogleLogin({
 		onSuccess: async tokenResponse => {
@@ -36,11 +36,12 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 				);
 
 				const data = res?.data;
-				if (!data || !data?.token) {
+				if (!data) {
 					setResMessage({ message: 'Invalid pattern detected.', type: 'error' });
 					return;
 				}
 
+				queryClient.removeQueries({ queryKey: ['me'] });
 				setResMessage({ message: 'Welcome to the Forge.', type: 'success' });
 				navigate(homeRoute);
 			} catch (error) {
@@ -108,16 +109,16 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 			const GITHUB_OPENER_LINK = 'github-auth';
 			if (!event.data || event.data.source !== GITHUB_OPENER_LINK) return;
 
-			const { type, status, accessToken } = event.data as EventDataType;
+			const { type, status } = event.data as EventDataType;
 
-			if (!type || !status || !accessToken) {
+			if (!type || !status) {
 				setResMessage({ type: 'error', message: 'GitHub response was lost in the forge.' });
 				return;
 			}
 
-			if (type === 'success' && accessToken) {
+			if (type === 'success') {
 				setResMessage({ type: 'success', message: 'Welcome to the Forge.' });
-
+				queryClient.removeQueries({ queryKey: ['me'] });
 				navigate(homeRoute);
 			}
 
