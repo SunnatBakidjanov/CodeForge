@@ -139,7 +139,7 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 		window.addEventListener('message', handler);
 
 		return () => window.removeEventListener('message', handler);
-	}, [dispatch, navigate, setResMessage, githubPopup]);
+	}, [dispatch, navigate, setResMessage, githubPopup, queryClient]);
 
 	return { handleSocialLogin };
 };

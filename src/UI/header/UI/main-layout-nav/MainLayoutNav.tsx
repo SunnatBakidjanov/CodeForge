@@ -1,12 +1,14 @@
 import { cn } from '@/utils/cn';
 import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
 import { Link } from 'react-router';
-import { registerRoute, loginRoute } from '@/utils/urls';
+import { registerRoute, loginRoute, homeRoute } from '@/utils/urls';
 import { BgBlur } from '@/UI/backgrounds/bg-blur/BgBlur';
 import { motion } from 'framer-motion';
 import type { NavProps } from '@/UI/header/Header';
 import { useMe } from '@/api/useMe';
 import { BtnUser } from '@/UI/btns/btn-user/BtnUser';
+import { Tooltip } from '@/UI/tooltip/Tooltip';
+import { FiLogIn } from 'react-icons/fi';
 
 export const MainLayoutNav = ({ height, isOpen }: NavProps) => {
 	const { data } = useMe({ staleTime: Infinity });
@@ -110,6 +112,33 @@ export const MainLayoutNav = ({ height, isOpen }: NavProps) => {
 			</motion.div>
 		</>
 	) : (
-		<BtnUser userData={data?.userData} />
+		<div className="flex items-center justify-center gap-2">
+			<div className="flex justify-center relative group">
+				<Link
+					to={homeRoute}
+					className={cn(
+						'flex items-center justify-center',
+						'text-white shadow-[0_0_4px_white] rounded-full bg-black/60 font-bold',
+						'hover:shadow-[0_2px_8px_white] focus-visible:shadow-[0_2px_8px_white]',
+						'transition-all duration-300 ease-out',
+						'w-full max-w-[300px]',
+						'h-8.5 w-8.5 sm:h-10.5 sm:w-10.5 lg:h-11 lg:w-11'
+					)}
+				>
+					<FiLogIn className="relative right-0.5 sm:text-xl" />
+				</Link>
+
+				<Tooltip
+					classNames={{
+						outer: cn('absolute top-full', 'pt-3'),
+						inner: cn('block font-bold text-white whitespace-nowrap', 'px-2 py-1'),
+					}}
+				>
+					<span className="cursor-text block">Join CodeForge</span>
+				</Tooltip>
+			</div>
+
+			<BtnUser userData={data?.userData} />
+		</div>
 	);
 };

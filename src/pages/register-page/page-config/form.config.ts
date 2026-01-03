@@ -58,7 +58,13 @@ export const dataInputs: FieldData[] = [
 
 /* --- ValidateForm --- */
 export const validate: Partial<Record<Path<FormValues>, RegisterOptions<FormValues>>> = {
-	name: { required: true, pattern: { value: /^[a-zA-Z\s]+$/, message: 'nameLatnValid' } },
+	name: {
+		required: true,
+		pattern: {
+			value: /^[\p{L}]+(?:\s[\p{L}]+)*$/u,
+			message: 'nameValid',
+		},
+	},
 	email: { required: true },
 	password: { required: true, minLength: { value: 4, message: 'passMinLength' } },
 	confirmPassword: { required: true, validate: (value, formValues) => value === formValues.password || 'notMatchPass' },

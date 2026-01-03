@@ -50,7 +50,7 @@ export const useRegisterForm = () => {
 		const errorHandlers = {
 			required: () => setResMessage({ type: 'error', message: 'Every field fuels the Forge.' }),
 			notMatchPass: () => setResMessage({ type: 'error', message: 'Passkeys forged differently.' }),
-			nameLatnValid: () => setResMessage({ type: 'error', message: 'Only Latin runes allowed.' }),
+			nameValid: () => setResMessage({ type: 'error', message: 'Runes rejected. Letters only.' }),
 			passMinLength: () => setResMessage({ type: 'error', message: `Your key needs more strength, 4+ chars.` }),
 		};
 

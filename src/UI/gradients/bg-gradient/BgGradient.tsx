@@ -10,7 +10,7 @@ type Props<T extends React.ElementType> = {
 
 /* --- BgGradient Component --- */
 // This component represents the main gradient for the application.
-export const BgGradient = ({ ComponentType, children, className, ...rest }: Props<React.ElementType>) => {
+export const BgGradient = <T extends React.ElementType = 'span'>({ ComponentType, children, className, ...rest }: Props<T>) => {
 	const Component = ComponentType || 'span';
 
 	return (
