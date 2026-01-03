@@ -1,3 +1,4 @@
+/** --- Imports --- */
 import { cn } from '@/utils/cn';
 import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
 import { Link } from 'react-router';
@@ -7,9 +8,10 @@ import { motion } from 'framer-motion';
 import type { NavProps } from '@/UI/header/Header';
 import { useMe } from '@/api/useMe';
 import { BtnUser } from '@/UI/btns/btn-user/BtnUser';
-import { Tooltip } from '@/UI/tooltip/Tooltip';
 import { FiLogIn } from 'react-icons/fi';
+import { BtnTooltip } from '@/UI/btns/btn-tooltip/BtnTooltip';
 
+/** --- MainLayoutNav Component --- */
 export const MainLayoutNav = ({ height, isOpen }: NavProps) => {
 	const { data } = useMe({ staleTime: Infinity });
 	const userType = data?.type === 'guest';
@@ -113,30 +115,25 @@ export const MainLayoutNav = ({ height, isOpen }: NavProps) => {
 		</>
 	) : (
 		<div className="flex items-center justify-center gap-2">
-			<div className="flex justify-center relative group">
-				<Link
-					to={homeRoute}
-					className={cn(
+			<BtnTooltip
+				as={Link}
+				btnProps={{ to: homeRoute }}
+				tooltipOptions={{
+					offsetValue: 12,
+				}}
+				classNames={{
+					btn: cn(
 						'flex items-center justify-center',
 						'text-white shadow-[0_0_4px_white] rounded-full bg-black/60 font-bold',
 						'hover:shadow-[0_2px_8px_white] focus-visible:shadow-[0_2px_8px_white]',
 						'transition-all duration-300 ease-out',
 						'w-full max-w-[300px]',
 						'h-8.5 w-8.5 sm:h-10.5 sm:w-10.5 lg:h-11 lg:w-11'
-					)}
-				>
-					<FiLogIn className="relative right-0.5 sm:text-xl" />
-				</Link>
-
-				<Tooltip
-					classNames={{
-						outer: cn('absolute top-full', 'pt-3'),
-						inner: cn('block font-bold text-white whitespace-nowrap', 'px-2 py-1'),
-					}}
-				>
-					<span className="cursor-text block">Join CodeForge</span>
-				</Tooltip>
-			</div>
+					),
+					tooltip: cn('block font-bold text-white text-sm whitespace-nowrap bg-black/80 rounded-md shadow-[0_0_3px_white]', 'px-2 py-1'),
+				}}
+				childrens={{ btn: <FiLogIn className="text-white relative right-0.5 sm:text-xl" />, tooltip: 'Join CodeForge' }}
+			/>
 
 			<BtnUser userData={data?.userData} />
 		</div>

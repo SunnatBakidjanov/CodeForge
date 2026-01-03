@@ -5,15 +5,17 @@ import { motion, type Transition, type TargetAndTransition } from 'framer-motion
 import { useState } from 'react';
 
 /** --- Types --- */
-type Props = {
+type Props<T extends React.ElementType = 'button'> = {
+	as?: T;
 	classNames?: { [key in 'btn' | 'tooltip' | 'container']?: string };
-	tooltipOptions: {
-		placement: Placement;
-		shiftPadding: number;
-		offsetValue: number;
+	btnProps?: Omit<React.ComponentPropsWithoutRef<T>, 'children' | 'className'>;
+	tooltipOptions?: {
+		placement?: Placement;
+		shiftPadding?: number;
+		offsetValue?: number;
 	};
 	childrens?: { [key in 'btn' | 'tooltip']?: React.ReactNode };
-	tooltipAnimation: {
+	tooltipAnimation?: {
 		initialAnim?: TargetAndTransition;
 		animateAnim?: TargetAndTransition;
 		transitionAnim?: Transition;
@@ -21,7 +23,15 @@ type Props = {
 };
 
 /** --- BtnTooltip Component --- */
-export const BtnTooltip = ({ classNames, tooltipOptions, tooltipAnimation, childrens }: Props) => {
+export const BtnTooltip = <T extends React.ElementType = 'button'>({
+	as,
+	classNames,
+	tooltipOptions,
+	tooltipAnimation,
+	childrens,
+	btnProps,
+}: Props<T>) => {
+	const Component = as || 'button';
 	const { placement, shiftPadding, offsetValue } = tooltipOptions ?? {};
 	const { initialAnim, animateAnim, transitionAnim } = tooltipAnimation ?? {};
 	const [open, setOpen] = useState(false);
@@ -32,16 +42,17 @@ export const BtnTooltip = ({ classNames, tooltipOptions, tooltipAnimation, child
 
 	return (
 		<div className={cn('relative', classNames?.container)}>
-			<button
+			<Component
 				onMouseEnter={() => setOpen(true)}
 				onMouseLeave={() => setOpen(false)}
 				onFocus={() => setOpen(true)}
 				onBlur={() => setOpen(false)}
 				ref={refs.setReference}
 				className={cn(classNames?.btn)}
+				{...btnProps}
 			>
 				{childrens?.btn}
-			</button>
+			</Component>
 
 			{open && (
 				<motion.div

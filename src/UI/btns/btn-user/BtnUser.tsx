@@ -46,7 +46,7 @@ export const BtnUser = ({ userData }: { userData?: UserData }) => {
 
 			{open && (
 				<motion.div
-					className="pt-2"
+					className="pt-3"
 					initial={{ opacity: 0, y: -5 }}
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -5 }}
