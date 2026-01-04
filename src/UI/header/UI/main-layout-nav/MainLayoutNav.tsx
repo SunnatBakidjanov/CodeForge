@@ -130,7 +130,6 @@ export const MainLayoutNav = ({ height, isOpen }: NavProps) => {
 						'w-full max-w-[300px]',
 						'h-8.5 w-8.5 sm:h-10.5 sm:w-10.5 lg:h-11 lg:w-11'
 					),
-					tooltip: cn('block font-bold text-white text-sm whitespace-nowrap bg-black/80 rounded-md shadow-[0_0_3px_white]', 'px-2 py-1'),
 				}}
 				childrens={{ btn: <FiLogIn className="text-white relative right-0.5 sm:text-xl" />, tooltip: 'Join CodeForge' }}
 			/>

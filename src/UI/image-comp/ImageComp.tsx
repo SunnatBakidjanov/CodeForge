@@ -18,11 +18,11 @@ export const ImageComp = ({ className, loader, imgAttr, children, isHasLoader = 
 	const [isLoaded, setLoaded] = useState(false);
 
 	return (
-		<div className={cn('relative w-full h-full flex items-center justify-center', className)}>
+		<span className={cn('relative w-full h-full flex items-center justify-center', className)}>
 			{!isLoaded && isHasLoader && (
-				<div className="absolute inset-0 flex items-center justify-center">
+				<span className="absolute inset-0 flex items-center justify-center">
 					<InfinitySpinLoader {...loader} />
-				</div>
+				</span>
 			)}
 
 			<img
@@ -32,6 +32,6 @@ export const ImageComp = ({ className, loader, imgAttr, children, isHasLoader = 
 			/>
 
 			{isLoaded && children}
-		</div>
+		</span>
 	);
 };

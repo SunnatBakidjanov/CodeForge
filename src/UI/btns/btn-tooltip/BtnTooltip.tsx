@@ -41,7 +41,7 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 	});
 
 	return (
-		<div className={cn('relative', classNames?.container)}>
+		<div className={cn('relative group', classNames?.container)}>
 			<Component
 				onMouseEnter={() => setOpen(true)}
 				onMouseLeave={() => setOpen(false)}
@@ -65,6 +65,7 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 							stiffness: 500,
 							damping: 30,
 							duration: 0.2,
+							delay: 0.5,
 						}
 					}
 					style={{
@@ -72,7 +73,11 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 						top: y ?? 0,
 						left: x ?? 0,
 					}}
-					className={cn(classNames?.tooltip)}
+					className={cn(
+						'block font-bold text-white text-sm whitespace-nowrap bg-black/60 rounded-md shadow-[0_0_3px_white]',
+						'px-2 py-1',
+						classNames?.tooltip
+					)}
 				>
 					{childrens?.tooltip}
 				</motion.div>

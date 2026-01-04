@@ -12,12 +12,12 @@ export const LegalNav = ({ isOpen, height }: NavProps) => {
 
 	return (
 		<>
-			<div className={cn('hidden md:flex items-center justify-center gap-3')}>
+			<div className={cn('hidden md:flex items-center justify-center gap-2')}>
 				<LinksList links={links} activeLink={activeLink} />
 			</div>
 
 			<motion.div
-				className={cn('md:hidden absolute overflow-hidden w-full left-0 border-b-1 border-white/20 bg-black', 'mt-px', 'py-5.5 px-4')}
+				className={cn('md:hidden absolute overflow-hidden w-full left-0 border-b-1 border-white/20 bg-black', 'mt-px', 'py-6 px-4')}
 				initial={{ y: '50%', opacity: 0, pointerEvents: 'none' }}
 				animate={{ y: isOpen ? 0 : '50%', opacity: isOpen ? 1 : 0, pointerEvents: isOpen ? 'auto' : 'none' }}
 				transition={{ duration: 0.4, ease: isOpen ? 'backOut' : 'backIn' }}

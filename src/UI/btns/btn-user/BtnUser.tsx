@@ -65,13 +65,13 @@ export const BtnUser = ({ userData }: { userData?: UserData }) => {
 					onMouseEnter={() => setOpen(true)}
 					onMouseLeave={() => setOpen(false)}
 				>
-					<div className={cn('flex flex-col', 'bg-black/80 text-(--white) rounded-md shadow-[0_0_3px_white]', 'px-2.5 py-1.5')}>
+					<div className={cn('flex flex-col', 'bg-black/60 text-(--white) rounded-md shadow-[0_0_3px_white]', 'px-2.5 py-1.5')}>
 						{tooltipConfig.map(({ text }, i) => {
 							if (!text) return null;
 							const textValidate = text.length >= 28 ? text.slice(0, 28) + '...' : text;
 
 							return (
-								<span key={i} className={cn('cursor-text block w-fit', i === 0 && 'font-bold text-white')}>
+								<span key={i} className={cn('cursor-text block w-fit leading-tight', i === 0 && 'font-bold mb-1 text-white')}>
 									{textValidate}
 								</span>
 							);
