@@ -24,7 +24,12 @@ export const LandingForm = () => {
 	return (
 		<Form
 			onSubmit={handleSubmit(handleSubmitForm, onInvalid)}
-			className={cn('py-6', 'px-3 sm:px-3.5 md:px-4 lg:px-6', 'mt-6 lg:mt-8', 'max-w-[800px] lg:max-w-[900px] xl:max-w-[1000px]')}
+			className={cn(
+				'px-3 sm:px-3.5 md:px-4 lg:px-6',
+				'mt-6 lg:mt-8',
+				'max-w-[800px] lg:max-w-[900px] xl:max-w-[1000px]',
+				user?.type === 'user' ? 'pt-6 pb-8' : 'py-6'
+			)}
 		>
 			<div className="space-y-3">
 				{dataInputs.map(field => {
@@ -36,7 +41,7 @@ export const LandingForm = () => {
 								user?.type === 'user' && field?.name !== 'message' && 'pointer-events-none opacity-0 select-none hidden'
 							)}
 						>
-							<label htmlFor={field.name} className={cn('flex items-center', 'gap-1 lg:gap-1.5', 'mb-0.5 lg:mb-1', 'ml-2')}>
+							<label htmlFor={field.name} className={cn('flex items-center', 'gap-1 lg:gap-1.5', 'mb-1', 'ml-2')}>
 								<TextGradient ComponentType={'p'} children={field.text} className={cn('font-bold', 'text-lg lg:text-xl')} />
 								<ImageComp
 									imgAttr={{

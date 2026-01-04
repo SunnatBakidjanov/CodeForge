@@ -2,7 +2,7 @@
 import { cn } from '@/utils/cn';
 import { useFloating, flip, shift, offset, type Placement } from '@floating-ui/react-dom';
 import { motion, type Transition, type TargetAndTransition } from 'framer-motion';
-import { useState, type JSX } from 'react';
+import { useState, useEffect, type JSX } from 'react';
 
 /** --- Types --- */
 type Props<T extends React.ElementType = 'button'> = {
@@ -37,18 +37,29 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 	const Component = as || 'button';
 	const { placement, shiftPadding, offsetValue } = tooltipOptions ?? {};
 	const { initialAnim, animateAnim, transitionAnim } = tooltipAnimation ?? {};
+	const [isTouchDevice, setIsTouchDevice] = useState(false);
 	const [open, setOpen] = useState(false);
 	const { x, y, refs, strategy } = useFloating({
 		placement: placement ?? 'bottom',
 		middleware: [flip(), offset(offsetValue ?? 4), shift({ padding: shiftPadding ?? 10 })],
 	});
 
+	useEffect(() => {
+		const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+		setIsTouchDevice(hasTouch);
+	}, []);
+
+	const tooltipState = {
+		open: () => !isTouchDevice && setOpen(true),
+		close: () => !isTouchDevice && setOpen(false),
+	};
+
 	const Button = (
 		<Component
-			onMouseEnter={() => setOpen(true)}
-			onMouseLeave={() => setOpen(false)}
-			onFocus={() => setOpen(true)}
-			onBlur={() => setOpen(false)}
+			onMouseEnter={() => tooltipState.open()}
+			onMouseLeave={() => tooltipState.close()}
+			onFocus={() => tooltipState.open()}
+			onBlur={() => tooltipState.close()}
 			ref={refs.setReference}
 			className={cn(classNames?.btn)}
 			{...btnProps}
@@ -61,7 +72,7 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 		<div className={cn('relative group', classNames?.container)}>
 			{btnWrapper ? btnWrapper({ children: Button }) : Button}
 
-			{open && (
+			{open && !isTouchDevice && (
 				<div
 					ref={refs.setFloating}
 					style={{
@@ -69,10 +80,10 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 						top: y ?? 0,
 						left: x ?? 0,
 					}}
-					onMouseEnter={() => setOpen(true)}
-					onMouseLeave={() => setOpen(false)}
-					onFocus={() => setOpen(true)}
-					onBlur={() => setOpen(false)}
+					onMouseEnter={() => tooltipState.open()}
+					onMouseLeave={() => tooltipState.close()}
+					onFocus={() => tooltipState.open()}
+					onBlur={() => tooltipState.close()}
 					className={cn(classNames?.tooltipContainer)}
 				>
 					<motion.div
