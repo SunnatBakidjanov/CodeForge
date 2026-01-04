@@ -11,15 +11,15 @@ import { ImageForm } from '@/UI/image-form/ImageForm';
 import successIcon from '/imgs/webp/success-icon.webp';
 import failIcon from '/imgs/webp/fail-icon.webp';
 import hourglassIcon from '/imgs/webp/hourglass-icon.webp';
-import { useLandingForm } from './hooks/useLandingForm';
-import type { FormValues } from './form-config/form.config';
+import { type FormValues } from './form-config/form.config';
 import { LandingSubmitBtn } from '../landing-submit-btn/LandingSubmitBtn';
 import { dataInputs } from './form-config/form.config';
+import { useLandingForm } from './hooks/useLandingForm';
 
 /* --- LandingForm Component --- */
 // This component represents the form for the landing page.
 export const LandingForm = () => {
-	const { handleSubmit, handleSubmitForm, onInvalid, register, watch, isLoading, resMessage, timerState, setResMessage } = useLandingForm();
+	const { handleSubmit, handleSubmitForm, onInvalid, register, watch, timerState, isLoading, resMessage, setResMessage, user } = useLandingForm();
 
 	return (
 		<Form
@@ -29,7 +29,13 @@ export const LandingForm = () => {
 			<div className="space-y-3">
 				{dataInputs.map(field => {
 					return (
-						<div key={field.name} className="flex flex-col">
+						<div
+							key={field.name}
+							className={cn(
+								'flex flex-col',
+								user?.type === 'user' && field?.name !== 'message' && 'pointer-events-none opacity-0 select-none hidden'
+							)}
+						>
 							<label htmlFor={field.name} className={cn('flex items-center', 'gap-1 lg:gap-1.5', 'mb-0.5 lg:mb-1', 'ml-2')}>
 								<TextGradient ComponentType={'p'} children={field.text} className={cn('font-bold', 'text-lg lg:text-xl')} />
 								<ImageComp
@@ -43,7 +49,12 @@ export const LandingForm = () => {
 
 							<div className="focus-within:bg-black/40 bg-white/5 transition-all duration-300 ease-out rounded-2xl relative w-full">
 								{field.type === 'input' ? (
-									<Input id={field.name} {...register(field.name, { required: true })} {...field.input} />
+									<Input
+										id={field.name}
+										{...register(field.name, { required: true })}
+										{...field.input}
+										tabIndex={user?.type === 'guest' ? 0 : -1}
+									/>
 								) : (
 									<Textarea id={field.name} {...register(field.name, { required: true })} {...field.input} />
 								)}

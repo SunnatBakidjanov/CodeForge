@@ -23,7 +23,7 @@ type Arguments<T extends FieldValues, R, E> = {
 	customErrors?: {
 		[key: number]: {
 			type?: ResType['type'];
-			message: string;
+			message?: string;
 		};
 	};
 	setSubmitValues?: () => unknown;

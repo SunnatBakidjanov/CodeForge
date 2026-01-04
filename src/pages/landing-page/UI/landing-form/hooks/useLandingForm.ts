@@ -4,20 +4,23 @@ import type { FieldErrors } from 'react-hook-form';
 import { sendMailUrl } from '@/utils/urls';
 import { useTimer } from '@/hooks/useTimer';
 import { LPFCD } from '@/utils/localStorageKeys';
-import type { FormValues } from '../form-config/form.config';
+import type { FormValues, ResError } from '../form-config/form.config';
+import { useMe } from '@/api/useMe';
 
-/* --- Types --- */
-type ResError = { waitSec: number; message: string; type: string };
-
-/* --- UseLandingForm Hook --- */
+/* --- useLandingForm Hook --- */
 export const useLandingForm = () => {
+	const { data: user } = useMe({ staleTime: Infinity });
 	const { timerState, setCooldown, setTimer } = useTimer({ storageItem: LPFCD });
+
+	const guestCustomErrors = {
+		401: { type: 'error' as const, message: 'Guest path lost. Reload the Forge.' },
+	};
 
 	const { handleSubmit, handleSubmitForm, isLoading, register, watch, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		setSubmitValues: () => {
 			const guestId = document.cookie.split('=')[1];
 
-			if (!guestId) {
+			if (!guestId && user?.type === 'guest') {
 				setResMessage({ type: 'error', message: 'Guest path lost. Reload the Forge.' });
 				return false;
 			}
@@ -39,9 +42,9 @@ export const useLandingForm = () => {
 
 			setCooldown({ status, waitSec: data?.waitSec, localItem: LPFCD, isShowTimer: true });
 		},
-		defaultValues: { name: '', email: '', message: '' },
+		defaultValues: { name: user?.userData?.name ?? '', email: user?.userData?.email ?? '', message: '' },
 		errorsMessage: { success: { message: 'Message successfully engraved.' } },
-		customErrors: { 401: { type: 'error', message: 'Guest path lost. Reload the Forge.' } },
+		customErrors: user?.type === 'guest' ? guestCustomErrors : {},
 		apiHref: sendMailUrl,
 	});
 
@@ -64,5 +67,6 @@ export const useLandingForm = () => {
 		resMessage,
 		onInvalid,
 		timerState,
+		user,
 	};
 };

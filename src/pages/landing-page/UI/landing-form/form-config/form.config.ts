@@ -10,6 +10,8 @@ export type FieldData =
 	| { type: 'input'; text: string; iconSrc: string; name: keyof FormValues; input: InputProps }
 	| { type: 'textarea'; text: string; iconSrc: string; name: keyof FormValues; input: TextareaProps };
 
+export type ResError = { waitSec: number; message: string; type: string };
+
 export type FormValues = {
 	name: string;
 	email: string;

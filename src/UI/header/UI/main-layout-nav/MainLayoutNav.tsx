@@ -13,13 +13,12 @@ import { BtnTooltip } from '@/UI/btns/btn-tooltip/BtnTooltip';
 /** --- MainLayoutNav Component --- */
 export const MainLayoutNav = ({ height, isOpen }: NavProps) => {
 	const { data } = useMe({ staleTime: Infinity });
-	const userType = data?.type === 'guest';
-	const userData = data?.userData;
+	const { userData, type } = data ?? {};
 
 	const tooltipConfig = [{ text: 'Your account' }, { text: userData?.name }, { text: userData?.email }];
 	const firstLatter = userData?.name[0];
 
-	return userType ? (
+	return type === 'guest' ? (
 		<>
 			<div className="hidden sm:flex items-center justify-center gap-2 md:gap-3">
 				<BgGradient
@@ -143,7 +142,7 @@ export const MainLayoutNav = ({ height, isOpen }: NavProps) => {
 						ComponentType="div"
 						className={cn(
 							'rounded-full shadow-[0_0_3px_white] text-white cursor-pointer',
-							'hover:shadow-[0_2px_8px_white] focus-within:shadow-[0_2px_8px_white]',
+							'hover:shadow-[0_2px_8px_white] [&:has(:focus-visible)]:shadow-[0_2px_8px_white]',
 							'transition-all duration-200 ease-out'
 						)}
 					>
