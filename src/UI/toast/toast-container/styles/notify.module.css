@@ -1,0 +1,35 @@
+@keyframes toast-in-blur {
+	0% {
+		transform: translateY(20px);
+		opacity: 0;
+		filter: blur(4px);
+	}
+
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+		filter: blur(0);
+	}
+}
+
+@keyframes toast-out-blur {
+	0% {
+		transform: translateY(0);
+		opacity: 1;
+		filter: blur(0);
+	}
+
+	100% {
+		transform: translateY(-20px);
+		opacity: 0;
+		filter: blur(6px);
+	}
+}
+
+.toastEnter {
+	animation: toast-in-blur 0.3s ease-out;
+}
+
+.toastExit {
+	animation: toast-out-blur 0.2s ease-in forwards;
+}

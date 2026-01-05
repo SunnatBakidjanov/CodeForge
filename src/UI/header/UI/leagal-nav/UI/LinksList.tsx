@@ -73,26 +73,6 @@ export const LinksList = ({ links, activeLink, classNames, isOpen, isHasTabindex
 					tooltip: 'Back',
 				}}
 			/>
-			// <Link
-			// 	to={link ?? '/'}
-			// 	key={i}
-			// 	tabIndex={tabIndex}
-			// 	className={cn(
-			// 		'flex items-center justify-center overflow-hidden rounded-3xl bg-black/40 shadow-[0_0_2px_white]',
-			// 		'hover:shadow-[0_1px_5px_white] focus-visible:shadow-[0_1px_5px_white]',
-			// 		'px-6 lg:px-12',
-			// 		'transition-all duration-300 ease-out',
-			// 		classNames?.text
-			// 	)}
-			// >
-			// <ImageComp
-			// 	imgAttr={{
-			// 		src: backIcon,
-			// 		className: cn('relative top-px max-w-18 lg:max-w-20 h-auto drop-shadow-[0_0_1px_var(--hot-orange)]', classNames?.img),
-			// 	}}
-			// 	className={cn('h-8.5 w-8.5 lg:w-9.5 lg:h-9.5', classNames?.imgContainer)}
-			// />
-			// </Link>
 		);
 	});
 };

@@ -13,7 +13,7 @@ export const Embers = ({ classNames }: Props) => {
 	const { embers, screenHeight } = useEmbers({ count: 30, screenHeight: 20 });
 
 	return (
-		<div className={cn('pointer-events-none fixed bottom-0 left-0 w-full h-full overflow-hidden z-9999', classNames?.container)}>
+		<div className={cn('pointer-events-none fixed bottom-0 left-0 w-full h-full overflow-hidden z-1000', classNames?.container)}>
 			{embers.map(ember => (
 				<motion.div
 					key={ember.id}
