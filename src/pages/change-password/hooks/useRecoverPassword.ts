@@ -7,6 +7,7 @@ import { CPCD } from '@/utils/localStorageKeys';
 import { changePassUrl, errorPageRoute, loginRoute } from '@/utils/urls';
 import { useNavigate, useSearchParams } from 'react-router';
 import { resetPasswordPageConfig } from '@/pages/error-page/page-config/errorPage.config';
+import { NotifyConfig } from '@/UI/toast/notify-config/NotifyConfig';
 
 /* --- Types --- */
 type ResErrData = { message: string; waitSec: number; type: 'TOKEN_INVALID' };
@@ -17,10 +18,12 @@ export const useRecoverPassword = () => {
 	const { timerState, setCooldown } = useTimer({ storageItem: CPCD });
 	const [searchParams] = useSearchParams();
 	const paramsObj = Object.fromEntries(searchParams.entries());
+	const { notifyState } = NotifyConfig();
 
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResErrData>({
 		defaultValues: { confirmPassword: '', password: '' },
 		onSubmited: () => {
+			notifyState.success('Password reforged');
 			navigate(loginRoute, { replace: true });
 		},
 		onError: error => {

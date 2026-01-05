@@ -1,17 +1,20 @@
+/** --- Imports --- */
 import { cn } from '@/utils/cn';
 import { ToastContainer as ReactToastContainer, cssTransition } from 'react-toastify';
 import styles from './styles/notify.module.css';
 
+/** --- ToastContainer Animation Styles --- */
 const Disabled = cssTransition({
 	enter: styles?.toastEnter,
 	exit: styles?.toastExit,
 	collapseDuration: 800,
 });
 
+/** --- ToastContainer Component --- */
 export const ToastContainer = () => {
 	return (
 		<ReactToastContainer
-			autoClose={8000}
+			autoClose={10000}
 			hideProgressBar
 			pauseOnHover={false}
 			limit={5}

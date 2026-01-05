@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router';
 import { useGuestError } from './hooks/useGuestError';
 import { useLogout } from '@/api/useLogout';
+import { NotifyConfig } from '@/UI/toast/notify-config/NotifyConfig';
 
 /* --- Types --- */
 type Props = {
@@ -24,13 +25,15 @@ export const GUEST_COOKIE_NAME = 'CFG=';
 
 /* --- CheckMe Component --- */
 export const CheckMe = ({ usePlace }: Props) => {
-	const navigate = useNavigate();
 	const staleTime = 1000 * 60 * 5;
+	const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith(GUEST_COOKIE_NAME));
+
+	const navigate = useNavigate();
 	const { isLoading, isError, isSuccess, error, data } = useMe({ staleTime });
 	const [errorMap, setErrorMap] = useState<ErrorMap>({});
 	const { logout } = useLogout();
-	const hasGuestCookie = document.cookie.split('; ').some(c => c.startsWith(GUEST_COOKIE_NAME));
 	const { handleGuestClick, useGuest } = useGuestError();
+	const { notifyState } = NotifyConfig();
 
 	useEffect(() => {
 		if (!isError) return;
@@ -39,33 +42,36 @@ export const CheckMe = ({ usePlace }: Props) => {
 		const status = err?.status;
 
 		if (!err?.response || status === 500) {
+			notifyState.error('Server reforging');
 			navigate(errorPageRoute, { replace: true, state: serverErrorPageConfig });
 			return;
 		}
 
 		logout({ replaceUrl: landingRoute });
 		return;
-	}, [isError, error, navigate, data, usePlace, logout]);
+	}, [isError, error, navigate, data, usePlace, logout, notifyState]);
 
 	useEffect(() => {
 		if (!isSuccess) return;
 
-		if (data?.type === 'user') {
-			if (usePlace === 'auth') {
-				navigate(homeRoute, { replace: true });
-				return;
-			}
+		if (data?.type === 'user' && usePlace === 'auth') {
+			navigate(homeRoute, { replace: true });
+			return;
 		}
 
-		if (data?.type === 'guest') {
-			if (usePlace === 'landing' && !hasGuestCookie) {
-				setErrorMap({ guestCookieError: true });
-				return;
-			}
+		if (data?.type === 'guest' && usePlace === 'landing' && !hasGuestCookie) {
+			setErrorMap(prev => {
+				if (!prev.guestCookieError) return { guestCookieError: true };
+				return prev;
+			});
+			return;
 		}
 
-		setErrorMap({});
-	}, [isSuccess, usePlace, data, hasGuestCookie, setErrorMap, navigate, isLoading]);
+		setErrorMap(prev => {
+			if (Object.keys(prev).length === 0) return prev;
+			return {};
+		});
+	}, [isSuccess, usePlace, data?.type, hasGuestCookie, navigate]);
 
 	if (isLoading) return <GlobalLoader />;
 
