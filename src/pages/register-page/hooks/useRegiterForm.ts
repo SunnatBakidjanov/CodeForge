@@ -6,6 +6,7 @@ import { loginRoute, registerUrl } from '@/utils/urls';
 import type { FieldErrors } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { RFCD } from '@/utils/localStorageKeys';
+import { NotifyConfig } from '@/UI/toast/notify-config/NotifyConfig';
 
 /* --- Types --- */
 type ResError = { message: string; type: string; waitSec: number };
@@ -15,6 +16,8 @@ type ResError = { message: string; type: string; waitSec: number };
 export const useRegisterForm = () => {
 	const navigate = useNavigate();
 	const { timerState, setCooldown } = useTimer({ storageItem: RFCD });
+	const { notifyState } = NotifyConfig();
+
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
 		errorsMessage: {
@@ -30,14 +33,24 @@ export const useRegisterForm = () => {
 			const status = error?.status;
 
 			if (data?.type === 'IP_BLOCKED') {
+				notifyState.warn('Too many attempts');
+				setResMessage({ type: 'waiting', message: 'Forge protection triggered. Try again later.' });
 				setCooldown({ status, waitSec: data?.waitSec, localItem: RFCD, isShowTimer: false, resType: data?.type });
 				return false;
 			}
 
 			if (data?.type === 'codeNotFound') {
+				notifyState.warn('Code is invalid');
 				setResMessage({ type: 'error', message: 'Code is invalid.' });
 				return false;
 			}
+
+			const errorMap = {
+				409: () => notifyState.info('Email already branded'),
+				410: () => notifyState.info('Code has expired'),
+			};
+
+			if (errorMap && errorMap[status as keyof typeof errorMap]) errorMap[status as keyof typeof errorMap]();
 		},
 		customErrors: {
 			409: { type: 'error', message: 'Email already branded in the Forge.' },

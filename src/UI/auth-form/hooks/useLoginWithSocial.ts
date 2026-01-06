@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
 import { googleUrl } from '@/utils/urls';
 import { useQueryClient } from '@tanstack/react-query';
+import { NotifyConfig } from '@/UI/toast/notify-config/NotifyConfig';
 
 /* --- Types --- */
 type ResData = {
@@ -25,6 +26,7 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 	const navigate = useNavigate();
 	const [githubPopup, setGithubPopup] = useState<Window | null>(null);
 	const queryClient = useQueryClient();
+	const { notifyState } = NotifyConfig();
 
 	const googleLogin = useGoogleLogin({
 		onSuccess: async tokenResponse => {
@@ -42,7 +44,7 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 				}
 
 				queryClient.removeQueries({ queryKey: ['me'] });
-				setResMessage({ message: 'Welcome to the Forge.', type: 'success' });
+				notifyState.success('Welcome to the Forge');
 				navigate(homeRoute);
 			} catch (error) {
 				const err = error as AxiosError;
@@ -74,8 +76,11 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 				500: () => setResMessage({ type: 'error', message: 'Server error. Please try again later.' }),
 			};
 
+			notifyState.error('Google service error');
+
 			if (status && errors[status as keyof typeof errors]) {
 				errors[status as keyof typeof errors]();
+				return;
 			}
 
 			setResMessage({ type: 'error', message: 'Google service error. Please try again.' });
@@ -112,12 +117,13 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 			const { type, status } = event.data as EventDataType;
 
 			if (!type || !status) {
+				notifyState.error('GitHub response error');
 				setResMessage({ type: 'error', message: 'GitHub response was lost in the forge.' });
 				return;
 			}
 
 			if (type === 'success') {
-				setResMessage({ type: 'success', message: 'Welcome to the Forge.' });
+				notifyState.success('Welcome to the Forge');
 				queryClient.removeQueries({ queryKey: ['me'] });
 				navigate(homeRoute);
 			}
@@ -132,6 +138,7 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 					errors[status as keyof typeof errors]();
 				}
 
+				notifyState.error('GitHub link error');
 				setResMessage({ type: 'error', message: 'GitHub link could not be forged.' });
 			}
 		};
@@ -139,7 +146,7 @@ export const useLoginWithSocial = ({ setResMessage }: { setResMessage: (value: R
 		window.addEventListener('message', handler);
 
 		return () => window.removeEventListener('message', handler);
-	}, [dispatch, navigate, setResMessage, githubPopup, queryClient]);
+	}, [dispatch, navigate, setResMessage, githubPopup, queryClient, notifyState]);
 
 	return { handleSocialLogin };
 };

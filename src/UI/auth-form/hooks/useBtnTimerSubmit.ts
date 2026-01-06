@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useCountdownTimer } from '@/hooks/useCountdownTimer ';
 import type { ResType } from '@/hooks/useApiForm';
 import type { TimerState } from '../../../hooks/useTimer';
+import { NotifyConfig } from '@/UI/toast/notify-config/NotifyConfig';
 
 /* --- Types --- */
 
@@ -14,6 +15,7 @@ type Arguments = {
 /* --- useBtnTimerSubmit Hook --- */
 export const useBtnTimerSubmit = ({ setResMessage, timerState }: Arguments) => {
 	const { startTimer, countdown, getStorage } = useCountdownTimer({ storageItem: timerState?.localItem ?? '' });
+	const { notifyState } = NotifyConfig();
 
 	useEffect(() => {
 		if (!timerState?.triggerId) return;
@@ -25,11 +27,13 @@ export const useBtnTimerSubmit = ({ setResMessage, timerState }: Arguments) => {
 
 	const handleClick = () => {
 		if (getStorage()?.resType === 'IP_BLOCKED') {
+			notifyState.warn('Too many attempts');
 			setResMessage({ type: 'waiting', message: 'Forge protection triggered. Try again later.' });
 			return;
 		}
 
 		if (countdown > 0) {
+			notifyState.warn(`Wait, ${countdown}sec`);
 			setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
 			return;
 		}

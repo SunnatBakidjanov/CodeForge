@@ -41,6 +41,7 @@ export const LinksList = ({ links, activeLink, classNames, isOpen, isHasTabindex
 			</Link>
 		) : (
 			<BtnTooltip
+				key={i}
 				as={Link}
 				btnProps={{ to: link ?? '/' }}
 				tooltipOptions={{
