@@ -50,7 +50,12 @@ export const useRegisterForm = () => {
 				410: () => notifyState.info('Code has expired'),
 			};
 
-			if (errorMap && errorMap[status as keyof typeof errorMap]) errorMap[status as keyof typeof errorMap]();
+			if (errorMap && errorMap[status as keyof typeof errorMap]) {
+				errorMap[status as keyof typeof errorMap]();
+				return;
+			}
+
+			notifyState.error('Forge went dark');
 		},
 		customErrors: {
 			409: { type: 'error', message: 'Email already branded in the Forge.' },

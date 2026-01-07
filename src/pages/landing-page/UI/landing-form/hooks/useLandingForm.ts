@@ -51,6 +51,8 @@ export const useLandingForm = () => {
 				setCooldown({ status, waitSec: data?.waitSec, localItem: LPFCD, isShowTimer: true });
 				return false;
 			}
+
+			notifyState.error('Forge went dark');
 		},
 		defaultValues: { name: user?.userData?.name ?? '', email: user?.userData?.email ?? '', message: '' },
 		errorsMessage: { success: { message: 'Message successfully engraved.' } },

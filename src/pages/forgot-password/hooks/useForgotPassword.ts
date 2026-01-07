@@ -40,6 +40,8 @@ export const useForgotPassword = () => {
 				setResMessage({ type: 'waiting', message: 'Too many strikes. Cooldown active.' });
 				setTimer({ timeOut: data?.waitSec, localItem: FPCD, triggerId: Date.now(), isShowTimer: true });
 			}
+
+			notifyState.error('Forge went dark');
 		},
 		apiHref: forgotPassUrl,
 	});

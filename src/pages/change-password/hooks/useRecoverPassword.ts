@@ -30,12 +30,17 @@ export const useRecoverPassword = () => {
 			const status = error?.status;
 			const data = error?.response?.data;
 
-			setCooldown({ status, waitSec: data?.waitSec, localItem: CPCD });
+			if (status === 429) {
+				setCooldown({ status, waitSec: data?.waitSec, localItem: CPCD });
+				return false;
+			}
 
 			if (data?.type === 'TOKEN_INVALID') {
 				navigate(errorPageRoute, { replace: true, state: resetPasswordPageConfig });
 				return false;
 			}
+
+			notifyState.error('Forge went dark');
 		},
 		errorsMessage: { success: { message: 'Password changed.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
 		apiHref: changePassUrl,

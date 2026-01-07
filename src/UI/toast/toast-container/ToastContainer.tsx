@@ -14,7 +14,7 @@ const Disabled = cssTransition({
 export const ToastContainer = () => {
 	return (
 		<ReactToastContainer
-			autoClose={10000}
+			autoClose={6000}
 			hideProgressBar
 			pauseOnHover={false}
 			limit={5}

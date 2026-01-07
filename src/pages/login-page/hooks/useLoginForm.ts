@@ -7,6 +7,7 @@ import { useTimer } from '@/hooks/useTimer';
 import { LFCD } from '@/utils/localStorageKeys';
 import { useNavigate } from 'react-router';
 import { useQueryClient } from '@tanstack/react-query';
+import { NotifyConfig } from '@/UI/toast/notify-config/NotifyConfig';
 
 /* --- Types --- */
 export type ResError = {
@@ -21,10 +22,12 @@ export const useLoginForm = () => {
 	const navigate = useNavigate();
 	const { setCooldown, timerState } = useTimer({ storageItem: LFCD });
 	const queryClient = useQueryClient();
+	const { notifyState } = NotifyConfig();
 
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		defaultValues: { email: '', password: '' },
 		onSubmited: () => {
+			notifyState.info('Welcome to the Forge');
 			queryClient.removeQueries({ queryKey: ['me'] });
 			navigate(homeRoute, { replace: true });
 		},
@@ -34,10 +37,13 @@ export const useLoginForm = () => {
 			const type = error?.response?.data?.type;
 
 			if (status === 429) {
+				notifyState.error('Too many attempts');
 				setResMessage({ type: 'waiting', message: 'Forge protection triggered. Try again later.' });
 				setCooldown({ status, waitSec: waitSec, localItem: LFCD, isShowTimer: false, resType: type });
 				return false;
 			}
+
+			notifyState.error('Forge went dark');
 		},
 		errorsMessage: { success: { message: 'Welcome to the Forge.' }, 400: { message: 'The pattern is flawed. Refine it.' } },
 		customErrors: {
