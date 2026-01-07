@@ -27,7 +27,7 @@ export const useLoginForm = () => {
 	const { handleSubmit, handleSubmitForm, register, watch, isLoading, resMessage, setResMessage } = useApiForm<FormValues, never, ResError>({
 		defaultValues: { email: '', password: '' },
 		onSubmited: () => {
-			notifyState.info('Welcome to the Forge');
+			notifyState.success('Welcome to the Forge');
 			queryClient.removeQueries({ queryKey: ['me'] });
 			navigate(homeRoute, { replace: true });
 		},

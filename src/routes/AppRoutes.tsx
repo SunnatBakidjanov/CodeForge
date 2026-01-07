@@ -12,6 +12,7 @@ import { ForgotPasswordPage } from '@/pages/forgot-password/ForgotPasswordPage';
 import { ChangePasswordPage } from '@/pages/change-password/ChangePasswordPage';
 import { CheckChangePassToken } from '@/pages/change-password/UI/check-change-pass-token/checkChangePassToken';
 import { CheckMe } from '@/UI/protection/check-me/CheckMe';
+import { HomeLayout } from '@/UI/layout/home-layout/HomeLayout';
 
 /* --- Lazy Imports --- */
 const LazyAuthLayout = lazy(() => import('@/UI/layout/auth-layout/AuthLayout').then(module => ({ default: module.AuthLayout })));
@@ -73,14 +74,16 @@ export const AppRoutes = () => {
 					</Route>
 				</Route>
 
-				<Route
-					path="/home"
-					element={
-						<Suspense fallback={<GlobalLoader />}>
-							<LazyHomePage />
-						</Suspense>
-					}
-				/>
+				<Route element={<HomeLayout />}>
+					<Route
+						path="/home"
+						element={
+							<Suspense fallback={<GlobalLoader />}>
+								<LazyHomePage />
+							</Suspense>
+						}
+					/>
+				</Route>
 
 				<Route
 					path="error"
