@@ -11,7 +11,7 @@ export type UserData = {
 	role: 'creator' | 'admin' | 'user';
 };
 
-type ResData = {
+export type ResData = {
 	userData: UserData;
 	message: string;
 	type: 'user' | 'guest';

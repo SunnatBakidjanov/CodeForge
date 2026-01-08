@@ -22,6 +22,7 @@ type Props<T extends React.ElementType = 'button'> = {
 		animateAnim?: TargetAndTransition;
 		transitionAnim?: Transition;
 	};
+	isCloseTooltip?: boolean;
 };
 
 /** --- BtnTooltip Component --- */
@@ -33,6 +34,7 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 	childrens,
 	btnProps,
 	btnWrapper,
+	isCloseTooltip = false,
 }: Props<T>) => {
 	const Component = as || 'button';
 	const { placement, shiftPadding, offsetValue } = tooltipOptions ?? {};
@@ -72,7 +74,7 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 		<div className={cn('relative group', classNames?.container)}>
 			{btnWrapper ? btnWrapper({ children: Button }) : Button}
 
-			{open && !isTouchDevice && (
+			{open && !isTouchDevice && !isCloseTooltip && (
 				<div
 					ref={refs.setFloating}
 					style={{
