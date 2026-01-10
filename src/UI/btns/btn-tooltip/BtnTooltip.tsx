@@ -1,4 +1,5 @@
 /** --- Imports --- */
+import { Tooltip } from '@/UI/tooltip/Tooltip';
 import { cn } from '@/utils/cn';
 import { useFloating, flip, shift, offset, type Placement } from '@floating-ui/react-dom';
 import { motion, type Transition, type TargetAndTransition } from 'framer-motion';
@@ -38,7 +39,6 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 }: Props<T>) => {
 	const Component = as || 'button';
 	const { placement, shiftPadding, offsetValue } = tooltipOptions ?? {};
-	const { initialAnim, animateAnim, transitionAnim } = tooltipAnimation ?? {};
 	const [isTouchDevice, setIsTouchDevice] = useState(false);
 	const [open, setOpen] = useState(false);
 	const { x, y, refs, strategy } = useFloating({
@@ -88,26 +88,7 @@ export const BtnTooltip = <T extends React.ElementType = 'button'>({
 					onBlur={() => tooltipState.close()}
 					className={cn(classNames?.tooltipContainer)}
 				>
-					<motion.div
-						initial={initialAnim ?? { opacity: 0, y: -5 }}
-						animate={animateAnim ?? { opacity: 1, y: 0 }}
-						transition={
-							transitionAnim ?? {
-								type: 'spring',
-								stiffness: 500,
-								damping: 30,
-								duration: 0.2,
-								delay: 0.5,
-							}
-						}
-						className={cn(
-							'block font-bold text-white text-sm whitespace-nowrap bg-black/60 rounded-md shadow-[0_0_3px_white]',
-							'px-2 py-1',
-							classNames?.tooltip
-						)}
-					>
-						{childrens?.tooltip}
-					</motion.div>
+					<Tooltip animOptions={tooltipAnimation} className={classNames?.tooltip} children={childrens?.tooltip} />
 				</div>
 			)}
 		</div>
