@@ -8,16 +8,17 @@ import { cn } from '../../../utils/cn';
 type Props = {
 	text?: string;
 	href?: string;
-	classNames?: { [key in 'textGradient' | 'bgGradient']?: string };
+	classNames?: { [key in 'textGradient' | 'bgGradient' | 'link']?: string };
+	tabIndex?: number;
 };
 
 /* --- BtnLink Component --- */
 // This component represents a button link for the application.
-export const BtnLink = ({ text, href, classNames }: Props) => {
+export const BtnLink = ({ text, href, classNames, tabIndex }: Props) => {
 	const navigate = useNavigate();
 
 	return (
-		<Link to={href || '#'} className="group">
+		<Link tabIndex={tabIndex} to={href || '#'} className={cn('group', classNames?.link)}>
 			<TextGradient
 				ComponentType={'span'}
 				className={cn('font-bold cursor-pointer relative', classNames?.textGradient)}

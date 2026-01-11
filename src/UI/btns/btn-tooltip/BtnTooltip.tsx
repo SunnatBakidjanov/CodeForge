@@ -2,7 +2,7 @@
 import { Tooltip } from '@/UI/tooltip/Tooltip';
 import { cn } from '@/utils/cn';
 import { useFloating, flip, shift, offset, type Placement } from '@floating-ui/react-dom';
-import { motion, type Transition, type TargetAndTransition } from 'framer-motion';
+import { type Transition, type TargetAndTransition } from 'framer-motion';
 import { useState, useEffect, type JSX } from 'react';
 
 /** --- Types --- */
