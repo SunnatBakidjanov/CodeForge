@@ -83,7 +83,7 @@ export const AuthForm = <T extends FieldValues>({ formHook, dataInputs, titleIco
 
 	return (
 		<Form
-			className={cn('max-w-[320px] sm:max-w-[500px] rounded-3xl sm:rounded-4xl', 'px-3 sm:px-8', 'pt-4', 'pb-8', 'sm:py-10')}
+			className={cn('max-w-[400px] sm:max-w-[500px] rounded-3xl sm:rounded-4xl', 'px-3 sm:px-8', 'pt-4', 'pb-8', 'sm:py-10')}
 			onSubmit={handleSubmit(handleSubmitForm, errors => {
 				if (errors?.code?.type === 'minLength') {
 					setResMessage({ type: 'error', message: 'The Forge rejects incomplete codes.' });

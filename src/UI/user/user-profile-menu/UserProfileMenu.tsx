@@ -36,6 +36,8 @@ export const UserProfileMenu = ({ userData, floatingOption }: Props) => {
 		{ text: 'Terms of Service', link: termsRoute },
 	];
 
+	console.log(user?.email.length);
+
 	return (
 		<div
 			ref={setFloating}
@@ -47,42 +49,49 @@ export const UserProfileMenu = ({ userData, floatingOption }: Props) => {
 		>
 			<motion.div
 				className={cn(
-					'relative flex flex-col items-center justify-center backdrop-blur rounded-lg shadow-[0_0_2px_white] overflow-hidden',
-					'pt-6 pb-5',
+					'relative flex flex-col items-center justify-center backdrop-blur rounded-lg shadow-[0_0_2px_white]',
+					'pt-5 pb-4 md:pt-6 md:pb-5',
 					'px-4'
 				)}
 				initial={{ opacity: 0, scale: 0.8 }}
 				animate={{ opacity: 1, scale: 1 }}
 				exit={{ opacity: 0, scale: 0.8 }}
 			>
-				<div className={cn('flex items-center flex-col bg-black/50 overflow-hidden rounded-lg', 'pt-4 pb-6', 'px-14', 'min-w-[380px]')}>
+				<div
+					className={cn(
+						'flex items-center flex-col bg-black/50 rounded-lg',
+						'pt-4 md:pt-5 pb-6 md:pb-7',
+						'md:px-14',
+						'w-[260px] sm:w-[340px] md:w-[380px]'
+					)}
+				>
 					<div
 						className={cn(
 							'flex items-center justify-center rounded-full bg-white/15 border-1 border-white/50 text-(--white) font-bold',
-							'text-2xl',
-							'w-18 h-18'
+							'text-2xl md:text-3xl',
+							'w-16 h-16 md:w-18 md:h-18'
 						)}
 					>
 						{firstLatter}
 					</div>
 
-					<div className={cn('flex flex-col gap-0.5', 'mt-4', 'text-white text-center', 'tracking-[0.2px]')}>
+					<div className={cn('flex flex-col md:gap-0.5', 'mt-4 mb:mt-5', 'text-white text-center', 'tracking-[0.2px]')}>
 						<p>Hello, {user?.name}</p>
-						<p className="text-sm">{user?.email?.length >= 35 ? `${user?.email?.slice(0, 35)}...` : user?.email}</p>
+						<p className="text-sm">{user?.email?.length >= 30 ? `${user?.email?.slice(0, 30)}...` : user?.email}</p>
 					</div>
 				</div>
 
-				<div className="w-full text-xl text-white mt-8">
-					<div className={cn('flex justify-center items-center w-full', 'gap-3')}>
+				<div className="w-full md:text-xl text-white mt-5 md:mt-8">
+					<div className={cn('flex justify-center items-center w-full', 'gap-2.5 md:gap-3')}>
 						<Link
 							to={'/'}
 							className={cn(
-								'flex justify-end items-center w-1/2 border-1 border-white/30 rounded-l-2xl shadow-white',
+								'flex justify-end items-center w-1/2 border-1 border-white/30 bg-white/5 shadow-sm rounded-l-2xl',
 								'gap-1.5',
 								'pr-4',
-								'py-1.5',
-								'transition-all duration-300 ease-out bg-white/5',
-								'hover:bg-black/40 focus-visible:bg-black/40'
+								'py-1.25 md:py-1.5',
+								'transition-all duration-300 ease-out',
+								'hover:bg-black/40 hover:shadow-white/80 focus-visible:bg-black/40'
 							)}
 						>
 							<IoMdSettings className="relative bottom-px" />
@@ -92,12 +101,12 @@ export const UserProfileMenu = ({ userData, floatingOption }: Props) => {
 						<BtnLogout
 							classNames={{
 								button: cn(
-									'w-1/2 border-1 border-white/30 rounded-r-2xl shadow-white',
+									'w-1/2 border-1 border-white/30 bg-white/5 rounded-r-2xl shadow-sm',
 									'gap-1.5',
 									'pl-4',
-									'py-1.5',
-									'transition-all duration-300 ease-out bg-white/5',
-									'hover:bg-black/40 focus-visible:bg-black/40'
+									'py-1.25 md:py-1.5',
+									'transition-all duration-300 ease-out',
+									'hover:bg-black/40  hover:shadow-white/80 focus-visible:bg-black/40'
 								),
 							}}
 						/>
@@ -106,11 +115,11 @@ export const UserProfileMenu = ({ userData, floatingOption }: Props) => {
 					<Link
 						to={'/'}
 						className={cn(
-							'flex items-center justify-center gap-2 rounded-2xl border-1 border-white/30 w-full',
-							'transition-all duration-300 ease-out bg-white/5',
-							'hover:bg-black/40 focus-visible:bg-black/40',
+							'flex items-center justify-center gap-2 rounded-xl bg-white/5 border-1 border-white/30 w-full shadow-sm',
+							'transition-all duration-300 ease-out',
+							'hover:bg-black/40 hover:shadow-white/80 focus-visible:bg-black/40',
 							'mt-3',
-							'py-1.5'
+							'py-1.25 md:py-1.5'
 						)}
 					>
 						<RiProfileLine className="relative bottom-px" />
