@@ -36,8 +36,6 @@ export const UserProfileMenu = ({ userData, floatingOption }: Props) => {
 		{ text: 'Terms of Service', link: termsRoute },
 	];
 
-	console.log(user?.email.length);
-
 	return (
 		<div
 			ref={setFloating}
@@ -49,7 +47,7 @@ export const UserProfileMenu = ({ userData, floatingOption }: Props) => {
 		>
 			<motion.div
 				className={cn(
-					'relative flex flex-col items-center justify-center backdrop-blur rounded-lg shadow-[0_0_2px_white]',
+					'relative flex flex-col items-center justify-center backdrop-blur rounded-lg shadow-[0_0_2px_white] overflow-hidden',
 					'pt-5 pb-4 md:pt-6 md:pb-5',
 					'px-4'
 				)}
@@ -91,7 +89,7 @@ export const UserProfileMenu = ({ userData, floatingOption }: Props) => {
 								'pr-4',
 								'py-1.25 md:py-1.5',
 								'transition-all duration-300 ease-out',
-								'hover:bg-black/40 hover:shadow-white/80 focus-visible:bg-black/40'
+								'hover:bg-black/40 hover:shadow-white/80 focus-visible:bg-black/40 focus-visible:shadow-white/80'
 							)}
 						>
 							<IoMdSettings className="relative bottom-px" />
@@ -106,7 +104,7 @@ export const UserProfileMenu = ({ userData, floatingOption }: Props) => {
 									'pl-4',
 									'py-1.25 md:py-1.5',
 									'transition-all duration-300 ease-out',
-									'hover:bg-black/40  hover:shadow-white/80 focus-visible:bg-black/40'
+									'hover:bg-black/40  hover:shadow-white/80 focus-visible:bg-black/40 focus-visible:shadow-white/80'
 								),
 							}}
 						/>
@@ -117,7 +115,7 @@ export const UserProfileMenu = ({ userData, floatingOption }: Props) => {
 						className={cn(
 							'flex items-center justify-center gap-2 rounded-xl bg-white/5 border-1 border-white/30 w-full shadow-sm',
 							'transition-all duration-300 ease-out',
-							'hover:bg-black/40 hover:shadow-white/80 focus-visible:bg-black/40',
+							'hover:bg-black/40 hover:shadow-white/80 focus-visible:bg-black/40 focus-visible:shadow-white/80',
 							'mt-3',
 							'py-1.25 md:py-1.5'
 						)}

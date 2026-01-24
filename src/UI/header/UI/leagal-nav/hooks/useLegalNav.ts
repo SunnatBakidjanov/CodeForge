@@ -16,7 +16,7 @@ export const useLegalNav = () => {
 	const links = [
 		{ link: termsRoute, text: 'Terms of Service', type: 'text' },
 		{ link: privateRoute, text: 'Privacy Policy', type: 'text' },
-		{ link: prevRoute, text: '', type: 'img' },
+		{ link: prevRoute, text: 'Back', type: 'img' },
 	] as Links[];
 
 	const { pathname } = useLocation();

@@ -92,7 +92,7 @@ export const Legal = ({ pageConfig, iconSrc }: Props) => {
 								{lastUpdated}
 							</p>
 
-							<BgBlur className="h-1/3 md:h-1/4 lg:h-1/6 w-3/4 blur-[200px]" />
+							<BgBlur className="w-1/2 h-1/4 blur-[120px] md:blur-[140px] lg:blur-[160px] xl:blur-[180px]" />
 						</div>
 
 						<div className="mt-8 mb-8">

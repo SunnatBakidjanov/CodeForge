@@ -26,17 +26,21 @@ export const LinksList = ({ links, activeLink, classNames, isOpen, isHasTabindex
 				key={i}
 				tabIndex={tabIndex}
 				className={cn(
-					'block font-bold lg:font-normal',
-					'transition-all duration-300 ease-out',
-					'py-1.25 lg:py-1.25 px-6 lg:px-10',
-					'text-white bg-black/40 rounded-3xl',
+					'font-bold tracking-[0.2px] relative flex items-center justify-center w-full md:w-fit',
+					'transition-all duration-200 ease-out',
+					'py-1.5 md:py-0',
+					'text-white md:hover:text-orange-400 md:focus-visible:text-orange-400 hover:bg-black/80 focus-visible:bg-black/80 md:hover:bg-transparent md:focus-visible:bg-transparent',
 					'lg:text-lg',
-					'shadow-[0_0_2px_white]',
-					'hover:shadow-[0_1px_5px_white] focus-visible:shadow-[0_1px_5px_white]',
-					classNames?.text,
-					activeLink(link) && 'shadow-white shadow-sm'
+					activeLink(link) && 'text-orange-400 bg-black/60 md:bg-transparent',
+					classNames?.text
 				)}
 			>
+				<span
+					className={cn(
+						'absolute md:block hidden w-0 -bottom-1 h-[2px] bg-orange-400 transition-all duration-100 ease-out',
+						activeLink(link) && 'w-full duration-300'
+					)}
+				></span>
 				{text}
 			</Link>
 		) : (
@@ -50,10 +54,9 @@ export const LinksList = ({ links, activeLink, classNames, isOpen, isHasTabindex
 				}}
 				classNames={{
 					btn: cn(
-						'flex items-center justify-center w-full h-full bg-black/40 rounded-3xl shadow-[0_0_2px_white]',
-						'px-0 md:px-4 lg:px-6',
-						'hover:shadow-[0_1px_5px_white] focus-visible:shadow-[0_1px_5px_white]',
-						'transition-all duration-300 ease-out'
+						'flex items-center justify-center w-full h-full',
+						'transition-all duration-300 ease-out',
+						'md:hover:drop-shadow-[0_0_6px_var(--hot-orange)] md:focus-visible:drop-shadow-[0_0_6px_var(--hot-orange)] hover:bg-black/80 focus-visible:bg-black/80 md:hover:bg-transparent md:focus-visible:bg-transparent'
 					),
 					container: 'w-full md:w-fit',
 					tooltip: 'hidden md:block',
