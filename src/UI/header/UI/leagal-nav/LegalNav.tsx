@@ -17,7 +17,7 @@ export const LegalNav = ({ isOpen, height }: NavProps) => {
 			</div>
 
 			<motion.div
-				className={cn('md:hidden absolute overflow-hidden w-full left-0 border-b-1 border-orange-500/40 bg-black/90', 'mt-px', 'py-4')}
+				className={cn('md:hidden absolute overflow-hidden w-full left-0 border-b-1 border-orange-500/40 bg-black/95', 'mt-px', 'py-4')}
 				initial={{ y: '50%', opacity: 0, pointerEvents: 'none' }}
 				animate={{ y: isOpen ? 0 : '50%', opacity: isOpen ? 1 : 0, pointerEvents: isOpen ? 'auto' : 'none' }}
 				transition={{ duration: 0.4, ease: isOpen ? 'backOut' : 'backIn' }}
