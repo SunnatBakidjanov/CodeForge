@@ -11,6 +11,8 @@ import { IoMdSettings } from 'react-icons/io';
 import { Link } from 'react-router';
 import { RiProfileLine } from 'react-icons/ri';
 import { useResize } from '@/hooks/useResize';
+import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
+import { BtnGradient } from '@/UI/btns/btn-gradient/BtnGradient';
 
 /* --- Types --- */
 type FloatingOptions = {
@@ -81,15 +83,15 @@ export const UserProfileMenu = ({ userData, floatingOption, closeMenu }: Props) 
 						'w-full sm:w-[340px] md:w-[380px]'
 					)}
 				>
-					<div
+					<BgGradient
 						className={cn(
-							'flex items-center justify-center rounded-full bg-white/15 border-1 border-white/50 text-(--white) font-bold',
+							'flex items-center justify-center rounded-full border-1 border-white/50 text-white font-bold',
 							'text-2xl md:text-3xl',
 							'w-16 h-16 md:w-18 md:h-18'
 						)}
 					>
 						{firstLatter}
-					</div>
+					</BgGradient>
 
 					<div className={cn('flex flex-col md:gap-0.5', 'mt-4 mb:mt-5', 'text-white text-center', 'tracking-[0.2px]')}>
 						<p>Hello, {user?.name}</p>
@@ -98,52 +100,32 @@ export const UserProfileMenu = ({ userData, floatingOption, closeMenu }: Props) 
 				</div>
 
 				<div className="w-full md:text-lg text-white mt-7 md:mt-8">
-					<div className={cn('flex justify-center items-center w-full', 'gap-2.5 md:gap-3')}>
-						<Link
-							to={'/'}
-							className={cn(
-								'flex justify-end items-center w-1/2 border-1 border-white/30 bg-white/5 shadow-sm rounded-l-2xl',
-								'gap-1.5',
-								'pr-4',
-								'py-1.5',
-								'transition-all duration-300 ease-out',
-								'hover:bg-black/40 hover:shadow-white/80 focus-visible:bg-black/40 focus-visible:shadow-white/80'
-							)}
-						>
-							<IoMdSettings className="relative bottom-px" />
-							Settings
-						</Link>
+					<div className={cn('flex items-center', 'gap-2.5 md:gap-3')}>
+						<BtnGradient className="w-1/2">
+							<Link to={'/'} className={cn('flex justify-end items-center', 'gap-1.5', 'pr-4', 'py-1.5')}>
+								<IoMdSettings className="relative bottom-px" />
+								Settings
+							</Link>
+						</BtnGradient>
 
-						<BtnLogout
-							classNames={{
-								button: cn(
-									'w-1/2 border-1 border-white/30 bg-white/5 rounded-r-2xl shadow-sm',
-									'gap-1.5',
-									'pl-4',
-									'py-1.5',
-									'transition-all duration-300 ease-out',
-									'hover:bg-black/40  hover:shadow-white/80 focus-visible:bg-black/40 focus-visible:shadow-white/80'
-								),
-							}}
-						/>
+						<BtnGradient className="w-1/2">
+							<BtnLogout
+								classNames={{
+									button: 'gap-1.5 pl-4 py-1.5',
+								}}
+							/>
+						</BtnGradient>
 					</div>
 
-					<Link
-						to={'/'}
-						className={cn(
-							'flex items-center justify-center gap-2 rounded-xl bg-white/5 border-1 border-white/30 w-full shadow-sm',
-							'transition-all duration-300 ease-out',
-							'hover:bg-black/40 hover:shadow-white/80 focus-visible:bg-black/40 focus-visible:shadow-white/80',
-							'mt-3',
-							'py-1.5'
-						)}
-					>
-						<RiProfileLine className="relative bottom-px" />
-						Profile
-					</Link>
+					<BtnGradient className="mt-3">
+						<Link to={'/'} className="flex items-center justify-center w-full gap-1.5 py-1.5">
+							<RiProfileLine className="relative bottom-px" />
+							Profile
+						</Link>
+					</BtnGradient>
 				</div>
 
-				<span className="mt-7 block h-0.5 w-3/4 bg-white/10"></span>
+				<span className="mt-8 block h-0.5 w-3/4 bg-white/20"></span>
 
 				<div className="flex flex-col items-center gap-1 tracking-[0.2px] text-white text-sm mt-5">
 					{linkConfig.map(({ text, link }, i) => (
