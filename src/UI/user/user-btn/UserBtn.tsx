@@ -5,15 +5,16 @@ import { BgGradient } from '@/UI/gradients/bg-gradient/BgGradient';
 import { cn } from '@/utils/cn';
 
 /* --- Types --- */
-type Props<T extends React.ElementType = 'button'> = {
+export type Props<T extends React.ElementType = 'button'> = {
 	userData?: UserData;
 	componentType?: T;
 	mainCompProps?: Omit<React.ComponentPropsWithoutRef<T>, 'children' | 'className'>;
 	isCloseTooltip?: boolean;
+	classNames?: { [key in 'tooltipBtn']?: string };
 };
 
 /* --- UserBtn Component --- */
-export const UserBtn = <T extends React.ElementType = 'button'>({ userData, componentType, isCloseTooltip, mainCompProps }: Props<T>) => {
+export const UserBtn = <T extends React.ElementType = 'button'>({ userData, componentType, isCloseTooltip, mainCompProps, classNames }: Props<T>) => {
 	const tooltipConfig = [{ text: 'Your account' }, { text: userData?.name }, { text: userData?.email }];
 	const firstLatter = userData?.name[0];
 
@@ -51,7 +52,12 @@ export const UserBtn = <T extends React.ElementType = 'button'>({ userData, comp
 				}),
 			}}
 			classNames={{
-				btn: cn('cursor-pointer', 'text-lg sm:text-xl font-bold', 'h-8.5 w-8.5 sm:h-10.5 sm:w-10.5 lg:h-11 lg:w-11'),
+				btn: cn(
+					'flex items-center justify-center cursor-pointer',
+					'text-lg sm:text-xl font-bold',
+					'h-8.5 w-8.5 sm:h-10.5 sm:w-10.5 lg:h-11 lg:w-11',
+					classNames?.tooltipBtn
+				),
 				tooltip: cn('font-normal text-(--white)'),
 				tooltipContainer: 'pt-3',
 			}}

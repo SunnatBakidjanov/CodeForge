@@ -34,7 +34,7 @@ export const Tooltip = ({ animOptions, className, children }: Props) => {
 				}
 			}
 			className={cn(
-				'block font-bold text-white text-sm whitespace-nowrap bg-black/60 rounded-md shadow-[0_0_3px_white]',
+				'block font-bold text-white text-sm whitespace-nowrap backdrop-blur-md rounded-md shadow-[0_0_3px_white]',
 				'px-2 py-1',
 				className
 			)}

@@ -27,7 +27,7 @@ export const LegalNav = ({ isOpen, height }: NavProps) => {
 					<LinksList links={links} activeLink={activeLink} isHasTabindex={true} isOpen={isOpen} />
 				</div>
 
-				<BgBlur className="w-5/6 h-1/2 blur-[120px] z-1" />
+				<BgBlur className="w-1/2 h-1/2 blur-[120px] z-1" />
 			</motion.div>
 		</>
 	);
