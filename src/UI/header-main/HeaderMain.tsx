@@ -6,7 +6,7 @@ export const HeaderMain = () => {
 	const { data } = useMe({ staleTime: Infinity });
 
 	return (
-		<header className="border-y-1 border-white/30 shadow-white/30 shadow-[0_0_10px] py-3 pl-4 pr-6">
+		<header className="border-y-1 border-white/30 shadow-white/30 shadow-[0_0_10px] py-2.5 pl-4 pr-6">
 			<div className="flex justify-between items-center">
 				<MainTitle
 					classNames={{
