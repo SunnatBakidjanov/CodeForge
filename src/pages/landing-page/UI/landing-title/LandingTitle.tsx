@@ -1,6 +1,6 @@
 /* --- Import --- */
 import { TextGradient } from '@/UI/gradients/text-gradient/TextGradietn';
-import { Title } from '@/UI/title/Title';
+import { Title } from '@/components/elements/title/Title';
 import { BgBlur } from '@/UI/backgrounds/bg-blur/BgBlur';
 import { cn } from '@/utils/cn';
 
@@ -26,19 +26,7 @@ export const LandingTitle = ({ text, children, descriptionText, isBorderBottom, 
 				classNames?.textGradient
 			)}
 		>
-			<Title
-				TitleType="h2"
-				defaultStyles={'h2'}
-				className={cn(
-					'flex items-center justify-center w-fit',
-					'flex-col',
-					'gap-2',
-					'text-3xl md:text-4xl lg:text-[42px] xl:text-5xl',
-					'xl:pb-1',
-					classNames?.title
-				)}
-				children={text}
-			/>
+			<Title children={text} as={'h1'} styleVariatns={'md'} />
 			{descriptionText && (
 				<p className={cn('text-[var(--white)] italic', 'mt-2 lg:mt-2.5', 'lg:text-lg xl:text-xl', classNames?.textDescription)}>
 					{descriptionText}

@@ -1,0 +1,44 @@
+/* Cormorant Garamond Шрифт */
+@font-face {
+	font-family: 'Cormorant Garamond';
+	src: url('/fonts/cormorant-garamond/CormorantGaramond-VariableFont_wght.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 100 900;
+}
+
+@font-face {
+	font-family: 'Cormorant Garamond';
+	src: url('/fonts/cormorant-garamond/CormorantGaramond-MediumItalic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: 500;
+}
+
+.cormorant-font {
+	font-family: 'Cormorant Garamond', sans-serif;
+}
+
+/* Playfair Display SC Шрифт */
+@font-face {
+	font-family: 'Playfair Display SC';
+	src: url('/fonts/playfair-display-sc/PlayfairDisplaySC-Black.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 900;
+}
+
+@font-face {
+	font-family: 'Playfair Display SC';
+	src: url('/fonts/playfair-display-sc/PlayfairDisplaySC-Bold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'Playfair Display SC';
+	src: url('/fonts/playfair-display-sc/PlayfairDisplaySC-Regular.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 400;
+}
+
+.playfair-font {
+	font-family: 'Playfair Display SC', sans-serif;
+}

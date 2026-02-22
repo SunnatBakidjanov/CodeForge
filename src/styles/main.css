@@ -1,22 +1,7 @@
 /* --- TailwindCSS Import --- */
 @import 'tailwindcss';
-
-/* --- Root --- */
-:root {
-	--main-background-color: #1e1e1e;
-	--blue-black: #101828;
-	--hot-orange: #ff6b00;
-	--white: #d3d3d3;
-	--react-blue: #61dafb;
-	--html-orange: #e34f26;
-	--js-yellow: #f7df1e;
-	--node-green: #539e43;
-	--css-blue: #264de4;
-	--ts-blue: #3178c6;
-
-	/* resersed var */
-	--dotted-loader-shadow-offset: '20px';
-}
+@import './root.css';
+@import './fonts.css';
 
 /* --- Fonts --- */
 @font-face {
