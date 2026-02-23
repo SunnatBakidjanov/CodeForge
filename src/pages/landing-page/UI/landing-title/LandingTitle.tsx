@@ -22,7 +22,7 @@ export const LandingTitle = ({ text, children, descriptionText, isBorderBottom, 
 			ComponentType={'div'}
 			className={cn(
 				'relative flex flex-col items-center justify-center text-center',
-				isBorderBottom && 'border-b-1 border-white/20 pb-3',
+				isBorderBottom && 'border-b-1 border-white/20 pb-2.5',
 				classNames?.textGradient
 			)}
 		>
