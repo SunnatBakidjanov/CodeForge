@@ -1,4 +1,5 @@
 /* --- Imports --- */
+import { LandingHero } from './UI/blocks/landing-hero/LandingHero';
 import { LandingAbout } from './UI/landing-about/LandingAbout';
 import { LandingContact } from './UI/landing-contact/LandingContact';
 import { LandingGetting } from './UI/landing-getting/LandingGetting';
@@ -9,7 +10,7 @@ import { LandingJoin } from './UI/landing-join/LandingJoin';
 export const LandingPage = () => {
 	return (
 		<main className="mt-8 md:mt-12 xl:mt-14 mb-6 md:mb-8 lg:mb-10 xl:mb-12 min-w-[320px]">
-			<LandingGetting />
+			<LandingHero />
 			<LandingAbout />
 			<LandingJoin />
 			<LandingContact />
