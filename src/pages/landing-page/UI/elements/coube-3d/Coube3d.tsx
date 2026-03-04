@@ -33,6 +33,7 @@ export const Coube3d = () => {
 							>
 								{coubeConfig.sidesShadow.map(({ shadowSide }: SidesShadow) => (
 									<div
+										key={shadowSide}
 										className={cn('absolute w-8 h-8 bg-white blur-xl', {
 											'left-0': shadowSide === 'left',
 											'right-0': shadowSide === 'right',
@@ -45,6 +46,7 @@ export const Coube3d = () => {
 						<div className="overflow-hidden absolute w-60 h-60 shadow-white bg-(--blue-black) shadow-[0_0_6px] rounded-sm rotate-x-90 -translate-y-30.5 backface-hidden">
 							{coubeConfig.topSideShadows.map(({ shadowSide }: TopSideShadows) => (
 								<div
+									key={shadowSide}
 									className={cn('absolute w-8 h-8 bg-white blur-xl', {
 										'left-0 top-0': shadowSide === 'leftTop',
 										'left-0 bottom-0': shadowSide === 'leftBottom',
@@ -53,6 +55,10 @@ export const Coube3d = () => {
 									})}
 								/>
 							))}
+						</div>
+
+						<div className="flex items-center justify-center absolute transform-3d w-full h-60 bg-white/20 blur-lg -rotate-x-90 -translate-y-30.5">
+							<div className=""></div>
 						</div>
 
 						<div className="absolute w-60 h-60 bg-white/20 blur-lg -rotate-x-90 -translate-y-19"></div>
