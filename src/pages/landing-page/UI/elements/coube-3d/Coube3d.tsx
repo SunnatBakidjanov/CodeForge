@@ -61,7 +61,7 @@ export const Coube3d = () => {
 							<div className=""></div>
 						</div>
 
-						<div className="absolute w-60 h-60 bg-white/20 blur-lg -rotate-x-90 -translate-y-19"></div>
+						<div className="absolute w-60 h-60 bg-white/20 blur-lg -rotate-x-90 -translate-y-19"> </div>
 					</div>
 				</div>
 			</div>
